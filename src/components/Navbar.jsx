@@ -15,11 +15,13 @@ function LinkItem({ to, children }) {
 }
 
 export default function Navbar() {
+  const baseUrl = import.meta.env.BASE_URL
+
   return (
     <header className="bg-white/90 backdrop-blur sticky top-0 z-50 border-b">
       <div className="container flex items-center justify-between h-16">
         <div className="flex items-center gap-3">
-          <img src="/assets/brand/clearview-logo.png" alt="Clearview Square logo" className="h-9" />
+          <img src={`${baseUrl}assets/brand/clearview-logo.png`} alt="Clearview Square logo" className="h-9" />
           <span className="font-extrabold tracking-tight text-brand-dark">Clearview Square</span>
         </div>
         <nav className="flex items-center gap-2">
