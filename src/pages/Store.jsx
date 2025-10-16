@@ -4,6 +4,7 @@ import { useParams, Link } from 'react-router-dom'
 export default function Store() {
   const { slug } = useParams()
   const [store, setStore] = useState(null)
+  const baseUrl = import.meta.env.BASE_URL
 
   useEffect(() => {
     fetch('/data/stores.json')
@@ -30,7 +31,7 @@ export default function Store() {
       <div className="mt-4 grid md:grid-cols-3 gap-8 items-start">
         <div className="card md:col-span-2">
           <div className="flex items-center gap-4">
-            <img src={store.logo} alt={store.name} className="h-14 object-contain" />
+            <img src={`${baseUrl}${store.logo.startsWith('/') ? store.logo.slice(1) : store.logo}`} alt={store.name} className="h-14 object-contain" />
             <div>
               <h1 className="text-2xl font-bold">{store.name}</h1>
               <p className="text-brand-light">{store.category}{store.anchor ? ' • Anchor' : ''}</p>

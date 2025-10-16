@@ -3,6 +3,7 @@ import Carousel from '../components/Carousel.jsx'
 
 export default function Home() {
   const [scrollY, setScrollY] = useState(0)
+  const baseUrl = import.meta.env.BASE_URL
 
   useEffect(() => {
     const handleScroll = () => setScrollY(window.scrollY)
@@ -66,8 +67,9 @@ export default function Home() {
       <section className="relative h-screen">
         {/* Background Image with Parallax */}
         <div
-          className="absolute inset-0 bg-[url('/assets/brand/Clearviewsquare-photo.jpg')] bg-cover bg-center"
+          className="absolute inset-0 bg-cover bg-center"
           style={{
+            backgroundImage: `url(${baseUrl}assets/brand/Clearviewsquare-photo.jpg)`,
             transform: `translateY(${scrollY * 0.5}px)`,
             transition: 'transform 0.1s ease-out'
           }}
@@ -319,7 +321,7 @@ export default function Home() {
             <div className="relative">
               <div className="absolute inset-0 bg-gradient-to-br from-white/20 to-transparent rounded-3xl"></div>
               <img
-                src="/assets/brand/Clearviewsquare-photo.jpg"
+                src={`${baseUrl}assets/brand/Clearviewsquare-photo.jpg`}
                 alt="Clearview Square"
                 className="rounded-3xl shadow-2xl w-full h-[500px] object-cover"
               />

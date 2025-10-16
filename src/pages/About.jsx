@@ -1,9 +1,14 @@
 
 export default function About() {
+  const baseUrl = import.meta.env.BASE_URL
+
   return (
     <div>
       {/* Hero Section */}
-      <section className="relative h-[50vh] bg-[url('/assets/brand/Clearviewsquare-photo.jpg')] bg-cover bg-center">
+      <section
+        className="relative h-[50vh] bg-cover bg-center"
+        style={{ backgroundImage: `url(${baseUrl}assets/brand/Clearviewsquare-photo.jpg)` }}
+      >
         <div className="absolute inset-0 bg-gradient-to-b from-black/60 to-black/70"></div>
         <div className="relative h-full container flex items-center">
           <div className="max-w-3xl text-white">
@@ -21,7 +26,7 @@ export default function About() {
           {/* Left Column - Image */}
           <div className="space-y-6">
             <img
-              src="/assets/brand/Clearviewsquare-photo.jpg"
+              src={`${baseUrl}assets/brand/Clearviewsquare-photo.jpg`}
               alt="Clearview Square Shopping Centre"
               className="rounded-2xl shadow-2xl w-full"
             />

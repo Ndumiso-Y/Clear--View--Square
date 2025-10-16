@@ -26,6 +26,7 @@ export default function Stores() {
   const [q,setQ] = useState('')
   const [cat,setCat] = useState('All')
   const [openOnly,setOpenOnly] = useState(false)
+  const baseUrl = import.meta.env.BASE_URL
 
   const filtered = useMemo(()=> {
     const now = new Date()
@@ -112,7 +113,7 @@ export default function Stores() {
               >
                 <div className="h-20 flex items-center justify-center mb-4">
                   <img
-                    src={s.logo}
+                    src={`${baseUrl}${s.logo.startsWith('/') ? s.logo.slice(1) : s.logo}`}
                     onError={(e)=> e.currentTarget.replaceWith(
                       Object.assign(document.createElement('div'),{
                         textContent:'Logo coming soon',

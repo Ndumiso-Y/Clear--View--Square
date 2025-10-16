@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 
 export default function Carousel({ images, autoPlayInterval = 5000 }) {
   const [currentIndex, setCurrentIndex] = useState(0)
+  const baseUrl = import.meta.env.BASE_URL
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -36,7 +37,7 @@ export default function Carousel({ images, autoPlayInterval = 5000 }) {
             }`}
           >
             <img
-              src={image.src}
+              src={`${baseUrl}${image.src.startsWith('/') ? image.src.slice(1) : image.src}`}
               alt={image.alt}
               className="w-full h-full object-cover"
             />
