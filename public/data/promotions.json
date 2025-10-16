@@ -1,0 +1,22 @@
+[
+  {
+    "id": "grand-opening-week",
+    "title": "Grand Opening Week Deals",
+    "summary": "Welcome specials across food, fashion and services.",
+    "image": "/assets/brand/og-image.png",
+    "start": "2025-11-01",
+    "end": "2025-11-07",
+    "ctaText": "See stores",
+    "ctaUrl": "#/stores"
+  },
+  {
+    "id": "black-friday",
+    "title": "Black Friday Weekend",
+    "summary": "Centre-wide savings. Extended trading hours.",
+    "image": "/assets/brand/og-image.png",
+    "start": "2025-11-28",
+    "end": "2025-11-30",
+    "ctaText": "Plan your visit",
+    "ctaUrl": "#/about"
+  }
+]

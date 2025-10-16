@@ -1,0 +1,162 @@
+[
+  {
+    "slug": "pnp-clothing",
+    "name": "PnP Clothing",
+    "category": "Fashion",
+    "logo": "/assets/logos/pnpclothing.png",
+    "unit": "TBD",
+    "phone": "TBD",
+    "hours": "Mon-Fri 9:00-18:00, Sat 9:00-17:00, Sun 9:00-15:00",
+    "anchor": false
+  },
+  {
+    "slug": "cash-crusaders",
+    "name": "Cash Crusaders",
+    "category": "Services",
+    "logo": "/assets/logos/CASH-CRUSADERS.png",
+    "unit": "TBD",
+    "phone": "TBD",
+    "hours": "Mon-Fri 9:00-18:00, Sat 9:00-17:00, Sun 9:00-15:00",
+    "anchor": false
+  },
+  {
+    "slug": "clicks",
+    "name": "Clicks Pharmacy",
+    "category": "Health",
+    "logo": "/assets/logos/clickslogo.png",
+    "unit": "TBD",
+    "phone": "TBD",
+    "hours": "Mon-Fri 9:00-18:00, Sat 9:00-17:00, Sun 9:00-15:00",
+    "anchor": false
+  },
+  {
+    "slug": "f45-training",
+    "name": "F45 Training",
+    "category": "Health",
+    "logo": "/assets/logos/F45 Training_id8WQ4DmZ__1.png",
+    "unit": "TBD",
+    "phone": "TBD",
+    "hours": "Mon-Fri 5:00-20:00, Sat-Sun 7:00-12:00",
+    "anchor": false
+  },
+  {
+    "slug": "fish-and-chips-co",
+    "name": "Fish & Chips Co",
+    "category": "Food",
+    "logo": "/assets/logos/FishAndchipco logo.jpg",
+    "unit": "TBD",
+    "phone": "TBD",
+    "hours": "Mon-Sun 10:00-21:00",
+    "anchor": false
+  },
+  {
+    "slug": "jimmys",
+    "name": "Jimmy's",
+    "category": "Food",
+    "logo": "/assets/logos/logoJimmys.png",
+    "unit": "TBD",
+    "phone": "TBD",
+    "hours": "Mon-Sun 10:00-21:00",
+    "anchor": false
+  },
+  {
+    "slug": "man-cave",
+    "name": "Man Cave Barber",
+    "category": "Services",
+    "logo": "/assets/logos/ManCave-Logo-1.png",
+    "unit": "TBD",
+    "phone": "TBD",
+    "hours": "Mon-Fri 9:00-18:00, Sat 9:00-17:00, Sun Closed",
+    "anchor": false
+  },
+  {
+    "slug": "milky-lane",
+    "name": "Milky Lane",
+    "category": "Food",
+    "logo": "/assets/logos/Milky-lane-logo.png",
+    "unit": "TBD",
+    "phone": "TBD",
+    "hours": "Mon-Sun 10:00-21:00",
+    "anchor": false
+  },
+  {
+    "slug": "mugg-and-bean",
+    "name": "Mugg & Bean",
+    "category": "Food",
+    "logo": "/assets/logos/Muggandbean logo.png",
+    "unit": "TBD",
+    "phone": "TBD",
+    "hours": "Mon-Sun 8:00-20:00",
+    "anchor": true
+  },
+  {
+    "slug": "nedbank",
+    "name": "Nedbank",
+    "category": "Services",
+    "logo": "/assets/logos/nedbank-logo-png-transparent.png",
+    "unit": "TBD",
+    "phone": "TBD",
+    "hours": "Mon-Fri 9:00-16:00, Sat 9:00-12:00, Sun Closed",
+    "anchor": false
+  },
+  {
+    "slug": "next-step-clothing",
+    "name": "Next Step Clothing",
+    "category": "Fashion",
+    "logo": "/assets/logos/NextStepclothing.jpg",
+    "unit": "TBD",
+    "phone": "TBD",
+    "hours": "Mon-Fri 9:00-18:00, Sat 9:00-17:00, Sun 9:00-15:00",
+    "anchor": false
+  },
+  {
+    "slug": "pet-shop-science",
+    "name": "Pet Shop Science",
+    "category": "Other",
+    "logo": "/assets/logos/petshopscience-logo.webp",
+    "unit": "TBD",
+    "phone": "TBD",
+    "hours": "Mon-Fri 9:00-18:00, Sat 9:00-17:00, Sun 9:00-15:00",
+    "anchor": false
+  },
+  {
+    "slug": "postlink",
+    "name": "Postlink",
+    "category": "Services",
+    "logo": "/assets/logos/Postlinklogo.webp",
+    "unit": "TBD",
+    "phone": "TBD",
+    "hours": "Mon-Fri 9:00-17:00, Sat 9:00-13:00, Sun Closed",
+    "anchor": false
+  },
+  {
+    "slug": "sausage-saloon",
+    "name": "Sausage Saloon",
+    "category": "Food",
+    "logo": "/assets/logos/SausageSalon.jpg",
+    "unit": "TBD",
+    "phone": "TBD",
+    "hours": "Mon-Sun 10:00-21:00",
+    "anchor": false
+  },
+  {
+    "slug": "vuse",
+    "name": "Vuse",
+    "category": "Electronics",
+    "logo": "/assets/logos/Vuselogo.jpg",
+    "unit": "TBD",
+    "phone": "TBD",
+    "hours": "Mon-Fri 9:00-18:00, Sat 9:00-17:00, Sun 9:00-15:00",
+    "anchor": false
+  },
+  {
+    "slug": "boesmanland-biltong",
+    "name": "Boesmanland Biltong",
+    "category": "Food",
+    "logo": "/assets/logos/BoesmanlandBiltong.png",
+    "unit": "TBD",
+    "phone": "TBD",
+    "hours": "Mon-Sun 9:00-18:00",
+    "anchor": false
+  }
+]

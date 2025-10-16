@@ -1,0 +1,107 @@
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: light;
+}
+
+body {
+  @apply font-sans text-brand-dark bg-[color:var(--bg,theme(colors.brand.bg))];
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+a { @apply text-brand-mid hover:underline transition-colors; }
+
+.container { @apply max-w-7xl mx-auto px-4 sm:px-6; }
+
+.btn {
+  @apply inline-flex items-center justify-center gap-2 rounded-xl px-6 py-3 bg-brand-dark text-white hover:opacity-90 transition-all duration-300 font-medium;
+}
+
+.btn-alt {
+  @apply inline-flex items-center justify-center gap-2 rounded-xl px-6 py-3 bg-brand-mid text-white hover:opacity-90 transition-all duration-300 font-medium;
+}
+
+.card {
+  @apply rounded-2xl shadow-md p-6 bg-white transition-shadow duration-300;
+}
+
+.pill {
+  @apply px-4 py-2 rounded-full border border-brand-light hover:bg-brand-bg cursor-pointer text-sm transition-all duration-200 font-medium;
+}
+
+.pill-active {
+  @apply bg-brand-mid text-white border-brand-mid;
+}
+
+/* Custom Animations */
+@keyframes fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slide-in-right {
+  from {
+    opacity: 0;
+    transform: translateX(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes slide-in-left {
+  from {
+    opacity: 0;
+    transform: translateX(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.animate-fade-in {
+  animation: fade-in 0.8s ease-out;
+}
+
+.animate-slide-in-right {
+  animation: slide-in-right 0.6s ease-out;
+}
+
+.animate-slide-in-left {
+  animation: slide-in-left 0.6s ease-out;
+}
+
+/* Smooth scrolling */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: theme(colors.brand.bg);
+}
+
+::-webkit-scrollbar-thumb {
+  background: theme(colors.brand.light);
+  border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: theme(colors.brand.mid);
+}
