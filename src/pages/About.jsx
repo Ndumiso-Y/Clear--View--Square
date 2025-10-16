@@ -3,7 +3,7 @@ export default function About() {
   return (
     <div>
       {/* Hero Section */}
-      <section className="relative h-[50vh] bg-[url('/assets/brand/Clearviewsquare%20photo.jpg')] bg-cover bg-center">
+      <section className="relative h-[50vh] bg-[url('/assets/brand/Clearviewsquare-photo.jpg')] bg-cover bg-center">
         <div className="absolute inset-0 bg-gradient-to-b from-black/60 to-black/70"></div>
         <div className="relative h-full container flex items-center">
           <div className="max-w-3xl text-white">
@@ -21,7 +21,7 @@ export default function About() {
           {/* Left Column - Image */}
           <div className="space-y-6">
             <img
-              src="/assets/brand/Clearviewsquare%20photo.jpg"
+              src="/assets/brand/Clearviewsquare-photo.jpg"
               alt="Clearview Square Shopping Centre"
               className="rounded-2xl shadow-2xl w-full"
             />
