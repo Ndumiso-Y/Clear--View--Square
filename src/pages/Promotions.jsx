@@ -9,9 +9,11 @@ function isActive(p) {
 
 export default function Promotions() {
   const [items, setItems] = useState([])
+  const baseUrl = import.meta.env.BASE_URL
+
   useEffect(()=> {
-    fetch('/data/promotions.json').then(r=>r.json()).then(setItems).catch(()=>setItems([]))
-  }, [])
+    fetch(`${baseUrl}data/promotions.json`).then(r=>r.json()).then(setItems).catch(()=>setItems([]))
+  }, [baseUrl])
 
   const active = items.filter(isActive)
   const upcoming = items.filter(p => new Date(p.start) > new Date())
@@ -26,7 +28,7 @@ export default function Promotions() {
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mt-3">
           {active.length ? active.map(p => (
             <article key={p.id} className="card">
-              <img src={p.image} alt="" className="rounded-xl mb-3" />
+              <img src={`${baseUrl}${p.image?.startsWith('/') ? p.image.slice(1) : p.image}`} alt="" className="rounded-xl mb-3" />
               <h4 className="font-semibold">{p.title}</h4>
               <p className="text-brand-mid mt-1">{p.summary}</p>
               <a className="btn mt-3 w-fit" href={p.ctaUrl}>{p.ctaText || 'Learn more'}</a>
@@ -40,7 +42,7 @@ export default function Promotions() {
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mt-3">
           {upcoming.length ? upcoming.map(p => (
             <article key={p.id} className="card">
-              <img src={p.image} alt="" className="rounded-xl mb-3" />
+              <img src={`${baseUrl}${p.image?.startsWith('/') ? p.image.slice(1) : p.image}`} alt="" className="rounded-xl mb-3" />
               <h4 className="font-semibold">{p.title}</h4>
               <p className="text-brand-mid mt-1">{p.summary}</p>
               <a className="btn mt-3 w-fit" href={p.ctaUrl}>{p.ctaText || 'Learn more'}</a>

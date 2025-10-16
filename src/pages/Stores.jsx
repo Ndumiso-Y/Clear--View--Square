@@ -16,7 +16,8 @@ function parseHourRange(str) {
 function useStores() {
   const [data,setData] = useState([])
   useEffect(()=> {
-    fetch('/data/stores.json').then(r=>r.json()).then(setData).catch(()=>setData([]))
+    const baseUrl = import.meta.env.BASE_URL
+    fetch(`${baseUrl}data/stores.json`).then(r=>r.json()).then(setData).catch(()=>setData([]))
   }, [])
   return data
 }

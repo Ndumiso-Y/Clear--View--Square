@@ -7,11 +7,11 @@ export default function Store() {
   const baseUrl = import.meta.env.BASE_URL
 
   useEffect(() => {
-    fetch('/data/stores.json')
+    fetch(`${baseUrl}data/stores.json`)
       .then(r => r.json())
       .then(list => setStore(list.find(s => s.slug === slug) || null))
       .catch(() => setStore(null))
-  }, [slug])
+  }, [slug, baseUrl])
 
   if (!store) {
     return (
