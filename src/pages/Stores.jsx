@@ -1,16 +1,26 @@
 import { useEffect, useMemo, useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useSearchParams } from 'react-router-dom'
 
-const CATEGORIES = ["All","Food","Fashion","Services","Health","Electronics","Other"]
+const CATEGORIES = [
+  "All",
+  "Anchor",
+  "Food & Drink",
+  "Groceries",
+  "Fashion & Footwear",
+  "Health & Beauty",
+  "Electronics & Tech",
+  "Services",
+  "Fitness & Wellness",
+  "Pets & Specialty",
+  "Financial & ATMs",
+  "Other"
+]
 
-function parseHourRange(str) {
-  if (!str || typeof str !== 'string' || !str.includes('–')) return null
-  const [a,b] = str.split('–')
-  const toMin = (s)=> {
-    const [h,m] = s.split(':').map(Number)
-    return h*60 + (m||0)
-  }
-  return [toMin(a), toMin(b)]
+// Map group param to categories
+const GROUP_TO_CATEGORIES = {
+  'food-drink': ['Food & Drink', 'Groceries'],
+  'fashion-lifestyle': ['Fashion & Footwear', 'Health & Beauty'],
+  'services-essentials': ['Services', 'Electronics & Tech', 'Fitness & Wellness', 'Financial & ATMs']
 }
 
 function useStores() {
@@ -24,39 +34,55 @@ function useStores() {
 
 export default function Stores() {
   const stores = useStores()
+  const [searchParams] = useSearchParams()
   const [q,setQ] = useState('')
   const [cat,setCat] = useState('All')
   const [openOnly,setOpenOnly] = useState(false)
   const baseUrl = import.meta.env.BASE_URL
 
-  const filtered = useMemo(()=> {
-    const now = new Date()
-    const day = ["sun","mon","tue","wed","thu","fri","sat"][now.getDay()]
-    const mins = now.getHours()*60 + now.getMinutes()
+  // Handle group parameter from URL
+  useEffect(() => {
+    const group = searchParams.get('group')
+    if (group && GROUP_TO_CATEGORIES[group]) {
+      // For now, just set the first matching category
+      // This is a simple implementation - could be enhanced later
+      setCat(GROUP_TO_CATEGORIES[group][0])
+    }
+  }, [searchParams])
 
+  const filtered = useMemo(()=> {
     return stores.filter(s => {
-      const matchesQ = (s.name||'').toLowerCase().includes(q.toLowerCase())
+      // Filter out stores with isVisible: false
+      if (s.isVisible === false) return false
+
+      const matchesQ = (s.name||'').toLowerCase().includes(q.toLowerCase()) ||
+                       (s.description||'').toLowerCase().includes(q.toLowerCase())
       const matchesCat = cat==="All" ? true : s.category===cat
-      let matchesOpen = true
-      if (openOnly) {
-        const hours = s.hours?.[day] || s.hours?.['mon_fri']
-        const range = parseHourRange(hours)
-        matchesOpen = !!range && (mins >= range[0] && mins <= range[1])
-      }
-      return matchesQ && matchesCat && matchesOpen
+      // Open now toggle is visual-only for now (not wired to actual hours)
+      return matchesQ && matchesCat
     })
-  }, [stores,q,cat,openOnly])
+  }, [stores,q,cat])
 
   return (
-    <div className="bg-gradient-to-b from-white to-brand-bg min-h-screen">
-      <div className="container py-12 md:py-16">
-        {/* Header */}
-        <div className="text-center mb-10">
-          <h1 className="text-4xl md:text-5xl font-bold text-brand-dark mb-4">Our Stores</h1>
-          <p className="text-lg md:text-xl text-brand-mid max-w-2xl mx-auto">
-            Search, filter, and discover our diverse selection of tenants at Clearview Square.
-          </p>
+    <div className="min-h-screen">
+      {/* Hero Section */}
+      <section
+        className="relative h-[50vh] bg-cover bg-center"
+        style={{ backgroundImage: `url(${baseUrl}assets/hero/clearview-hero-stores-fashion-01.jpg)` }}
+      >
+        <div className="absolute inset-0 bg-gradient-to-b from-black/60 to-black/70"></div>
+        <div className="relative h-full container flex items-center">
+          <div className="max-w-3xl text-white">
+            <h1 className="text-5xl md:text-6xl font-extrabold mb-4">Our Stores</h1>
+            <p className="text-xl md:text-2xl text-white/90">
+              Search, filter, and discover our diverse selection of tenants at Clearview Square
+            </p>
+          </div>
         </div>
+      </section>
+
+      <div className="bg-gradient-to-b from-white to-brand-bg">
+        <div className="container py-12 md:py-16">
 
         {/* FILTERS */}
         <div className="bg-white rounded-2xl shadow-lg p-6 mb-8">
@@ -106,51 +132,71 @@ export default function Stores() {
         {filtered.length > 0 ? (
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
             {filtered.map((s, index) => (
-              <Link
-                to={`/store/${s.slug}`}
-                key={s.slug}
-                className="card flex flex-col items-center justify-center text-center hover:shadow-xl transform hover:-translate-y-1 transition-all duration-300 group"
+              <div
+                key={s.id}
+                className="card flex flex-col hover:shadow-xl transform hover:-translate-y-1 transition-all duration-300 group cursor-pointer"
                 style={{ animationDelay: `${index * 50}ms` }}
               >
+                {/* Logo/Image */}
                 <div className="h-20 flex items-center justify-center mb-4">
-                  <img
-                    src={`${baseUrl}${s.logo.startsWith('/') ? s.logo.slice(1) : s.logo}`}
-                    onError={(e)=> e.currentTarget.replaceWith(
-                      Object.assign(document.createElement('div'),{
-                        textContent:'Logo coming soon',
-                        className:'text-center text-brand-light text-sm'
-                      })
-                    )}
-                    alt={s.name}
-                    className="max-h-20 max-w-full object-contain group-hover:scale-105 transition-transform duration-300"
-                  />
+                  {s.logo ? (
+                    <img
+                      src={`${baseUrl}${s.logo.startsWith('/') ? s.logo.slice(1) : s.logo}`}
+                      onError={(e)=> {
+                        e.currentTarget.style.display = 'none'
+                        const fallback = document.createElement('div')
+                        fallback.className = 'w-16 h-16 rounded-full bg-brand-accent/10 flex items-center justify-center text-brand-accent text-2xl font-bold'
+                        fallback.textContent = s.name.charAt(0)
+                        e.currentTarget.parentNode.appendChild(fallback)
+                      }}
+                      alt={s.name}
+                      className="max-h-20 max-w-full object-contain group-hover:scale-105 transition-transform duration-300"
+                    />
+                  ) : (
+                    <div className="w-16 h-16 rounded-full bg-brand-accent/10 flex items-center justify-center text-brand-accent text-2xl font-bold">
+                      {s.name.charAt(0)}
+                    </div>
+                  )}
                 </div>
-                <div className="mt-auto">
-                  <div className="font-bold text-brand-dark group-hover:text-brand-accent transition-colors">
+
+                {/* Content */}
+                <div className="flex-1">
+                  <div className="font-bold text-lg text-brand-dark group-hover:text-brand-accent transition-colors mb-1">
                     {s.name}
                   </div>
-                  <div className="text-xs text-brand-light mt-1 flex items-center justify-center gap-1">
-                    <span>{s.category}</span>
-                    {s.anchor && (
-                      <>
-                        <span>•</span>
-                        <span className="font-semibold text-brand-accent">Anchor</span>
-                      </>
-                    )}
+
+                  {/* Category & Tags */}
+                  <div className="flex flex-wrap gap-1 mb-2">
+                    <span className="text-xs px-2 py-0.5 bg-brand-light/20 text-brand-mid rounded">
+                      {s.category}
+                    </span>
+                    {s.tags?.map(tag => (
+                      <span key={tag} className="text-xs px-2 py-0.5 bg-brand-accent/20 text-brand-accent rounded font-semibold">
+                        {tag}
+                      </span>
+                    ))}
                   </div>
+
+                  {/* Description */}
+                  {s.description && (
+                    <p className="text-sm text-brand-mid leading-snug">
+                      {s.description}
+                    </p>
+                  )}
                 </div>
-              </Link>
+              </div>
             ))}
           </div>
         ) : (
           <div className="text-center py-16">
             <svg className="w-16 h-16 mx-auto text-brand-light mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M12 12h.01M12 12h.01M12 12h.01M12 12h.01M12 12h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
             </svg>
-            <h3 className="text-xl font-semibold text-brand-dark mb-2">No stores found</h3>
-            <p className="text-brand-mid">Try adjusting your filters or search term</p>
+            <h3 className="text-xl font-semibold text-brand-dark mb-2">No stores matched your search</h3>
+            <p className="text-brand-mid">Try a different name or category</p>
           </div>
         )}
+        </div>
       </div>
     </div>
   )

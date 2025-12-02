@@ -1,8 +1,13 @@
-import { useState, useEffect } from 'react'
-import Carousel from '../components/Carousel.jsx'
+import { useState, useEffect, useRef } from 'react'
 
 export default function Home() {
   const [scrollY, setScrollY] = useState(0)
+  const [storeCount, setStoreCount] = useState(16)
+  const [animatedStoreCount, setAnimatedStoreCount] = useState(0)
+  const [animatedParkingCount, setAnimatedParkingCount] = useState(0)
+  const [animatedDaysCount, setAnimatedDaysCount] = useState(0)
+  const [hasAnimated, setHasAnimated] = useState(false)
+  const statsRef = useRef(null)
   const baseUrl = import.meta.env.BASE_URL
 
   useEffect(() => {
@@ -11,12 +16,67 @@ export default function Home() {
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
 
-  const grandOpeningImages = [
-    { src: '/assets/grandopeningphotos/GrandOpeningPhoto1.jpg', alt: 'Grand Opening - Ribbon Cutting', caption: 'Grand Opening Celebration' },
-    { src: '/assets/grandopeningphotos/GrandOpeningPhoto2.jpg', alt: 'Grand Opening - Crowd', caption: 'Community Gathering' },
-    { src: '/assets/grandopeningphotos/GrandOpeningPhoto3.jpg', alt: 'Grand Opening - Store Interior', caption: 'Welcome to Clearview Square' },
-    { src: '/assets/grandopeningphotos/GrandOpeningPhoto4.jpg', alt: 'Grand Opening - Festivities', caption: 'Celebrating Together' },
-  ]
+  useEffect(() => {
+    // Fetch stores and count only visible ones
+    fetch(`${baseUrl}data/stores.json`)
+      .then(r => r.json())
+      .then(stores => {
+        const visibleStores = stores.filter(s => s.isVisible !== false)
+        setStoreCount(visibleStores.length)
+      })
+      .catch(() => setStoreCount(16)) // fallback
+  }, [baseUrl])
+
+  // Counting animation for stats
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries[0].isIntersecting && !hasAnimated) {
+          setHasAnimated(true)
+
+          // Animate store count
+          const storeInterval = setInterval(() => {
+            setAnimatedStoreCount(prev => {
+              if (prev >= storeCount) {
+                clearInterval(storeInterval)
+                return storeCount
+              }
+              return prev + 1
+            })
+          }, 50)
+
+          // Animate parking count
+          const parkingInterval = setInterval(() => {
+            setAnimatedParkingCount(prev => {
+              if (prev >= 250) {
+                clearInterval(parkingInterval)
+                return 250
+              }
+              return prev + 5
+            })
+          }, 20)
+
+          // Animate days count
+          const daysInterval = setInterval(() => {
+            setAnimatedDaysCount(prev => {
+              if (prev >= 7) {
+                clearInterval(daysInterval)
+                return 7
+              }
+              return prev + 1
+            })
+          }, 100)
+        }
+      },
+      { threshold: 0.5 }
+    )
+
+    if (statsRef.current) {
+      observer.observe(statsRef.current)
+    }
+
+    return () => observer.disconnect()
+  }, [storeCount, hasAnimated])
 
   const features = [
     {
@@ -63,17 +123,20 @@ export default function Home() {
 
   return (
     <div className="overflow-hidden">
-      {/* Enhanced Hero Section with Parallax */}
+      {/* Enhanced Hero Section with Video */}
       <section className="relative h-screen">
-        {/* Background Image with Parallax */}
-        <div
-          className="absolute inset-0 bg-cover bg-center"
-          style={{
-            backgroundImage: `url(${baseUrl}assets/brand/Clearviewsquare-photo.jpg)`,
-            transform: `translateY(${scrollY * 0.5}px)`,
-            transition: 'transform 0.1s ease-out'
-          }}
-        >
+        {/* Background Video with Image Fallback */}
+        <div className="absolute inset-0">
+          <video
+            autoPlay
+            muted
+            loop
+            playsInline
+            poster={`${baseUrl}assets/hero/clearview-hero-about-groceries-01.jpg`}
+            className="absolute inset-0 w-full h-full object-cover"
+          >
+            <source src={`${baseUrl}assets/video/clearview-hero-home-shopping-loop.mp4`} type="video/mp4" />
+          </video>
           <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/50 to-black/70"></div>
           {/* Animated overlay */}
           <div className="absolute inset-0 bg-gradient-to-tr from-brand-accent/20 to-transparent animate-pulse" style={{ animationDuration: '4s' }}></div>
@@ -82,32 +145,23 @@ export default function Home() {
         {/* Content */}
         <div className="relative h-full container flex items-center">
           <div className="max-w-4xl">
-            {/* Badge */}
-            <div className="inline-flex items-center gap-2 bg-white/20 backdrop-blur-sm rounded-full px-6 py-2 mb-6 animate-slide-in-left">
-              <span className="relative flex h-3 w-3">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
-                <span className="relative inline-flex rounded-full h-3 w-3 bg-green-500"></span>
-              </span>
-              <span className="text-white font-medium">Now Open in Rustenburg Central</span>
-            </div>
-
             {/* Main Heading */}
             <h1 className="text-6xl md:text-8xl font-extrabold tracking-tight leading-none mb-6">
-              <span className="block text-white animate-fade-in" style={{ animationDelay: '0.2s' }}>
+              <span className="block text-white">
                 Welcome to
               </span>
-              <span className="block text-transparent bg-clip-text bg-gradient-to-r from-white via-white to-brand-light animate-fade-in" style={{ animationDelay: '0.4s' }}>
+              <span className="block text-transparent bg-clip-text bg-gradient-to-r from-white via-white to-brand-light">
                 Clearview Square
               </span>
             </h1>
 
             {/* Subtitle */}
-            <p className="text-xl md:text-3xl text-white/95 leading-relaxed mb-10 max-w-2xl animate-fade-in" style={{ animationDelay: '0.6s' }}>
+            <p className="text-xl md:text-3xl text-white/95 leading-relaxed mb-10 max-w-2xl">
               Your premier shopping destination — where <span className="font-semibold text-white">convenience</span> meets <span className="font-semibold text-white">comfort</span> with secure parking, modern facilities, and family-friendly spaces.
             </p>
 
             {/* CTA Buttons */}
-            <div className="flex flex-col sm:flex-row gap-4 animate-fade-in" style={{ animationDelay: '0.8s' }}>
+            <div className="flex flex-col sm:flex-row gap-4">
               <a
                 href="#/stores"
                 className="group relative btn text-lg px-10 py-5 shadow-2xl overflow-hidden"
@@ -134,29 +188,78 @@ export default function Home() {
             </div>
 
             {/* Stats */}
-            <div className="mt-16 grid grid-cols-3 gap-8 max-w-2xl animate-fade-in" style={{ animationDelay: '1s' }}>
+            <div ref={statsRef} className="mt-16 grid grid-cols-3 gap-8 max-w-2xl">
               <div>
-                <div className="text-4xl font-bold text-white mb-1">16+</div>
+                <div className="text-4xl font-bold text-white mb-1">{animatedStoreCount}+</div>
                 <div className="text-sm text-white/80 uppercase tracking-wide">Stores</div>
               </div>
               <div>
-                <div className="text-4xl font-bold text-white mb-1">500+</div>
+                <div className="text-4xl font-bold text-white mb-1">{animatedParkingCount}+</div>
                 <div className="text-sm text-white/80 uppercase tracking-wide">Parking Bays</div>
               </div>
               <div>
-                <div className="text-4xl font-bold text-white mb-1">7</div>
+                <div className="text-4xl font-bold text-white mb-1">{animatedDaysCount}</div>
                 <div className="text-sm text-white/80 uppercase tracking-wide">Days Open</div>
               </div>
             </div>
           </div>
         </div>
+      </section>
 
-        {/* Scroll Indicator - Hidden on mobile */}
-        <div className="hidden md:flex absolute bottom-8 left-1/2 -translate-x-1/2 flex-col items-center gap-2 text-white animate-bounce">
-          <span className="text-sm uppercase tracking-widest">Scroll</span>
-          <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
-          </svg>
+      {/* Quick Links Section */}
+      <section className="relative py-16 bg-brand-bg">
+        <div className="container">
+          <div className="grid sm:grid-cols-2 gap-6 max-w-4xl mx-auto">
+            {/* Stores Quick Link */}
+            <a
+              href="#/stores"
+              className="group bg-white rounded-2xl shadow-xl p-8 hover:shadow-2xl transform hover:-translate-y-2 transition-all duration-300 border border-transparent hover:border-brand-accent/20"
+            >
+              <div className="flex items-start gap-4">
+                <div className="flex-shrink-0 w-14 h-14 bg-brand-accent/10 rounded-xl flex items-center justify-center text-brand-accent group-hover:bg-brand-accent group-hover:text-white transition-all duration-300">
+                  <svg className="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
+                  </svg>
+                </div>
+                <div className="flex-1">
+                  <h3 className="text-xl font-bold text-brand-dark mb-2 group-hover:text-brand-accent transition-colors">
+                    Stores
+                  </h3>
+                  <p className="text-brand-mid text-sm">
+                    Browse all tenants at Clearview Square
+                  </p>
+                </div>
+                <svg className="w-5 h-5 text-brand-light group-hover:text-brand-accent group-hover:translate-x-1 transition-all" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                </svg>
+              </div>
+            </a>
+
+            {/* Trading Hours Quick Link */}
+            <a
+              href="#trading-hours"
+              className="group bg-white rounded-2xl shadow-xl p-8 hover:shadow-2xl transform hover:-translate-y-2 transition-all duration-300 border border-transparent hover:border-brand-accent/20"
+            >
+              <div className="flex items-start gap-4">
+                <div className="flex-shrink-0 w-14 h-14 bg-brand-accent/10 rounded-xl flex items-center justify-center text-brand-accent group-hover:bg-brand-accent group-hover:text-white transition-all duration-300">
+                  <svg className="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  </svg>
+                </div>
+                <div className="flex-1">
+                  <h3 className="text-xl font-bold text-brand-dark mb-2 group-hover:text-brand-accent transition-colors">
+                    Trading Hours
+                  </h3>
+                  <p className="text-brand-mid text-sm">
+                    View our daily and weekend trading hours
+                  </p>
+                </div>
+                <svg className="w-5 h-5 text-brand-light group-hover:text-brand-accent group-hover:translate-x-1 transition-all" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                </svg>
+              </div>
+            </a>
+          </div>
         </div>
       </section>
 
@@ -217,28 +320,97 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Grand Opening Carousel with Enhanced Design */}
+      {/* Experience Tiles Section */}
       <section className="relative py-24 md:py-32 bg-gradient-to-b from-brand-bg to-white">
         <div className="container">
           <div className="text-center mb-16">
             <span className="inline-block px-4 py-2 bg-brand-accent/10 rounded-full text-brand-accent font-semibold text-sm mb-4">
-              GRAND OPENING
+              EXPLORE BY EXPERIENCE
             </span>
             <h2 className="text-4xl md:text-5xl font-bold text-brand-dark mb-4">
-              Celebrating Our Launch
+              Find What You're Looking For
             </h2>
             <p className="text-xl text-brand-mid max-w-3xl mx-auto">
-              Relive the excitement of our grand opening celebration and discover what makes Clearview Square the heart of Rustenburg Central
+              Discover shopping experiences tailored to your needs — in just a few taps
             </p>
           </div>
-          <div className="max-w-6xl mx-auto">
-            <Carousel images={grandOpeningImages} autoPlayInterval={6000} />
+
+          {/* 3 Experience Tiles Grid */}
+          <div className="grid md:grid-cols-3 gap-8">
+            {/* Tile 1: Food & Coffee */}
+            <a
+              href="/#/stores?group=food-drink"
+              className="group relative h-[400px] rounded-2xl overflow-hidden shadow-xl hover:shadow-2xl transition-all duration-500 hover:-translate-y-2"
+            >
+              <div
+                className="absolute inset-0 bg-cover bg-center transition-transform duration-500 group-hover:scale-110"
+                style={{ backgroundImage: `url(${baseUrl}assets/tiles/tile-food-drink-burger-01.jpg)` }}
+              >
+                <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/50 to-transparent"></div>
+              </div>
+              <div className="relative h-full flex flex-col justify-end p-8">
+                <h3 className="text-3xl font-bold text-white mb-2">FLAVOUR & COFFEE</h3>
+                <p className="text-white/90 mb-4">From quick bites to relaxed catch-ups.</p>
+                <div className="flex items-center gap-2 text-white font-semibold group-hover:gap-3 transition-all">
+                  EXPLORE FOOD & DRINK
+                  <svg className="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                  </svg>
+                </div>
+              </div>
+            </a>
+
+            {/* Tile 2: Style & Everyday */}
+            <a
+              href="/#/stores?group=fashion-lifestyle"
+              className="group relative h-[400px] rounded-2xl overflow-hidden shadow-xl hover:shadow-2xl transition-all duration-500 hover:-translate-y-2"
+            >
+              <div
+                className="absolute inset-0 bg-cover bg-center transition-transform duration-500 group-hover:scale-110"
+                style={{ backgroundImage: `url(${baseUrl}assets/tiles/tile-fashion-lifestyle-01.jpg)` }}
+              >
+                <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/50 to-transparent"></div>
+              </div>
+              <div className="relative h-full flex flex-col justify-end p-8">
+                <h3 className="text-3xl font-bold text-white mb-2">STYLE & EVERYDAY</h3>
+                <p className="text-white/90 mb-4">Fashion and essentials for every day.</p>
+                <div className="flex items-center gap-2 text-white font-semibold group-hover:gap-3 transition-all">
+                  EXPLORE FASHION & LIFESTYLE
+                  <svg className="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                  </svg>
+                </div>
+              </div>
+            </a>
+
+            {/* Tile 3: Services & Essentials */}
+            <a
+              href="/#/stores?group=services-essentials"
+              className="group relative h-[400px] rounded-2xl overflow-hidden shadow-xl hover:shadow-2xl transition-all duration-500 hover:-translate-y-2"
+            >
+              <div
+                className="absolute inset-0 bg-cover bg-center transition-transform duration-500 group-hover:scale-110"
+                style={{ backgroundImage: `url(${baseUrl}assets/tiles/tile-services-essentials-training-01.jpg)` }}
+              >
+                <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/50 to-transparent"></div>
+              </div>
+              <div className="relative h-full flex flex-col justify-end p-8">
+                <h3 className="text-3xl font-bold text-white mb-2">SERVICES & ESSENTIALS</h3>
+                <p className="text-white/90 mb-4">Banks, fitness, grooming, tech & more.</p>
+                <div className="flex items-center gap-2 text-white font-semibold group-hover:gap-3 transition-all">
+                  EXPLORE SERVICES
+                  <svg className="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                  </svg>
+                </div>
+              </div>
+            </a>
           </div>
         </div>
       </section>
 
       {/* CTA Section with Enhanced Design */}
-      <section className="relative py-24 md:py-32 overflow-hidden">
+      <section id="trading-hours" className="relative py-24 md:py-32 overflow-hidden">
         {/* Background Pattern */}
         <div className="absolute inset-0 bg-gradient-to-br from-brand-dark via-brand-accent to-brand-dark"></div>
         <div className="absolute inset-0 opacity-10" style={{

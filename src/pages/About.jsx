@@ -6,8 +6,8 @@ export default function About() {
     <div>
       {/* Hero Section */}
       <section
-        className="relative h-[50vh] bg-cover bg-center"
-        style={{ backgroundImage: `url(${baseUrl}assets/brand/Clearviewsquare-photo.jpg)` }}
+        className="relative h-[50vh] bg-cover bg-top"
+        style={{ backgroundImage: `url(${baseUrl}assets/hero/clearview-hero-about-groceries-01.jpg)` }}
       >
         <div className="absolute inset-0 bg-gradient-to-b from-black/60 to-black/70"></div>
         <div className="relative h-full container flex items-center">
