@@ -132,6 +132,7 @@ export default function Home() {
             muted
             loop
             playsInline
+            preload="metadata"
             poster={`${baseUrl}assets/hero/clearview-hero-about-groceries-01.jpg`}
             className="absolute inset-0 w-full h-full object-cover"
           >

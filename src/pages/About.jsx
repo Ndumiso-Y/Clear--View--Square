@@ -28,6 +28,8 @@ export default function About() {
             <img
               src={`${baseUrl}assets/brand/Clearviewsquare-photo.jpg`}
               alt="Clearview Square Shopping Centre"
+              loading="lazy"
+              decoding="async"
               className="rounded-2xl shadow-2xl w-full"
             />
             <div className="bg-brand-accent/10 rounded-2xl p-6">

@@ -54,6 +54,8 @@ export default function Promotions() {
           <img
             src={`${baseUrl}${promo.image.startsWith('/') ? promo.image.slice(1) : promo.image}`}
             alt={promo.title}
+            loading="lazy"
+            decoding="async"
             className="w-full h-48 object-cover rounded-t-xl"
             onError={(e) => e.currentTarget.style.display = 'none'}
           />

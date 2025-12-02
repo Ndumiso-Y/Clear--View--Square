@@ -150,6 +150,8 @@ export default function Stores() {
                         e.currentTarget.parentNode.appendChild(fallback)
                       }}
                       alt={s.name}
+                      loading="lazy"
+                      decoding="async"
                       className="max-h-20 max-w-full object-contain group-hover:scale-105 transition-transform duration-300"
                     />
                   ) : (
