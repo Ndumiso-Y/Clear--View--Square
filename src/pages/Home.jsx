@@ -123,21 +123,24 @@ export default function Home() {
 
   return (
     <div className="overflow-hidden">
-      {/* Enhanced Hero Section with Video */}
+      {/* Enhanced Hero Section with Responsive Images */}
       <section className="relative h-screen">
-        {/* Background Video with Image Fallback */}
+        {/* Background Image - Responsive Desktop/Mobile */}
         <div className="absolute inset-0">
-          <video
-            autoPlay
-            muted
-            loop
-            playsInline
-            preload="metadata"
-            poster={`${baseUrl}assets/hero/clearview-hero-about-groceries-01.jpg`}
-            className="absolute inset-0 w-full h-full object-cover"
-          >
-            <source src={`${baseUrl}assets/video/clearview-hero-home-shopping-loop.mp4`} type="video/mp4" />
-          </video>
+          {/* Desktop Hero */}
+          <img
+            src={`${baseUrl}assets/logos/HeroDeskTop-red.jpg`}
+            alt="Clearview Square Shopping Centre"
+            className="hidden md:block absolute inset-0 w-full h-full object-cover"
+            loading="eager"
+          />
+          {/* Mobile Hero */}
+          <img
+            src={`${baseUrl}assets/logos/HeroMobile-red.jpg`}
+            alt="Clearview Square Shopping Centre"
+            className="block md:hidden absolute inset-0 w-full h-full object-cover"
+            loading="eager"
+          />
           <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/50 to-black/70"></div>
           {/* Animated overlay */}
           <div className="absolute inset-0 bg-gradient-to-tr from-brand-accent/20 to-transparent animate-pulse" style={{ animationDuration: '4s' }}></div>
