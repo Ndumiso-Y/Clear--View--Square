@@ -32,6 +32,8 @@ jobs:
 
       - name: Build
         run: npm run build
+        env:
+          VITE_WEATHER_API_KEY: 1ed5750d1ad292cf7e661264df7e20ae
 
       - name: Setup Pages
         uses: actions/configure-pages@v4
