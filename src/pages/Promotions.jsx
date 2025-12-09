@@ -72,7 +72,7 @@ export default function Promotions() {
           {promo.type}
         </span>
         {promo.highlightTag && (
-          <span className="text-xs px-3 py-1 rounded-full font-semibold bg-brand-accent/20 text-brand-accent">
+          <span className="text-xs px-3 py-1 rounded-full font-semibold bg-black/20 text-brand-accentStrong">
             {promo.highlightTag}
           </span>
         )}
@@ -83,7 +83,7 @@ export default function Promotions() {
 
       {/* Store Name */}
       {promo.storeId && (
-        <p className="text-sm text-brand-accent font-semibold mb-2">
+        <p className="text-sm text-brand-accentStrong font-semibold mb-2">
           {getStoreName(promo.storeId)}
         </p>
       )}
@@ -111,7 +111,7 @@ export default function Promotions() {
   )
 
   return (
-    <div className="min-h-screen">
+    <div className="pt-20 md:pt-24 min-h-screen">
       {/* Hero Section */}
       <section
         className="relative h-[50vh] bg-cover bg-top"

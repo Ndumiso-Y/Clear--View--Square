@@ -64,7 +64,7 @@ export default function Stores() {
   }, [stores,q,cat])
 
   return (
-    <div className="min-h-screen">
+    <div className="pt-20 md:pt-24 min-h-screen">
       {/* Hero Section */}
       <section
         className="relative h-[50vh] bg-cover bg-center"
@@ -92,7 +92,7 @@ export default function Stores() {
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
               </svg>
               <input
-                className="border border-brand-light rounded-xl pl-12 pr-4 py-3 w-full focus:outline-none focus:ring-2 focus:ring-brand-accent focus:border-transparent transition-all"
+                className="border border-brand-light rounded-xl pl-12 pr-4 py-3 w-full focus:outline-none focus:ring-2 focus:ring-brand-dark focus:border-transparent transition-all"
                 placeholder="Search stores..."
                 value={q}
                 onChange={e=>setQ(e.target.value)}
@@ -109,12 +109,12 @@ export default function Stores() {
                 </button>
               ))}
             </div>
-            <label className="flex items-center gap-2 text-sm font-medium text-brand-dark cursor-pointer hover:text-brand-accent transition-colors">
+            <label className="flex items-center gap-2 text-sm font-medium text-brand-dark cursor-pointer hover:text-brand-accentStrong transition-colors">
               <input
                 type="checkbox"
                 checked={openOnly}
                 onChange={e=>setOpenOnly(e.target.checked)}
-                className="w-4 h-4 rounded border-brand-light text-brand-accent focus:ring-brand-accent cursor-pointer"
+                className="w-4 h-4 rounded border-brand-light text-brand-accentStrong focus:ring-brand-dark cursor-pointer"
               />
               Open now
             </label>
@@ -145,7 +145,7 @@ export default function Stores() {
                       onError={(e)=> {
                         e.currentTarget.style.display = 'none'
                         const fallback = document.createElement('div')
-                        fallback.className = 'w-16 h-16 rounded-full bg-brand-accent/10 flex items-center justify-center text-brand-accent text-2xl font-bold'
+                        fallback.className = 'w-16 h-16 rounded-full bg-black/10 flex items-center justify-center text-brand-accentStrong text-2xl font-bold'
                         fallback.textContent = s.name.charAt(0)
                         e.currentTarget.parentNode.appendChild(fallback)
                       }}
@@ -155,7 +155,7 @@ export default function Stores() {
                       className="max-h-20 max-w-full object-contain group-hover:scale-105 transition-transform duration-300"
                     />
                   ) : (
-                    <div className="w-16 h-16 rounded-full bg-brand-accent/10 flex items-center justify-center text-brand-accent text-2xl font-bold">
+                    <div className="w-16 h-16 rounded-full bg-black/10 flex items-center justify-center text-brand-accentStrong text-2xl font-bold">
                       {s.name.charAt(0)}
                     </div>
                   )}
@@ -163,7 +163,7 @@ export default function Stores() {
 
                 {/* Content */}
                 <div className="flex-1">
-                  <div className="font-bold text-lg text-brand-dark group-hover:text-brand-accent transition-colors mb-1">
+                  <div className="font-bold text-lg text-brand-dark group-hover:text-brand-accentStrong transition-colors mb-1">
                     {s.name}
                   </div>
 
@@ -173,7 +173,7 @@ export default function Stores() {
                       {s.category}
                     </span>
                     {s.tags?.map(tag => (
-                      <span key={tag} className="text-xs px-2 py-0.5 bg-brand-accent/20 text-brand-accent rounded font-semibold">
+                      <span key={tag} className="text-xs px-2 py-0.5 bg-black/20 text-brand-accentStrong rounded font-semibold">
                         {tag}
                       </span>
                     ))}

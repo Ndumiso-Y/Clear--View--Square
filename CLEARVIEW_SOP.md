@@ -301,6 +301,29 @@ cd Clear--View--Square
 npm install
 ```
 
+### Environment Setup
+
+**Weather Widget Configuration:**
+
+The Weather Widget (in "Visit Us Today" section) requires an OpenWeatherMap API key to display live weather for Rustenburg.
+
+**Steps:**
+1. Copy `.env.example` to `.env`:
+   ```bash
+   cp .env.example .env
+   ```
+2. Get a free API key from [OpenWeatherMap](https://openweathermap.org/api)
+3. Open `.env` and replace the placeholder with your actual key:
+   ```
+   VITE_WEATHER_API_KEY=your-actual-api-key-here
+   ```
+4. Restart the dev server if running
+
+**Important:**
+- `.env` is automatically ignored by Git (see `.gitignore`) - your key will never be committed
+- The widget gracefully degrades if no key is provided (renders nothing, no crashes)
+- For production deployment, add the `VITE_WEATHER_API_KEY` to your hosting platform's environment variables
+
 ### Local Development
 ```bash
 npm run dev

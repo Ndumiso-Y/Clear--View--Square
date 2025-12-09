@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef } from 'react'
+import WeatherWidget from '../components/WeatherWidget'
 
 export default function Home() {
   const [scrollY, setScrollY] = useState(0)
@@ -141,24 +142,23 @@ export default function Home() {
             className="block md:hidden absolute inset-0 w-full h-full object-cover"
             loading="eager"
           />
-          <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/50 to-black/70"></div>
-          {/* Animated overlay */}
-          <div className="absolute inset-0 bg-gradient-to-tr from-brand-accent/20 to-transparent animate-pulse" style={{ animationDuration: '4s' }}></div>
+          {/* Balanced overlay for color visibility and readability */}
+          <div className="absolute inset-0 bg-gradient-to-b from-black/45 via-black/40 to-black/55"></div>
         </div>
 
         {/* Content */}
-        <div className="relative h-full container flex items-end pb-20">
-          <div className="max-w-4xl">
+        <div className="relative h-full container flex items-end pb-8 md:pb-12">
+          <div className="max-w-full md:max-w-4xl md:-ml-80">
             {/* Subtitle - positioned below the logo in the image */}
-            <p className="text-xl md:text-3xl text-white/95 leading-relaxed mb-10 max-w-2xl">
+            <p className="text-lg sm:text-xl md:text-3xl text-white/95 leading-relaxed mb-8 md:mb-10 max-w-xl md:max-w-2xl">
               Your premier shopping destination — where <span className="font-semibold text-white">convenience</span> meets <span className="font-semibold text-white">comfort</span> with secure parking, modern facilities, and family-friendly spaces.
             </p>
 
             {/* CTA Buttons */}
-            <div className="flex flex-col sm:flex-row gap-4 mb-16">
+            <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 mb-12 md:mb-16">
               <a
                 href="#/stores"
-                className="group relative btn text-lg px-10 py-5 shadow-2xl overflow-hidden"
+                className="group relative btn text-base sm:text-lg px-8 sm:px-10 py-4 sm:py-5 shadow-2xl overflow-hidden"
               >
                 <span className="relative z-10 flex items-center gap-2">
                   Explore Our Stores
@@ -166,11 +166,11 @@ export default function Home() {
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
                   </svg>
                 </span>
-                <div className="absolute inset-0 bg-gradient-to-r from-brand-accent to-brand-dark opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                <div className="absolute inset-0 bg-gradient-to-r from-brand-dark to-brand-dark opacity-0 group-hover:opacity-100 transition-opacity"></div>
               </a>
               <a
                 href="#/about"
-                className="group btn-alt text-lg px-10 py-5 shadow-2xl backdrop-blur-sm border-2 border-white/20 hover:border-white/40 transition-all"
+                className="group btn-alt text-base sm:text-lg px-8 sm:px-10 py-4 sm:py-5 shadow-2xl backdrop-blur-sm border-2 border-white/20 hover:border-white/40 transition-all"
               >
                 <span className="flex items-center gap-2">
                   Learn More
@@ -182,18 +182,18 @@ export default function Home() {
             </div>
 
             {/* Stats */}
-            <div ref={statsRef} className="grid grid-cols-3 gap-8 max-w-2xl">
+            <div ref={statsRef} className="grid grid-cols-3 gap-4 sm:gap-6 md:gap-8 max-w-xl md:max-w-2xl">
               <div>
-                <div className="text-4xl font-bold text-white mb-1">{animatedStoreCount}+</div>
-                <div className="text-sm text-white/80 uppercase tracking-wide">Stores</div>
+                <div className="text-3xl sm:text-4xl font-bold text-white mb-1">{animatedStoreCount}+</div>
+                <div className="text-xs sm:text-sm text-white/80 uppercase tracking-wide">Stores</div>
               </div>
               <div>
-                <div className="text-4xl font-bold text-white mb-1">{animatedParkingCount}+</div>
-                <div className="text-sm text-white/80 uppercase tracking-wide">Parking Bays</div>
+                <div className="text-3xl sm:text-4xl font-bold text-white mb-1">{animatedParkingCount}+</div>
+                <div className="text-xs sm:text-sm text-white/80 uppercase tracking-wide">Parking Bays</div>
               </div>
               <div>
-                <div className="text-4xl font-bold text-white mb-1">{animatedDaysCount}</div>
-                <div className="text-sm text-white/80 uppercase tracking-wide">Days Open</div>
+                <div className="text-3xl sm:text-4xl font-bold text-white mb-1">{animatedDaysCount}</div>
+                <div className="text-xs sm:text-sm text-white/80 uppercase tracking-wide">Days Open</div>
               </div>
             </div>
           </div>
@@ -207,23 +207,23 @@ export default function Home() {
             {/* Stores Quick Link */}
             <a
               href="#/stores"
-              className="group bg-white rounded-2xl shadow-xl p-8 hover:shadow-2xl transform hover:-translate-y-2 transition-all duration-300 border border-transparent hover:border-brand-accent/20"
+              className="group bg-white rounded-2xl shadow-xl p-8 hover:shadow-2xl transform hover:-translate-y-2 transition-all duration-300 border border-transparent hover:border-black/20"
             >
               <div className="flex items-start gap-4">
-                <div className="flex-shrink-0 w-14 h-14 bg-brand-accent/10 rounded-xl flex items-center justify-center text-brand-accent group-hover:bg-brand-accent group-hover:text-white transition-all duration-300">
+                <div className="flex-shrink-0 w-14 h-14 bg-black/10 rounded-xl flex items-center justify-center text-brand-accentStrong group-hover:bg-brand-accentStrong group-hover:text-white transition-all duration-300">
                   <svg className="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
                   </svg>
                 </div>
                 <div className="flex-1">
-                  <h3 className="text-xl font-bold text-brand-dark mb-2 group-hover:text-brand-accent transition-colors">
+                  <h3 className="text-xl font-bold text-brand-dark mb-2 group-hover:text-brand-accentStrong transition-colors">
                     Stores
                   </h3>
                   <p className="text-brand-mid text-sm">
                     Browse all tenants at Clearview Square
                   </p>
                 </div>
-                <svg className="w-5 h-5 text-brand-light group-hover:text-brand-accent group-hover:translate-x-1 transition-all" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg className="w-5 h-5 text-brand-light group-hover:text-brand-accentStrong group-hover:translate-x-1 transition-all" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                 </svg>
               </div>
@@ -232,23 +232,23 @@ export default function Home() {
             {/* Trading Hours Quick Link */}
             <a
               href="#trading-hours"
-              className="group bg-white rounded-2xl shadow-xl p-8 hover:shadow-2xl transform hover:-translate-y-2 transition-all duration-300 border border-transparent hover:border-brand-accent/20"
+              className="group bg-white rounded-2xl shadow-xl p-8 hover:shadow-2xl transform hover:-translate-y-2 transition-all duration-300 border border-transparent hover:border-black/20"
             >
               <div className="flex items-start gap-4">
-                <div className="flex-shrink-0 w-14 h-14 bg-brand-accent/10 rounded-xl flex items-center justify-center text-brand-accent group-hover:bg-brand-accent group-hover:text-white transition-all duration-300">
+                <div className="flex-shrink-0 w-14 h-14 bg-black/10 rounded-xl flex items-center justify-center text-brand-accentStrong group-hover:bg-brand-accentStrong group-hover:text-white transition-all duration-300">
                   <svg className="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
                   </svg>
                 </div>
                 <div className="flex-1">
-                  <h3 className="text-xl font-bold text-brand-dark mb-2 group-hover:text-brand-accent transition-colors">
+                  <h3 className="text-xl font-bold text-brand-dark mb-2 group-hover:text-brand-accentStrong transition-colors">
                     Trading Hours
                   </h3>
                   <p className="text-brand-mid text-sm">
                     View our daily and weekend trading hours
                   </p>
                 </div>
-                <svg className="w-5 h-5 text-brand-light group-hover:text-brand-accent group-hover:translate-x-1 transition-all" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg className="w-5 h-5 text-brand-light group-hover:text-brand-accentStrong group-hover:translate-x-1 transition-all" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                 </svg>
               </div>
@@ -260,13 +260,13 @@ export default function Home() {
       {/* Features Section with Enhanced Design */}
       <section className="relative py-24 md:py-32 bg-white">
         {/* Decorative Elements */}
-        <div className="absolute top-0 left-0 w-96 h-96 bg-brand-accent/5 rounded-full blur-3xl -translate-x-1/2 -translate-y-1/2"></div>
+        <div className="absolute top-0 left-0 w-96 h-96 bg-black/5 rounded-full blur-3xl -translate-x-1/2 -translate-y-1/2"></div>
         <div className="absolute bottom-0 right-0 w-96 h-96 bg-brand-dark/5 rounded-full blur-3xl translate-x-1/2 translate-y-1/2"></div>
 
         <div className="container relative">
           {/* Section Header */}
           <div className="text-center mb-16">
-            <span className="inline-block px-4 py-2 bg-brand-accent/10 rounded-full text-brand-accent font-semibold text-sm mb-4">
+            <span className="inline-block px-4 py-2 bg-black/10 rounded-full text-brand-accentStrong font-semibold text-sm mb-4">
               WHAT WE OFFER
             </span>
             <h2 className="text-4xl md:text-5xl font-bold text-brand-dark mb-4">
@@ -286,20 +286,20 @@ export default function Home() {
                 style={{ animationDelay: `${index * 100}ms` }}
               >
                 {/* Highlight Badge */}
-                <div className="absolute -top-3 -right-3 bg-brand-accent text-white text-xs font-bold px-3 py-1 rounded-full shadow-lg">
+                <div className="absolute -top-3 -right-3 bg-brand-accentStrong text-white text-xs font-bold px-3 py-1 rounded-full shadow-lg">
                   {feature.highlight}
                 </div>
 
                 {/* Icon */}
                 <div className="relative mb-6">
-                  <div className="absolute inset-0 bg-brand-accent/10 rounded-2xl blur-xl group-hover:bg-brand-accent/20 transition-colors"></div>
-                  <div className="relative text-brand-accent group-hover:scale-110 transition-transform duration-300">
+                  <div className="absolute inset-0 bg-black/10 rounded-2xl blur-xl group-hover:bg-black/20 transition-colors"></div>
+                  <div className="relative text-brand-accentStrong group-hover:scale-110 transition-transform duration-300">
                     {feature.icon}
                   </div>
                 </div>
 
                 {/* Content */}
-                <h3 className="font-bold text-2xl mb-3 text-brand-dark group-hover:text-brand-accent transition-colors">
+                <h3 className="font-bold text-2xl mb-3 text-brand-dark group-hover:text-brand-accentStrong transition-colors">
                   {feature.title}
                 </h3>
                 <p className="text-brand-mid leading-relaxed">
@@ -307,7 +307,7 @@ export default function Home() {
                 </p>
 
                 {/* Hover Border Effect */}
-                <div className="absolute inset-0 rounded-2xl border-2 border-brand-accent/0 group-hover:border-brand-accent/20 transition-colors"></div>
+                <div className="absolute inset-0 rounded-2xl border-2 border-black/0 group-hover:border-black/20 transition-colors"></div>
               </div>
             ))}
           </div>
@@ -318,7 +318,7 @@ export default function Home() {
       <section className="relative py-24 md:py-32 bg-gradient-to-b from-brand-bg to-white">
         <div className="container">
           <div className="text-center mb-16">
-            <span className="inline-block px-4 py-2 bg-brand-accent/10 rounded-full text-brand-accent font-semibold text-sm mb-4">
+            <span className="inline-block px-4 py-2 bg-black/10 rounded-full text-brand-accentStrong font-semibold text-sm mb-4">
               EXPLORE BY EXPERIENCE
             </span>
             <h2 className="text-4xl md:text-5xl font-bold text-brand-dark mb-4">
@@ -406,7 +406,7 @@ export default function Home() {
       {/* CTA Section with Enhanced Design */}
       <section id="trading-hours" className="relative py-24 md:py-32 overflow-hidden">
         {/* Background Pattern */}
-        <div className="absolute inset-0 bg-gradient-to-br from-brand-dark via-brand-accent to-brand-dark"></div>
+        <div className="absolute inset-0 bg-gradient-to-br from-brand-dark via-brand-dark to-brand-dark"></div>
         <div className="absolute inset-0 opacity-10" style={{
           backgroundImage: 'radial-gradient(circle at 2px 2px, white 1px, transparent 0)',
           backgroundSize: '40px 40px'
@@ -461,6 +461,8 @@ export default function Home() {
                     <div className="text-white/80">24/7 Security • CCTV Monitoring</div>
                   </div>
                 </div>
+
+                <WeatherWidget />
               </div>
 
               {/* CTA Buttons */}

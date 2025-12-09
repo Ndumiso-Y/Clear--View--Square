@@ -1,6 +1,6 @@
 
-import { NavLink } from 'react-router-dom'
-import { useState } from 'react'
+import { NavLink, useLocation } from 'react-router-dom'
+import { useState, useEffect } from 'react'
 
 function LinkItem({ to, children, onClick }) {
   return (
@@ -8,7 +8,7 @@ function LinkItem({ to, children, onClick }) {
       to={to}
       onClick={onClick}
       className={({ isActive }) =>
-        `px-3 py-2 rounded-lg ${isActive ? 'bg-brand-bg' : 'hover:bg-brand-bg'}`
+        `px-3 py-2 rounded-lg text-white ${isActive ? 'bg-white/20' : 'hover:bg-white/10'}`
       }
     >
       {children}
@@ -18,17 +18,43 @@ function LinkItem({ to, children, onClick }) {
 
 export default function Navbar() {
   const baseUrl = import.meta.env.BASE_URL
+  const location = useLocation()
   const [isOpen, setIsOpen] = useState(false)
+  const [isScrolled, setIsScrolled] = useState(false)
 
   const toggleMenu = () => setIsOpen(!isOpen)
   const closeMenu = () => setIsOpen(false)
 
+  // Check if we're on the home page
+  const isHomePage = location.pathname === '/'
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 50)
+    }
+
+    window.addEventListener('scroll', handleScroll)
+    return () => window.removeEventListener('scroll', handleScroll)
+  }, [])
+
+  // Determine navbar background based on page and scroll position
+  const getNavbarStyle = () => {
+    if (isHomePage) {
+      // Home page: transparent at top, black when scrolled
+      return isScrolled
+        ? 'bg-black backdrop-blur border-b border-white/10'
+        : 'bg-transparent'
+    } else {
+      // Other pages: always black
+      return 'bg-black backdrop-blur border-b border-white/10'
+    }
+  }
+
   return (
-    <header className="bg-white/90 backdrop-blur sticky top-0 z-50 border-b">
-      <div className="container flex items-center justify-between h-16">
-        <div className="flex items-center gap-3">
-          <img src={`${baseUrl}assets/brand/clearview-logo.png`} alt="Clearview Square logo" className="h-9" />
-          <span className="font-extrabold tracking-tight text-brand-dark">Clearview Square</span>
+    <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${getNavbarStyle()}`}>
+      <div className="container flex items-center justify-between h-20 md:h-24">
+        <div className="flex items-center">
+          <img src={`${baseUrl}assets/brand/clearview-logo.png`} alt="Clearview Square logo" className="h-16 md:h-20" />
         </div>
 
         {/* Desktop Navigation */}
@@ -43,15 +69,15 @@ export default function Navbar() {
         {/* Mobile Hamburger Button */}
         <button
           onClick={toggleMenu}
-          className="md:hidden p-2 rounded-lg hover:bg-brand-bg transition-colors"
+          className="md:hidden p-2 rounded-lg hover:bg-white/10 transition-colors"
           aria-label="Toggle menu"
         >
           {isOpen ? (
-            <svg className="w-6 h-6 text-brand-dark" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
             </svg>
           ) : (
-            <svg className="w-6 h-6 text-brand-dark" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
             </svg>
           )}
@@ -60,7 +86,7 @@ export default function Navbar() {
 
       {/* Mobile Menu */}
       {isOpen && (
-        <div className="md:hidden border-t bg-white">
+        <div className="md:hidden border-t border-white/10 bg-black">
           <nav className="container py-4 flex flex-col gap-2">
             <LinkItem to="/" onClick={closeMenu}>Home</LinkItem>
             <LinkItem to="/about" onClick={closeMenu}>About</LinkItem>

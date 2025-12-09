@@ -3,7 +3,7 @@ export default function About() {
   const baseUrl = import.meta.env.BASE_URL
 
   return (
-    <div>
+    <div className="pt-20 md:pt-24">
       {/* Hero Section */}
       <section
         className="relative h-[50vh] bg-cover bg-top"
@@ -32,29 +32,29 @@ export default function About() {
               decoding="async"
               className="rounded-2xl shadow-2xl w-full"
             />
-            <div className="bg-brand-accent/10 rounded-2xl p-6">
+            <div className="bg-black/10 rounded-2xl p-6">
               <h3 className="font-bold text-xl text-brand-dark mb-3">Location Highlights</h3>
               <ul className="space-y-2 text-brand-mid">
                 <li className="flex items-start gap-2">
-                  <svg className="w-5 h-5 text-brand-accent mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <svg className="w-5 h-5 text-brand-accentStrong mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                   </svg>
                   <span>Prime location in Rustenburg Central</span>
                 </li>
                 <li className="flex items-start gap-2">
-                  <svg className="w-5 h-5 text-brand-accent mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <svg className="w-5 h-5 text-brand-accentStrong mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                   </svg>
                   <span>Near Engen filling station</span>
                 </li>
                 <li className="flex items-start gap-2">
-                  <svg className="w-5 h-5 text-brand-accent mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <svg className="w-5 h-5 text-brand-accentStrong mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                   </svg>
                   <span>High-street retail surroundings</span>
                 </li>
                 <li className="flex items-start gap-2">
-                  <svg className="w-5 h-5 text-brand-accent mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <svg className="w-5 h-5 text-brand-accentStrong mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                   </svg>
                   <span>Family-friendly neighbourhood</span>
@@ -92,7 +92,7 @@ export default function About() {
             <div className="grid sm:grid-cols-2 gap-4">
               <div className="card hover:shadow-xl transition-shadow">
                 <div className="flex items-center gap-3 mb-3">
-                  <svg className="w-6 h-6 text-brand-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <svg className="w-6 h-6 text-brand-accentStrong" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
                   </svg>
@@ -103,7 +103,7 @@ export default function About() {
 
               <div className="card hover:shadow-xl transition-shadow">
                 <div className="flex items-center gap-3 mb-3">
-                  <svg className="w-6 h-6 text-brand-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <svg className="w-6 h-6 text-brand-accentStrong" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
                   </svg>
                   <strong className="text-brand-dark">Contact</strong>
@@ -113,17 +113,17 @@ export default function About() {
 
               <div className="card hover:shadow-xl transition-shadow">
                 <div className="flex items-center gap-3 mb-3">
-                  <svg className="w-6 h-6 text-brand-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <svg className="w-6 h-6 text-brand-accentStrong" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
                   </svg>
                   <strong className="text-brand-dark">Status</strong>
                 </div>
-                <p className="text-brand-accent font-semibold">Now Open!</p>
+                <p className="text-brand-accentStrong font-semibold">Now Open!</p>
               </div>
 
               <div className="card hover:shadow-xl transition-shadow">
                 <div className="flex items-center gap-3 mb-3">
-                  <svg className="w-6 h-6 text-brand-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <svg className="w-6 h-6 text-brand-accentStrong" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
                   </svg>
                   <strong className="text-brand-dark">Hours</strong>
@@ -133,7 +133,7 @@ export default function About() {
             </div>
 
             {/* Amenities */}
-            <div className="bg-gradient-to-br from-brand-dark to-brand-accent rounded-2xl p-8 text-white">
+            <div className="bg-gradient-to-br from-brand-dark to-brand-dark rounded-2xl p-8 text-white">
               <h3 className="text-2xl font-bold mb-4">Centre Amenities</h3>
               <div className="grid sm:grid-cols-2 gap-4">
                 <div className="flex items-center gap-3">
