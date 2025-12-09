@@ -147,25 +147,15 @@ export default function Home() {
         </div>
 
         {/* Content */}
-        <div className="relative h-full container flex items-center">
+        <div className="relative h-full container flex items-end pb-20">
           <div className="max-w-4xl">
-            {/* Main Heading */}
-            <h1 className="text-6xl md:text-8xl font-extrabold tracking-tight leading-none mb-6">
-              <span className="block text-white">
-                Welcome to
-              </span>
-              <span className="block text-transparent bg-clip-text bg-gradient-to-r from-white via-white to-brand-light">
-                Clearview Square
-              </span>
-            </h1>
-
-            {/* Subtitle */}
+            {/* Subtitle - positioned below the logo in the image */}
             <p className="text-xl md:text-3xl text-white/95 leading-relaxed mb-10 max-w-2xl">
               Your premier shopping destination — where <span className="font-semibold text-white">convenience</span> meets <span className="font-semibold text-white">comfort</span> with secure parking, modern facilities, and family-friendly spaces.
             </p>
 
             {/* CTA Buttons */}
-            <div className="flex flex-col sm:flex-row gap-4">
+            <div className="flex flex-col sm:flex-row gap-4 mb-16">
               <a
                 href="#/stores"
                 className="group relative btn text-lg px-10 py-5 shadow-2xl overflow-hidden"
@@ -192,7 +182,7 @@ export default function Home() {
             </div>
 
             {/* Stats */}
-            <div ref={statsRef} className="mt-16 grid grid-cols-3 gap-8 max-w-2xl">
+            <div ref={statsRef} className="grid grid-cols-3 gap-8 max-w-2xl">
               <div>
                 <div className="text-4xl font-bold text-white mb-1">{animatedStoreCount}+</div>
                 <div className="text-sm text-white/80 uppercase tracking-wide">Stores</div>
