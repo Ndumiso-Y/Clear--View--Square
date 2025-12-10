@@ -393,11 +393,12 @@ export default function Contact() {
         <div className="mt-16">
           <div className="card max-w-5xl mx-auto">
             <div className="flex flex-col md:flex-row gap-6 items-start mb-6">
-              <div className="flex-shrink-0">
+              <div className="flex-shrink-0 overflow-hidden rounded-lg">
                 <img
                   src={`${baseUrl}assets/Lost and found .png`}
                   alt="Lost and Found"
-                  className="w-full md:w-32 h-auto rounded-lg object-cover"
+                  className="w-full md:w-32 h-auto object-cover"
+                  style={{ objectPosition: 'left center' }}
                 />
               </div>
               <div className="flex-1">
