@@ -55,11 +55,11 @@ export default function Navbar() {
       <div className="container mx-auto px-4 md:px-6 lg:px-8">
         <div className="flex items-center justify-between h-20 md:h-24">
           {/* Logo */}
-          <div className="flex items-center -ml-2 md:-ml-4">
+          <div className="flex items-center -ml-4 md:-ml-8">
             <img
               src={`${baseUrl}assets/logos/clearviewlogo_transparent.png`}
               alt="Clearview Square logo"
-              className="h-10 md:h-12 w-auto max-w-[200px] md:max-w-[280px] object-contain"
+              className="h-14 md:h-20 w-auto max-w-[280px] md:max-w-[400px] object-contain"
             />
           </div>
 
