@@ -137,7 +137,7 @@ export default function Home() {
             muted
             playsInline
             className="absolute inset-0 w-full h-full object-cover md:object-center"
-            style={{ objectPosition: window.innerWidth < 768 ? '58% center' : 'center center' }}
+            style={{ objectPosition: window.innerWidth < 768 ? '71% center' : 'center center' }}
             poster={`${baseUrl}assets/logos/HeroDeskTop-red.jpg`}
           >
             <source src={`${baseUrl}assets/hero/MovementStar-hq.mp4`} type="video/mp4" />
