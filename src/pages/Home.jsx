@@ -127,22 +127,30 @@ export default function Home() {
     <div className="overflow-hidden">
       {/* Enhanced Hero Section with Responsive Images */}
       <section className="relative h-screen">
-        {/* Background Image - Responsive Desktop/Mobile */}
+        {/* Background Video with Image Fallback */}
         <div className="absolute inset-0">
-          {/* Desktop Hero */}
-          <img
-            src={`${baseUrl}assets/logos/HeroDeskTop-red.jpg`}
-            alt="Clearview Square Shopping Centre"
-            className="hidden md:block absolute inset-0 w-full h-full object-cover"
-            loading="eager"
-          />
-          {/* Mobile Hero */}
-          <img
-            src={`${baseUrl}assets/logos/HeroMobile-red.jpg`}
-            alt="Clearview Square Shopping Centre"
-            className="block md:hidden absolute inset-0 w-full h-full object-cover"
-            loading="eager"
-          />
+          {/* Video Hero - Looping, No Controls */}
+          <video
+            autoPlay
+            loop
+            muted
+            playsInline
+            className="absolute inset-0 w-full h-full object-cover"
+            poster={`${baseUrl}assets/logos/HeroDeskTop-red.jpg`}
+          >
+            <source src={`${baseUrl}assets/hero/MovementStar-optimized.mp4`} type="video/mp4" />
+            {/* Fallback images if video doesn't load */}
+            <img
+              src={`${baseUrl}assets/logos/HeroDeskTop-red.jpg`}
+              alt="Clearview Square Shopping Centre"
+              className="hidden md:block absolute inset-0 w-full h-full object-cover"
+            />
+            <img
+              src={`${baseUrl}assets/logos/HeroMobile-red.jpg`}
+              alt="Clearview Square Shopping Centre"
+              className="block md:hidden absolute inset-0 w-full h-full object-cover"
+            />
+          </video>
           {/* Balanced overlay for color visibility and readability */}
           <div className="absolute inset-0 bg-gradient-to-b from-black/45 via-black/40 to-black/55"></div>
         </div>
