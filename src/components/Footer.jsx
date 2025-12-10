@@ -1,7 +1,22 @@
 
 export default function Footer() {
+  const baseUrl = import.meta.env.BASE_URL || '/'
+
   return (
     <footer className="bg-brand-dark text-white mt-16">
+      {/* Tree Animation Section */}
+      <div className="flex items-center justify-center py-8 bg-brand-accentStrong">
+        <video
+          autoPlay
+          loop
+          muted
+          playsInline
+          className="w-full max-w-md h-auto opacity-80"
+        >
+          <source src={`${baseUrl}assets/tree-animation.mp4`} type="video/mp4" />
+        </video>
+      </div>
+
       <div className="container py-10">
         <div className="grid md:grid-cols-3 gap-8 mb-8">
           {/* Column 1: Contact Info */}
