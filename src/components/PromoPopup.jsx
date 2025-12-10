@@ -4,10 +4,10 @@ export default function PromoPopup() {
   const [isOpen, setIsOpen] = useState(false)
 
   useEffect(() => {
-    // Check if user has seen the popup before
-    const hasSeenPopup = localStorage.getItem('clearview-promo-seen')
+    // Check if user has seen the popup in this session
+    const hasSeenPopup = sessionStorage.getItem('clearview-promo-seen')
 
-    // Show popup after 1 second if not seen before
+    // Show popup after 1 second if not seen in this session
     if (!hasSeenPopup) {
       const timer = setTimeout(() => {
         setIsOpen(true)
@@ -19,8 +19,8 @@ export default function PromoPopup() {
 
   const handleClose = () => {
     setIsOpen(false)
-    // Mark as seen in localStorage
-    localStorage.setItem('clearview-promo-seen', 'true')
+    // Mark as seen in sessionStorage (clears when browser closes)
+    sessionStorage.setItem('clearview-promo-seen', 'true')
   }
 
   if (!isOpen) return null
