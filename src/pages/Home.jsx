@@ -126,14 +126,6 @@ export default function Home() {
 
   return (
     <div className="overflow-hidden">
-      {/* Custom style for mobile video positioning */}
-      <style>{`
-        @media (max-width: 767px) {
-          .hero-video-mobile {
-            object-position: 58% center !important;
-          }
-        }
-      `}</style>
       {/* Enhanced Hero Section with Responsive Images */}
       <section className="relative h-screen">
         {/* Background Video with Image Fallback */}
@@ -144,7 +136,8 @@ export default function Home() {
             loop
             muted
             playsInline
-            className="hero-video-mobile absolute inset-0 w-full h-full object-cover md:object-center"
+            className="absolute inset-0 w-full h-full object-cover md:object-center"
+            style={{ objectPosition: window.innerWidth < 768 ? '58% center' : 'center center' }}
             poster={`${baseUrl}assets/logos/HeroDeskTop-red.jpg`}
           >
             <source src={`${baseUrl}assets/hero/MovementStar-hq.mp4`} type="video/mp4" />
