@@ -27,47 +27,182 @@ const KNOWLEDGE_BASE = {
 
   stores: [
     // ANCHORS
-    { name: "Checkers", category: "Anchors", description: "Full supermarket offering fresh produce & essentials" },
-    { name: "Mugg & Bean", category: "Anchors", description: "Restaurant & coffee shop" },
-    { name: "Clicks", category: "Anchors", description: "Health, beauty & pharmacy" },
+    {
+      name: "Checkers",
+      category: "Anchors",
+      description: "Full-service supermarket offering fresh produce, groceries, household essentials. May include Checkers LiquorShop attachment. Sixty60 delivery available",
+      hours: "Default centre hours (confirm with store)"
+    },
+    {
+      name: "Mugg & Bean",
+      category: "Anchors",
+      description: "Full-service coffeehouse serving breakfast, lunch, baked goods and specialty coffee. Sit-down & takeaway formats",
+      hours: "Default centre hours (confirm with store). Local store may open earlier for breakfast"
+    },
+    {
+      name: "Clicks",
+      category: "Anchors",
+      description: "National pharmacy and beauty retailer. Pharmacy services, ClubCard loyalty benefits",
+      hours: "Default centre hours (confirm with store). Some Clicks pharmacies open earlier or close later"
+    },
 
     // GROCERIES / FOOD & DRINK
-    { name: "Checkers LiquorShop", category: "Food & Drink", description: "Alcohol (18+ only)", ageRestricted: true },
-    { name: "Boesmanland Biltong", category: "Food & Drink", description: "Biltong & dried meats" },
-    { name: "Fish & Chips", category: "Food & Drink", description: "Fried fish, seafood, fast meals" },
-    { name: "Spice Haven", category: "Food & Drink", description: "Spices, herbs, specialty ingredients" },
-    { name: "Milky Lane", category: "Food & Drink", description: "Ice cream, waffles, sweet treats" },
+    {
+      name: "Checkers LiquorShop",
+      category: "Food & Drink",
+      description: "LiquorShop attached to Checkers selling wines, beers, spirits. Age restriction: 18+",
+      ageRestricted: true,
+      hours: "Default centre hours (confirm with store)"
+    },
+    {
+      name: "Boesmanland Biltong",
+      category: "Food & Drink",
+      description: "Biltong and dried meats. Local specialty retailer",
+      hours: "Default centre hours (confirm with store)"
+    },
+    {
+      name: "Fish & Chips",
+      category: "Food & Drink",
+      description: "Fish & chips takeaway: fried fish, chips, sauces. Menu varies",
+      hours: "Default centre hours (confirm with store)"
+    },
+    {
+      name: "Spice Haven",
+      category: "Food & Drink",
+      description: "Specialty spices, herbs and ethnic ingredients",
+      hours: "Default centre hours (confirm with store)"
+    },
+    {
+      name: "Milky Lane",
+      category: "Food & Drink",
+      description: "Waffles, milkshakes, sundaes and dessert items. May offer delivery via third-party platforms",
+      hours: "Default centre hours (confirm with store)"
+    },
+
+    // RETAIL & VARIETY
+    {
+      name: "The Crazy Store",
+      category: "Retail",
+      description: "Discount variety store. Household items, toys, stationery, seasonal goods and bargains",
+      hours: "Default centre hours (confirm with store)"
+    },
 
     // FASHION & FOOTWEAR
-    { name: "PnP Clothing", category: "Fashion", description: "Affordable fashion for family" },
-    { name: "Next Step Clothing", category: "Fashion", description: "Trendy men's & women's clothing" },
+    {
+      name: "PnP Clothing",
+      category: "Fashion",
+      description: "Affordable family clothing ranges from Pick n Pay Clothing",
+      hours: "Default centre hours (confirm with store)"
+    },
+    {
+      name: "Next Step Clothing",
+      category: "Fashion",
+      description: "Trendy clothing & footwear for men and women",
+      hours: "Default centre hours (confirm with store)"
+    },
 
     // HEALTH & BEAUTY
-    { name: "CannAfrica", category: "Health & Beauty", description: "CBD wellness" },
-    { name: "Better Sight Solutions", category: "Health & Beauty", description: "Eye tests, glasses" },
+    {
+      name: "CannAfrica",
+      category: "Health & Beauty",
+      description: "CBD and wellness products: oils, topicals, edibles. Not medical advice",
+      hours: "Default centre hours (confirm with store)"
+    },
+    {
+      name: "Better Sight Solutions",
+      category: "Health & Beauty",
+      description: "Vision testing, glasses and vision solutions. Verify optometrist qualifications and appointments",
+      hours: "Default centre hours (confirm with store)"
+    },
 
     // ELECTRONICS & TECH
-    { name: "Vuse", category: "Electronics & Tech", description: "Vape products (18+ only)", ageRestricted: true },
-    { name: "Electronics Hub", category: "Electronics & Tech", description: "Tech accessories" },
-    { name: "Gaming Zone", category: "Electronics & Tech", description: "Games & consoles" },
-    { name: "PC Link", category: "Electronics & Tech", description: "Repairs, upgrades" },
+    {
+      name: "Vuse",
+      category: "Electronics & Tech",
+      description: "Vape products and accessories. Age restriction: 18+",
+      ageRestricted: true,
+      hours: "Default centre hours (confirm with store)"
+    },
+    {
+      name: "Electronics Hub",
+      category: "Electronics & Tech",
+      description: "Phone accessories, chargers, small electronics and possible repairs",
+      hours: "Default centre hours (confirm with store)"
+    },
+    {
+      name: "Gaming Zone",
+      category: "Electronics & Tech",
+      description: "Games, consoles and accessories. Possibly arcade or events",
+      hours: "Default centre hours (confirm with store)"
+    },
+    {
+      name: "PC Link",
+      category: "Electronics & Tech",
+      description: "Computer repairs, upgrades, data recovery and tech support",
+      hours: "Default centre hours (confirm with store)"
+    },
 
     // SERVICES
-    { name: "Man Cave Barber", category: "Services", description: "Haircuts & grooming" },
-    { name: "Cash Crusaders", category: "Services", description: "Buy/sell goods, loans" },
-    { name: "Postlink", category: "Services", description: "Courier & postal services" },
-    { name: "Brands SA", category: "Services", description: "Marketing & branding services" },
+    {
+      name: "Man Cave Barber",
+      category: "Services",
+      description: "Cuts, shaves and grooming services. Walk-ins accepted or by appointment",
+      hours: "Default centre hours (confirm with store)"
+    },
+    {
+      name: "Cash Crusaders",
+      category: "Services",
+      description: "Buy/sell pre-owned goods, short-term loans (pawn), and tested used items for resale",
+      hours: "Default centre hours (confirm with store)"
+    },
+    {
+      name: "Postlink",
+      category: "Services",
+      description: "Courier and postal services, parcel collection. Confirm whether PostNet/Post Office franchise",
+      hours: "Default centre hours (confirm with store)"
+    },
+    {
+      name: "Brands SA",
+      category: "Services",
+      description: "Marketing and brand development services (agency)",
+      hours: "Default centre hours (confirm with store)"
+    },
 
     // PETS & SPECIALTY
-    { name: "Pet Shop", category: "Pets & Specialty", description: "Pet food & accessories" },
-    { name: "London Petal", category: "Pets & Specialty", description: "Flowers & gifts" },
+    {
+      name: "Pet Shop",
+      category: "Pets & Specialty",
+      description: "Pet food, toys, accessories. Possible grooming services (confirm)",
+      hours: "Default centre hours (confirm with store)"
+    },
+    {
+      name: "London Petal",
+      category: "Pets & Specialty",
+      description: "Florist for arrangements, bouquets and gifts. Check same-day order policy",
+      hours: "Default centre hours (confirm with store)"
+    },
 
     // FITNESS
-    { name: "F45", category: "Fitness", description: "Group HIIT training gym" },
+    {
+      name: "F45",
+      category: "Fitness",
+      description: "Group HIIT classes. Booking via F45 app or studio. Memberships and trials available",
+      hours: "Studio hours: classes typically within morning and evening peaks (confirm studio schedule). Booking required via F45 app or studio"
+    },
 
     // FINANCIAL
-    { name: "Capitec ATM", category: "Financial", description: "24/7 cash withdrawals" },
-    { name: "Nedbank ATM", category: "Financial", description: "Cash withdrawals" }
+    {
+      name: "Capitec ATM",
+      category: "Financial",
+      description: "Self-service ATM for cash withdrawals and balance enquiries (Capitec policies apply)",
+      hours: "ATM: 24/7 (subject to maintenance)"
+    },
+    {
+      name: "Nedbank ATM",
+      category: "Financial",
+      description: "Self-service Nedbank ATM for cash withdrawals. Specific functionality depends on machine model",
+      hours: "ATM: 24/7 (subject to maintenance)"
+    }
   ],
 
   leasing: {
@@ -178,6 +313,7 @@ function generateResponse(userMessage) {
     'fish': ['fish', 'chips'],
     'spice': ['spice', 'herbs'],
     'milky': ['milky lane', 'ice cream', 'waffles'],
+    'crazy': ['crazy store', 'variety', 'discount', 'toys', 'stationery'],
     'pnp': ['pnp', 'clothing', 'fashion'],
     'next step': ['next step'],
     'cannafrica': ['cannafrica', 'cbd'],
@@ -206,6 +342,7 @@ function generateResponse(userMessage) {
         const storeList = stores.map(s => {
           let info = `**${s.name}** – ${s.description}`
           if (s.ageRestricted) info += ' ⚠️'
+          if (s.hours) info += `\n⏰ Hours: ${s.hours}`
           return info
         }).join('\n\n')
 
@@ -294,14 +431,64 @@ function generateResponse(userMessage) {
 
 export default function ChatBot() {
   const [isOpen, setIsOpen] = useState(false)
-  const [messages, setMessages] = useState([
-    {
-      type: 'bot',
-      text: "Hi there! 👋 I'm your Clearview Square assistant. Ask me about stores, hours, facilities, or anything else!",
-      timestamp: new Date()
-    }
-  ])
+  const [weather, setWeather] = useState(null)
   const [inputValue, setInputValue] = useState('')
+  const messagesEndRef = useRef(null)
+
+  // Fetch weather for greeting
+  useEffect(() => {
+    const apiKey = import.meta.env.VITE_WEATHER_API_KEY
+    if (!apiKey) return
+
+    const fetchWeather = async () => {
+      try {
+        const response = await fetch(
+          `https://api.openweathermap.org/data/2.5/weather?q=Rustenburg,ZA&units=metric&appid=${apiKey}`
+        )
+        if (response.ok) {
+          const data = await response.json()
+          setWeather({
+            temp: Math.round(data.main.temp),
+            description: data.weather[0].description,
+            condition: data.weather[0].main
+          })
+        }
+      } catch (error) {
+        // Silently fail
+      }
+    }
+
+    fetchWeather()
+  }, [])
+
+  // Generate initial greeting with weather
+  const getInitialGreeting = () => {
+    const hour = new Date().getHours()
+    let timeGreeting = "Hi there"
+    if (hour < 12) timeGreeting = "Good morning"
+    else if (hour < 18) timeGreeting = "Good afternoon"
+    else timeGreeting = "Good evening"
+
+    if (weather) {
+      return `${timeGreeting}! It's ${weather.temp}°C and ${weather.description} in Rustenburg today. 🌤️ I'm your Clearview Square assistant. How can I help you?`
+    }
+    return `${timeGreeting}! 👋 I'm your Clearview Square assistant. Ask me about stores, hours, facilities, or anything else!`
+  }
+
+  const [messages, setMessages] = useState([])
+
+  // Update initial message when weather loads or component mounts
+  useEffect(() => {
+    if (messages.length === 0) {
+      setMessages([{
+        type: 'bot',
+        text: getInitialGreeting(),
+        timestamp: new Date(),
+        showQuickActions: true
+      }])
+    }
+  }, [weather])
+
   const messagesEndRef = useRef(null)
 
   const scrollToBottom = () => {
@@ -417,6 +604,36 @@ export default function ChatBot() {
                       >
                         📞 Call Us
                       </a>
+                    </div>
+                  )}
+
+                  {/* Quick Action Buttons */}
+                  {msg.showQuickActions && (
+                    <div className="mt-3 grid grid-cols-2 gap-2">
+                      <button
+                        onClick={() => setInputValue("What stores do you have?")}
+                        className="bg-blue-50 text-blue-700 text-center py-2 px-3 rounded-lg text-xs font-medium hover:bg-blue-100 transition-colors"
+                      >
+                        🏪 Find a Store
+                      </button>
+                      <button
+                        onClick={() => setInputValue("What are your hours?")}
+                        className="bg-blue-50 text-blue-700 text-center py-2 px-3 rounded-lg text-xs font-medium hover:bg-blue-100 transition-colors"
+                      >
+                        🕐 Centre Hours
+                      </button>
+                      <button
+                        onClick={() => setInputValue("I lost something")}
+                        className="bg-blue-50 text-blue-700 text-center py-2 px-3 rounded-lg text-xs font-medium hover:bg-blue-100 transition-colors"
+                      >
+                        🔍 Lost & Found
+                      </button>
+                      <button
+                        onClick={() => setInputValue("Leasing information")}
+                        className="bg-blue-50 text-blue-700 text-center py-2 px-3 rounded-lg text-xs font-medium hover:bg-blue-100 transition-colors"
+                      >
+                        🏢 Leasing
+                      </button>
                     </div>
                   )}
 
