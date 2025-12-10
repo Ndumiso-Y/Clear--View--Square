@@ -136,7 +136,7 @@ export default function Home() {
             loop
             muted
             playsInline
-            className="absolute inset-0 w-full h-full object-cover"
+            className="absolute inset-0 w-full h-full object-cover md:object-center object-right"
             poster={`${baseUrl}assets/logos/HeroDeskTop-red.jpg`}
           >
             <source src={`${baseUrl}assets/hero/MovementStar-hq.mp4`} type="video/mp4" />
