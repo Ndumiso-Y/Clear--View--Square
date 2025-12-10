@@ -150,7 +150,7 @@ export default function Home() {
               src={`${baseUrl}assets/logos/HeroMobile-red.jpg`}
               alt="Clearview Square Shopping Centre"
               className="block md:hidden absolute inset-0 w-full h-full object-cover"
-              style={{ objectPosition: '85% center' }}
+              style={{ objectPosition: 'left center' }}
             />
           </video>
           {/* Balanced overlay for color visibility and readability */}
