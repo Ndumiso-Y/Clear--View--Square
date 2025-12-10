@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from 'react'
 import WeatherWidget from '../components/WeatherWidget'
 import ChatBot from '../components/ChatBot'
+import PromoPopup from '../components/PromoPopup'
 
 export default function Home() {
   const [scrollY, setScrollY] = useState(0)
@@ -514,6 +515,9 @@ export default function Home() {
 
       {/* AI Chatbot */}
       <ChatBot />
+
+      {/* Promotional Popup */}
+      <PromoPopup />
     </div>
   )
 }
