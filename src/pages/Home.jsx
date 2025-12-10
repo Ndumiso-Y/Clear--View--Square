@@ -138,7 +138,7 @@ export default function Home() {
             className="absolute inset-0 w-full h-full object-cover"
             poster={`${baseUrl}assets/logos/HeroDeskTop-red.jpg`}
           >
-            <source src={`${baseUrl}assets/hero/MovementStar-optimized.mp4`} type="video/mp4" />
+            <source src={`${baseUrl}assets/hero/MovementStar-hq.mp4`} type="video/mp4" />
             {/* Fallback images if video doesn't load */}
             <img
               src={`${baseUrl}assets/logos/HeroDeskTop-red.jpg`}
