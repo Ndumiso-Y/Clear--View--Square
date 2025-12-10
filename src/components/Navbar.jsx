@@ -59,7 +59,7 @@ export default function Navbar() {
             <img
               src={`${baseUrl}assets/logos/clearviewlogo_transparent.png`}
               alt="Clearview Square logo"
-              className="h-12 md:h-16 w-auto object-contain"
+              className="h-10 md:h-12 w-auto max-w-[200px] md:max-w-[280px] object-contain"
             />
           </div>
 
