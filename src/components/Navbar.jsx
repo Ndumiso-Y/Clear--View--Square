@@ -54,7 +54,7 @@ export default function Navbar() {
     <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${getNavbarStyle()}`}>
       <div className="container flex items-center justify-between h-20 md:h-24">
         <div className="flex items-center">
-          <img src={`${baseUrl}assets/brand/clearview-logo.png`} alt="Clearview Square logo" className="h-16 md:h-20" />
+          <img src={`${baseUrl}assets/logos/clearviewlogo_transparent.png`} alt="Clearview Square logo" className="h-16 md:h-20" />
         </div>
 
         {/* Desktop Navigation */}
