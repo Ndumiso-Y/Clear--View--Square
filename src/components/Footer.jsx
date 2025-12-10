@@ -3,7 +3,7 @@ export default function Footer() {
   const baseUrl = import.meta.env.BASE_URL || '/'
 
   return (
-    <footer className="bg-brand-dark text-white mt-16">
+    <footer className="text-white mt-16" style={{ backgroundColor: '#1a1c19' }}>
       <div className="container py-10">
         {/* Tree Animation Section */}
         <div className="flex items-center justify-center mb-10">
