@@ -392,11 +392,21 @@ export default function Contact() {
         {/* Lost & Found Section - Full Width */}
         <div className="mt-16">
           <div className="card max-w-5xl mx-auto">
-            <h2 className="text-3xl font-bold text-brand-dark mb-6">Lost & Found</h2>
-
-            <p className="text-brand-mid leading-relaxed mb-6">
-              Lost something at Clearview Square? Our centre management team keeps a central Lost & Found register for items found in common areas and handed in by stores or security.
-            </p>
+            <div className="flex flex-col md:flex-row gap-6 items-start mb-6">
+              <div className="flex-shrink-0">
+                <img
+                  src={`${baseUrl}assets/Lost and found .png`}
+                  alt="Lost and Found"
+                  className="w-full md:w-32 h-auto rounded-lg object-cover"
+                />
+              </div>
+              <div className="flex-1">
+                <h2 className="text-3xl font-bold text-brand-dark mb-4">Lost & Found</h2>
+                <p className="text-brand-mid leading-relaxed">
+                  Lost something at Clearview Square? Our centre management team keeps a central Lost & Found register for items found in common areas and handed in by stores or security.
+                </p>
+              </div>
+            </div>
 
             <div className="grid md:grid-cols-2 gap-8">
               {/* Left: Lost an item */}
