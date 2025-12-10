@@ -138,7 +138,7 @@ export default function Stores() {
                 style={{ animationDelay: `${index * 50}ms` }}
               >
                 {/* Logo/Image */}
-                <div className="h-20 flex items-center justify-center mb-4 bg-gradient-to-br from-gray-50 to-gray-100 rounded-lg p-2">
+                <div className={`h-20 flex items-center justify-center mb-4 ${s.name === 'Brands SA' ? 'bg-gradient-to-br from-gray-50 to-gray-100 rounded-lg p-2' : ''}`}>
                   {s.logo ? (
                     <img
                       src={`${baseUrl}${s.logo.startsWith('/') ? s.logo.slice(1) : s.logo}`}
