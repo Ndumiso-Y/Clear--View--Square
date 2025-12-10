@@ -475,6 +475,92 @@ npm run preview  # Preview production build
 
 ---
 
+## AI Chatbot
+
+### Overview
+The Clearview Square AI Chatbot is a friendly, conversational assistant that helps visitors with:
+- Store information and directory
+- Mall hours and facilities
+- Lost & Found procedures
+- Leasing enquiries
+- Contact details
+- Age restrictions (alcohol, vape, CBD)
+
+### Knowledge Base
+The chatbot uses a **strict Knowledge Base** approach - it ONLY answers questions using approved information from `Clearview_AI_Chatbot_KB.pdf`.
+
+**Escalation Protocol:**
+- Any question outside the Knowledge Base triggers an escalation
+- User sees: "I'm not able to answer that yet. Please contact Centre Management."
+- Buttons appear for: Email and Phone contact
+
+### Implementation
+**File:** `src/components/ChatBot.jsx`
+
+**Features:**
+- ✅ Floating chat button (bottom-right corner)
+- ✅ Modern chat UI with message history
+- ✅ Pattern matching for store searches
+- ✅ Automatic escalation for stock, jobs, complaints, events
+- ✅ Contact buttons for leasing and escalations
+- ✅ Friendly, conversational tone
+- ✅ Timestamp on all messages
+
+**Personality:**
+- Warm, helpful, modern mall concierge
+- Uses casual language ("Sure, I can help with that!", "Great choice!")
+- Never mentions internal rules or Knowledge Base
+- No robotic or overly formal text
+
+### Topics Covered (In Knowledge Base)
+✅ **Can Answer:**
+- Centre information (address, hours, facilities)
+- Store directory (26 stores)
+- Lost & Found policy
+- Leasing information
+- Age restrictions
+- Parking details
+- Contact information
+
+❌ **Must Escalate:**
+- Product stock availability
+- Store-specific hours (not in KB)
+- Complaints or incidents
+- Job/HR enquiries
+- Event or marketing proposals
+- Security issues
+- Any sensitive/legal questions
+
+### Customization
+To update chatbot responses, edit the `KNOWLEDGE_BASE` object in `ChatBot.jsx`:
+
+```javascript
+const KNOWLEDGE_BASE = {
+  centre: { /* centre info */ },
+  stores: [ /* store array */ ],
+  leasing: { /* leasing info */ },
+  lostAndFound: { /* L&F policy */ }
+}
+```
+
+To update response patterns, edit the `generateResponse()` function.
+
+### Testing Locally
+1. Start dev server: `npm run dev`
+2. Open site in browser
+3. Click floating chat button (bottom-right)
+4. Test queries:
+   - "What are your hours?"
+   - "Where is Checkers?"
+   - "I lost my wallet"
+   - "Can I lease a shop?"
+   - "Do you have sneakers?" (should escalate)
+
+### Deployment
+Chatbot is included on the Home page only. It's a pure React component with no external dependencies or API calls - works entirely client-side.
+
+---
+
 **For questions or updates, contact:** development@brandssa.co.za
 
 ---

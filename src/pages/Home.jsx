@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from 'react'
 import WeatherWidget from '../components/WeatherWidget'
+import ChatBot from '../components/ChatBot'
 
 export default function Home() {
   const [scrollY, setScrollY] = useState(0)
@@ -502,6 +503,9 @@ export default function Home() {
           </div>
         </div>
       </section>
+
+      {/* AI Chatbot */}
+      <ChatBot />
     </div>
   )
 }
