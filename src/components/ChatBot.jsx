@@ -540,11 +540,11 @@ export default function ChatBot() {
       {!isOpen && (
         <button
           onClick={() => setIsOpen(true)}
-          className="fixed bottom-6 right-6 z-50 bg-gradient-to-br from-brand-dark to-brand-accent text-white rounded-full p-4 shadow-2xl hover:scale-110 transition-transform duration-300 group"
+          className="fixed bottom-6 right-6 z-50 bg-gradient-to-br from-blue-500 to-blue-600 text-white rounded-full p-4 shadow-2xl hover:scale-110 transition-transform duration-300 group"
           aria-label="Open chat"
         >
           <svg className="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 2C9.5 2 8 3 7 4.5C6 3 4.5 2 2 2c0 4 2 6 4 8c-2 2-4 4-4 8c2.5 0 4-1 5-2.5c1 1.5 2.5 2.5 5 2.5c2.5 0 4-1 5-2.5c1 1.5 2.5 2.5 5 2.5c0-4-2-6-4-8c2-2 4-4 4-8c-2.5 0-4 1-5 2.5C16 3 14.5 2 12 2z" />
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
           </svg>
           <div className="absolute -top-1 -right-1 w-3 h-3 bg-green-400 rounded-full animate-pulse"></div>
         </button>
@@ -556,10 +556,12 @@ export default function ChatBot() {
           {/* Header */}
           <div className="bg-gradient-to-r from-brand-dark to-brand-accent text-white p-4 flex items-center justify-between">
             <div className="flex items-center gap-3">
-              <div className="w-10 h-10 bg-white/20 rounded-full flex items-center justify-center">
-                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 2C9.5 2 8 3 7 4.5C6 3 4.5 2 2 2c0 4 2 6 4 8c-2 2-4 4-4 8c2.5 0 4-1 5-2.5c1 1.5 2.5 2.5 5 2.5c2.5 0 4-1 5-2.5c1 1.5 2.5 2.5 5 2.5c0-4-2-6-4-8c2-2 4-4 4-8c-2.5 0-4 1-5 2.5C16 3 14.5 2 12 2z" />
-                </svg>
+              <div className="w-10 h-10 bg-white/20 rounded-full flex items-center justify-center p-1 overflow-hidden">
+                <img
+                  src={`${import.meta.env.BASE_URL || '/'}assets/hero/Tree isolated.webp`}
+                  alt="Clearview Square"
+                  className="w-full h-full object-contain"
+                />
               </div>
               <div>
                 <div className="font-bold">Clearview Square</div>
