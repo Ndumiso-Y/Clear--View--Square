@@ -556,7 +556,7 @@ export default function ChatBot() {
           {/* Header */}
           <div className="bg-gradient-to-r from-brand-dark to-brand-accent text-white p-4 flex items-center justify-between">
             <div className="flex items-center gap-3">
-              <div className="w-10 h-10 bg-white/20 rounded-full flex items-center justify-center p-1 overflow-hidden">
+              <div className="w-12 h-12 bg-white/20 rounded-full flex items-center justify-center p-2 overflow-hidden">
                 <img
                   src={`${import.meta.env.BASE_URL || '/'}assets/hero/Tree isolated.webp`}
                   alt="Clearview Square"
