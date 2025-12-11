@@ -43,10 +43,10 @@ export default {
         },
         beam: {
           '0%': {
-            backgroundPosition: '-200% 0'
+            backgroundPosition: '200% 0'
           },
           '100%': {
-            backgroundPosition: '200% 0'
+            backgroundPosition: '-200% 0'
           }
         }
       },
