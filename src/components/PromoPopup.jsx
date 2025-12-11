@@ -52,7 +52,7 @@ export default function PromoPopup() {
           {/* Image */}
           <div className="relative rounded-2xl overflow-hidden shadow-2xl">
             <img
-              src={`${baseUrl}assets/logos/HeroDeskTop-red.jpg`}
+              src={`${baseUrl}assets/hero/HeroDeskTop-red.jpg`}
               alt="Clearview Square - Your perfect shopping experience starts here!"
               className="w-full h-auto"
             />
