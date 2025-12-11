@@ -157,9 +157,9 @@ export default function Home() {
 
           {/* Mobile Hero Image - Hidden when video is playing */}
           <picture className={`block md:hidden absolute inset-0 ${mobileVideoPlaying ? 'opacity-0' : 'opacity-100'} transition-opacity duration-500`}>
-            <source type="image/webp" srcSet={`${baseUrl}assets/logos/HeroMobile-red.webp`} />
+            <source type="image/webp" srcSet={`${baseUrl}assets/hero/HeroMobile-red-nologo.webp`} />
             <img
-              src={`${baseUrl}assets/logos/HeroMobile-red.jpg`}
+              src={`${baseUrl}assets/hero/HeroMobile-red-nologo.jpg`}
               alt="Clearview Square Shopping Centre"
               width={900}
               height={1600}
