@@ -540,11 +540,11 @@ export default function ChatBot() {
       {!isOpen && (
         <button
           onClick={() => setIsOpen(true)}
-          className="fixed bottom-6 right-6 z-50 bg-gradient-to-br from-blue-500 to-blue-600 text-white rounded-full p-4 shadow-2xl hover:scale-110 transition-transform duration-300 group"
+          className="fixed bottom-6 right-6 z-50 bg-gradient-to-br from-brand-dark to-brand-accent text-white rounded-full p-4 shadow-2xl hover:scale-110 transition-transform duration-300 group"
           aria-label="Open chat"
         >
           <svg className="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 2C9.5 2 8 3 7 4.5C6 3 4.5 2 2 2c0 4 2 6 4 8c-2 2-4 4-4 8c2.5 0 4-1 5-2.5c1 1.5 2.5 2.5 5 2.5c2.5 0 4-1 5-2.5c1 1.5 2.5 2.5 5 2.5c0-4-2-6-4-8c2-2 4-4 4-8c-2.5 0-4 1-5 2.5C16 3 14.5 2 12 2z" />
           </svg>
           <div className="absolute -top-1 -right-1 w-3 h-3 bg-green-400 rounded-full animate-pulse"></div>
         </button>
@@ -554,11 +554,11 @@ export default function ChatBot() {
       {isOpen && (
         <div className="fixed bottom-6 right-6 z-50 w-[380px] h-[600px] bg-white rounded-2xl shadow-2xl flex flex-col overflow-hidden">
           {/* Header */}
-          <div className="bg-gradient-to-r from-blue-500 to-blue-600 text-white p-4 flex items-center justify-between">
+          <div className="bg-gradient-to-r from-brand-dark to-brand-accent text-white p-4 flex items-center justify-between">
             <div className="flex items-center gap-3">
               <div className="w-10 h-10 bg-white/20 rounded-full flex items-center justify-center">
                 <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 2C9.5 2 8 3 7 4.5C6 3 4.5 2 2 2c0 4 2 6 4 8c-2 2-4 4-4 8c2.5 0 4-1 5-2.5c1 1.5 2.5 2.5 5 2.5c2.5 0 4-1 5-2.5c1 1.5 2.5 2.5 5 2.5c0-4-2-6-4-8c2-2 4-4 4-8c-2.5 0-4 1-5 2.5C16 3 14.5 2 12 2z" />
                 </svg>
               </div>
               <div>
@@ -584,7 +584,7 @@ export default function ChatBot() {
           <div className="flex-1 overflow-y-auto p-4 space-y-4 bg-gray-50">
             {messages.map((msg, idx) => (
               <div key={idx} className={`flex ${msg.type === 'user' ? 'justify-end' : 'justify-start'}`}>
-                <div className={`max-w-[85%] ${msg.type === 'user' ? 'bg-blue-500 text-white' : 'bg-white text-gray-800'} rounded-2xl px-4 py-3 shadow-sm`}>
+                <div className={`max-w-[85%] ${msg.type === 'user' ? 'bg-brand-dark text-white' : 'bg-white text-brand-dark border border-brand-accentSoft'} rounded-2xl px-4 py-3 shadow-sm`}>
                   <div className="text-sm whitespace-pre-line">{msg.text}</div>
 
                   {/* Show contact buttons for escalation or leasing */}
@@ -592,13 +592,13 @@ export default function ChatBot() {
                     <div className="mt-3 space-y-2">
                       <a
                         href={`mailto:${msg.contact?.email || KNOWLEDGE_BASE.centre.contact.email}`}
-                        className="block bg-blue-500 text-white text-center py-2 px-4 rounded-lg text-sm font-medium hover:bg-blue-600 transition-colors"
+                        className="block bg-brand-dark text-white text-center py-2 px-4 rounded-lg text-sm font-medium hover:bg-brand-accent transition-colors"
                       >
                         📩 Email Us
                       </a>
                       <a
                         href={`tel:${(msg.contact?.phones || KNOWLEDGE_BASE.centre.contact.phone)[0].replace(/\s/g, '')}`}
-                        className="block bg-green-500 text-white text-center py-2 px-4 rounded-lg text-sm font-medium hover:bg-green-600 transition-colors"
+                        className="block bg-green-600 text-white text-center py-2 px-4 rounded-lg text-sm font-medium hover:bg-green-700 transition-colors"
                       >
                         📞 Call Us
                       </a>
@@ -610,25 +610,25 @@ export default function ChatBot() {
                     <div className="mt-3 grid grid-cols-2 gap-2">
                       <button
                         onClick={() => setInputValue("What stores do you have?")}
-                        className="bg-blue-50 text-blue-700 text-center py-2 px-3 rounded-lg text-xs font-medium hover:bg-blue-100 transition-colors"
+                        className="bg-brand-accentSoft text-brand-dark text-center py-2 px-3 rounded-lg text-xs font-medium hover:bg-brand-light hover:text-white transition-colors"
                       >
                         🏪 Find a Store
                       </button>
                       <button
                         onClick={() => setInputValue("What are your hours?")}
-                        className="bg-blue-50 text-blue-700 text-center py-2 px-3 rounded-lg text-xs font-medium hover:bg-blue-100 transition-colors"
+                        className="bg-brand-accentSoft text-brand-dark text-center py-2 px-3 rounded-lg text-xs font-medium hover:bg-brand-light hover:text-white transition-colors"
                       >
                         🕐 Centre Hours
                       </button>
                       <button
                         onClick={() => setInputValue("I lost something")}
-                        className="bg-blue-50 text-blue-700 text-center py-2 px-3 rounded-lg text-xs font-medium hover:bg-blue-100 transition-colors"
+                        className="bg-brand-accentSoft text-brand-dark text-center py-2 px-3 rounded-lg text-xs font-medium hover:bg-brand-light hover:text-white transition-colors"
                       >
                         🔍 Lost & Found
                       </button>
                       <button
                         onClick={() => setInputValue("Leasing information")}
-                        className="bg-blue-50 text-blue-700 text-center py-2 px-3 rounded-lg text-xs font-medium hover:bg-blue-100 transition-colors"
+                        className="bg-brand-accentSoft text-brand-dark text-center py-2 px-3 rounded-lg text-xs font-medium hover:bg-brand-light hover:text-white transition-colors"
                       >
                         🏢 Leasing
                       </button>
@@ -653,12 +653,12 @@ export default function ChatBot() {
                 onChange={(e) => setInputValue(e.target.value)}
                 onKeyPress={handleKeyPress}
                 placeholder="Ask me anything..."
-                className="flex-1 px-4 py-3 bg-gray-100 rounded-full text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="flex-1 px-4 py-3 bg-gray-100 rounded-full text-sm focus:outline-none focus:ring-2 focus:ring-brand-dark"
               />
               <button
                 onClick={handleSend}
                 disabled={!inputValue.trim()}
-                className="bg-blue-500 text-white rounded-full p-3 hover:bg-blue-600 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                className="bg-brand-dark text-white rounded-full p-3 hover:bg-brand-accent transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
                 aria-label="Send message"
               >
                 <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
