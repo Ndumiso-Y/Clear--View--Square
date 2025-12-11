@@ -1,6 +1,7 @@
 
 import { NavLink, useLocation } from 'react-router-dom'
 import { useState, useEffect } from 'react'
+import OptimizedImage from './OptimizedImage'
 
 function LinkItem({ to, children, onClick }) {
   return (
@@ -56,9 +57,13 @@ export default function Navbar() {
         <div className="flex items-center justify-between h-20 md:h-24">
           {/* Logo */}
           <div className="flex items-center -ml-4 md:-ml-8">
-            <img
-              src={`${baseUrl}assets/logos/clearviewlogo_transparent.png`}
+            <OptimizedImage
+              srcWebp="assets/logos/clearviewlogo_transparent.webp"
+              srcFallback="assets/logos/clearviewlogo_transparent.png"
               alt="Clearview Square logo"
+              width={400}
+              height={158}
+              loading="eager"
               className="h-14 md:h-20 w-auto max-w-[280px] md:max-w-[400px] object-contain"
             />
           </div>

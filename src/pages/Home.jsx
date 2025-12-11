@@ -130,29 +130,46 @@ export default function Home() {
       <section className="relative h-screen">
         {/* Background Video with Image Fallback */}
         <div className="absolute inset-0">
-          {/* Video Hero - Looping, No Controls */}
+          {/* Desktop Hero Image */}
+          <picture className="hidden md:block absolute inset-0">
+            <source type="image/webp" srcSet={`${baseUrl}assets/logos/HeroDeskTop-red.webp`} />
+            <img
+              src={`${baseUrl}assets/logos/HeroDeskTop-red.jpg`}
+              alt="Clearview Square Shopping Centre"
+              width={1600}
+              height={900}
+              loading="eager"
+              className="absolute inset-0 w-full h-full object-cover"
+            />
+          </picture>
+
+          {/* Mobile Hero Image */}
+          <picture className="block md:hidden absolute inset-0">
+            <source type="image/webp" srcSet={`${baseUrl}assets/logos/HeroMobile-red.webp`} />
+            <img
+              src={`${baseUrl}assets/logos/HeroMobile-red.jpg`}
+              alt="Clearview Square Shopping Centre"
+              width={900}
+              height={1600}
+              loading="eager"
+              style={{ objectPosition: '71% center' }}
+              className="absolute inset-0 w-full h-full object-cover object-right"
+            />
+          </picture>
+
+          {/* Video Hero - Desktop only, deferred for mobile performance */}
           <video
             autoPlay
             loop
             muted
             playsInline
-            className="absolute inset-0 w-full h-full object-cover md:object-center"
-            style={{ objectPosition: window.innerWidth < 768 ? '71% center' : 'center center' }}
-            poster={`${baseUrl}assets/logos/HeroDeskTop-red.jpg`}
+            preload="none"
+            className="hidden md:block absolute inset-0 w-full h-full object-cover"
+            poster={`${baseUrl}assets/logos/HeroDeskTop-red.webp`}
           >
             <source src={`${baseUrl}assets/hero/MovementStar-hq.mp4`} type="video/mp4" />
-            {/* Fallback images if video doesn't load */}
-            <img
-              src={`${baseUrl}assets/logos/HeroDeskTop-red.jpg`}
-              alt="Clearview Square Shopping Centre"
-              className="hidden md:block absolute inset-0 w-full h-full object-cover"
-            />
-            <img
-              src={`${baseUrl}assets/logos/HeroMobile-red.jpg`}
-              alt="Clearview Square Shopping Centre"
-              className="block md:hidden absolute inset-0 w-full h-full object-cover object-right"
-            />
           </video>
+
           {/* Balanced overlay for color visibility and readability */}
           <div className="absolute inset-0 bg-gradient-to-b from-black/45 via-black/40 to-black/55"></div>
         </div>
@@ -347,12 +364,18 @@ export default function Home() {
               href="/#/stores?group=food-drink"
               className="group relative h-[400px] rounded-2xl overflow-hidden shadow-xl hover:shadow-2xl transition-all duration-500 hover:-translate-y-2"
             >
-              <div
-                className="absolute inset-0 bg-cover bg-center transition-transform duration-500 group-hover:scale-110"
-                style={{ backgroundImage: `url(${baseUrl}assets/tiles/tile-food-drink-burger-01.jpg)` }}
-              >
-                <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/50 to-transparent"></div>
-              </div>
+              <picture className="absolute inset-0">
+                <source type="image/webp" srcSet={`${baseUrl}assets/tiles/tile-food-drink-burger-01.webp`} />
+                <img
+                  src={`${baseUrl}assets/tiles/tile-food-drink-burger-01.jpg`}
+                  alt="Food and drink options"
+                  width={1400}
+                  height={933}
+                  loading="lazy"
+                  className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                />
+              </picture>
+              <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/50 to-transparent"></div>
               <div className="relative h-full flex flex-col justify-end p-8">
                 <h3 className="text-3xl font-bold text-white mb-2">FLAVOUR & COFFEE</h3>
                 <p className="text-white/90 mb-4">From quick bites to relaxed catch-ups.</p>
@@ -370,12 +393,18 @@ export default function Home() {
               href="/#/stores?group=fashion-lifestyle"
               className="group relative h-[400px] rounded-2xl overflow-hidden shadow-xl hover:shadow-2xl transition-all duration-500 hover:-translate-y-2"
             >
-              <div
-                className="absolute inset-0 bg-cover bg-center transition-transform duration-500 group-hover:scale-110"
-                style={{ backgroundImage: `url(${baseUrl}assets/tiles/tile-fashion-lifestyle-01.jpg)` }}
-              >
-                <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/50 to-transparent"></div>
-              </div>
+              <picture className="absolute inset-0">
+                <source type="image/webp" srcSet={`${baseUrl}assets/tiles/tile-fashion-lifestyle-01.webp`} />
+                <img
+                  src={`${baseUrl}assets/tiles/tile-fashion-lifestyle-01.jpg`}
+                  alt="Fashion and lifestyle"
+                  width={1400}
+                  height={933}
+                  loading="lazy"
+                  className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                />
+              </picture>
+              <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/50 to-transparent"></div>
               <div className="relative h-full flex flex-col justify-end p-8">
                 <h3 className="text-3xl font-bold text-white mb-2">STYLE & EVERYDAY</h3>
                 <p className="text-white/90 mb-4">Fashion and essentials for every day.</p>
@@ -393,12 +422,18 @@ export default function Home() {
               href="/#/stores?group=services-essentials"
               className="group relative h-[400px] rounded-2xl overflow-hidden shadow-xl hover:shadow-2xl transition-all duration-500 hover:-translate-y-2"
             >
-              <div
-                className="absolute inset-0 bg-cover bg-center transition-transform duration-500 group-hover:scale-110"
-                style={{ backgroundImage: `url(${baseUrl}assets/tiles/tile-services-essentials-training-01.jpg)` }}
-              >
-                <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/50 to-transparent"></div>
-              </div>
+              <picture className="absolute inset-0">
+                <source type="image/webp" srcSet={`${baseUrl}assets/tiles/tile-services-essentials-training-01.webp`} />
+                <img
+                  src={`${baseUrl}assets/tiles/tile-services-essentials-training-01.jpg`}
+                  alt="Services and essentials"
+                  width={1400}
+                  height={934}
+                  loading="lazy"
+                  className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                />
+              </picture>
+              <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/50 to-transparent"></div>
               <div className="relative h-full flex flex-col justify-end p-8">
                 <h3 className="text-3xl font-bold text-white mb-2">SERVICES & ESSENTIALS</h3>
                 <p className="text-white/90 mb-4">Banks, fitness, grooming, tech & more.</p>
@@ -499,11 +534,17 @@ export default function Home() {
             {/* Right Column - Image */}
             <div className="relative">
               <div className="absolute inset-0 bg-gradient-to-br from-white/20 to-transparent rounded-3xl"></div>
-              <img
-                src={`${baseUrl}assets/brand/Clearviewsquare-photo.jpg`}
-                alt="Clearview Square"
-                className="rounded-3xl shadow-2xl w-full h-[500px] object-cover"
-              />
+              <picture>
+                <source type="image/webp" srcSet={`${baseUrl}assets/brand/Clearviewsquare-photo.webp`} />
+                <img
+                  src={`${baseUrl}assets/brand/Clearviewsquare-photo.jpg`}
+                  alt="Clearview Square"
+                  width={1200}
+                  height={968}
+                  loading="lazy"
+                  className="rounded-3xl shadow-2xl w-full h-[500px] object-cover"
+                />
+              </picture>
               {/* Floating Badge */}
               <div className="absolute -bottom-6 -right-6 bg-white text-brand-dark p-6 rounded-2xl shadow-2xl">
                 <div className="text-3xl font-bold mb-1">Open Now</div>
