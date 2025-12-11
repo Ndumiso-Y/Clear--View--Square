@@ -10,7 +10,9 @@ export default function Home() {
   const [animatedParkingCount, setAnimatedParkingCount] = useState(0)
   const [animatedDaysCount, setAnimatedDaysCount] = useState(0)
   const [hasAnimated, setHasAnimated] = useState(false)
+  const [mobileVideoPlaying, setMobileVideoPlaying] = useState(false)
   const statsRef = useRef(null)
+  const mobileVideoRef = useRef(null)
   const baseUrl = import.meta.env.BASE_URL
 
   useEffect(() => {
@@ -81,6 +83,16 @@ export default function Home() {
     return () => observer.disconnect()
   }, [storeCount, hasAnimated])
 
+  // Handle mobile video play
+  const handleMobileVideoPlay = () => {
+    if (mobileVideoRef.current) {
+      mobileVideoRef.current.src = `${baseUrl}assets/hero/MovementStar-hq.mp4`
+      mobileVideoRef.current.load()
+      mobileVideoRef.current.play()
+      setMobileVideoPlaying(true)
+    }
+  }
+
   const features = [
     {
       icon: (
@@ -143,8 +155,8 @@ export default function Home() {
             />
           </picture>
 
-          {/* Mobile Hero Image */}
-          <picture className="block md:hidden absolute inset-0">
+          {/* Mobile Hero Image - Hidden when video is playing */}
+          <picture className={`block md:hidden absolute inset-0 ${mobileVideoPlaying ? 'opacity-0' : 'opacity-100'} transition-opacity duration-500`}>
             <source type="image/webp" srcSet={`${baseUrl}assets/logos/HeroMobile-red.webp`} />
             <img
               src={`${baseUrl}assets/logos/HeroMobile-red.jpg`}
@@ -156,6 +168,19 @@ export default function Home() {
               className="absolute inset-0 w-full h-full object-cover object-right"
             />
           </picture>
+
+          {/* Mobile Video - Tap to play, no src until user interaction */}
+          <video
+            ref={mobileVideoRef}
+            loop
+            muted
+            playsInline
+            preload="none"
+            className={`block md:hidden absolute inset-0 w-full h-full object-cover ${mobileVideoPlaying ? 'opacity-100' : 'opacity-0 pointer-events-none'} transition-opacity duration-500`}
+            style={{ objectPosition: '71% center' }}
+          >
+            {/* Source added dynamically on tap */}
+          </video>
 
           {/* Video Hero - Desktop only, deferred for mobile performance */}
           <video
@@ -178,9 +203,25 @@ export default function Home() {
         <div className="relative h-full container flex items-end pb-8 md:pb-12 px-4 md:px-8 lg:px-12">
           <div className="max-w-full md:max-w-3xl lg:max-w-4xl 2xl:-ml-8">
             {/* Subtitle - positioned below the logo in the image */}
-            <p className="text-lg sm:text-xl md:text-3xl text-white/95 leading-relaxed mb-8 md:mb-10 max-w-xl md:max-w-2xl">
+            <p className="text-lg sm:text-xl md:text-3xl text-white/95 leading-relaxed mb-6 md:mb-10 max-w-xl md:max-w-2xl">
               Your premier shopping destination — where <span className="font-semibold text-white">convenience</span> meets <span className="font-semibold text-white">comfort</span> with secure parking, modern facilities, and family-friendly spaces.
             </p>
+
+            {/* Play Intro Button - Mobile Only */}
+            {!mobileVideoPlaying && (
+              <button
+                onClick={handleMobileVideoPlay}
+                className="md:hidden flex items-center gap-2 mb-6 text-white/90 hover:text-white transition-colors group"
+                aria-label="Play intro video"
+              >
+                <div className="w-12 h-12 rounded-full border-2 border-white/40 flex items-center justify-center backdrop-blur-sm bg-white/10 group-hover:bg-white/20 group-hover:border-white/60 transition-all">
+                  <svg className="w-5 h-5 ml-0.5" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M8 5v14l11-7z"/>
+                  </svg>
+                </div>
+                <span className="text-sm font-medium">Play Intro</span>
+              </button>
+            )}
 
             {/* CTA Buttons */}
             <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 mb-12 md:mb-16">
