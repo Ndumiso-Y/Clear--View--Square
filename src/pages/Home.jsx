@@ -211,22 +211,34 @@ export default function Home() {
             {!mobileVideoPlaying && (
               <button
                 onClick={handleMobileVideoPlay}
-                className="md:hidden flex items-center gap-2 mb-6 text-white/90 hover:text-white transition-colors group"
+                className="md:hidden flex items-center gap-2.5 mb-6 text-white/90 hover:text-white transition-colors group"
                 aria-label="Play intro video"
               >
                 <div className="relative">
                   {/* Animated ring effect */}
-                  <div className="absolute inset-0 w-12 h-12 rounded-full border-2 border-white/30 animate-pulse-gentle"></div>
-                  <div className="absolute inset-0 w-12 h-12 rounded-full animate-shimmer"></div>
+                  <div className="absolute inset-0 w-11 h-11 rounded-full border-2 border-white/35 animate-pulse-gentle"></div>
+                  <div className="absolute inset-0 w-11 h-11 rounded-full animate-shimmer"></div>
 
                   {/* Main button */}
-                  <div className="relative w-12 h-12 rounded-full border-2 border-white/50 flex items-center justify-center backdrop-blur-sm bg-white/20 group-hover:bg-white/30 group-hover:border-white/70 transition-all shadow-lg">
-                    <svg className="w-5 h-5 ml-0.5" fill="currentColor" viewBox="0 0 24 24">
+                  <div className="relative w-11 h-11 rounded-full border-2 border-white/60 flex items-center justify-center bg-white/25 group-hover:bg-white/35 transition-all shadow-lg">
+                    <svg className="w-5 h-5 ml-0.5" fill="white" viewBox="0 0 24 24">
                       <path d="M8 5v14l11-7z"/>
                     </svg>
                   </div>
                 </div>
-                <span className="text-sm font-medium animate-pulse-gentle">Play Intro</span>
+                <span
+                  className="text-sm font-semibold relative inline-block animate-beam"
+                  style={{
+                    background: 'linear-gradient(90deg, rgba(255,255,255,0.5) 0%, rgba(255,255,255,0.6) 20%, rgba(255,255,255,1) 40%, rgba(255,255,255,1) 60%, rgba(255,255,255,0.6) 80%, rgba(255,255,255,0.5) 100%)',
+                    backgroundSize: '200% 100%',
+                    WebkitBackgroundClip: 'text',
+                    backgroundClip: 'text',
+                    WebkitTextFillColor: 'transparent',
+                    filter: 'drop-shadow(0 0 8px rgba(255,255,255,0.3))'
+                  }}
+                >
+                  Play Intro
+                </span>
               </button>
             )}
 

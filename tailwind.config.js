@@ -40,12 +40,21 @@ export default {
           '100%': {
             boxShadow: '0 0 0 0 rgba(255, 255, 255, 0.4)'
           }
+        },
+        beam: {
+          '0%': {
+            backgroundPosition: '-200% 0'
+          },
+          '100%': {
+            backgroundPosition: '200% 0'
+          }
         }
       },
       animation: {
         fadeIn: 'fadeIn 0.3s ease-out',
         'pulse-gentle': 'pulse 2.5s cubic-bezier(0.4, 0, 0.6, 1) infinite',
-        'shimmer': 'shimmer 2.5s ease-in-out infinite'
+        'shimmer': 'shimmer 2.5s ease-in-out infinite',
+        'beam': 'beam 2s linear infinite'
       }
     }
   },
