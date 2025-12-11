@@ -108,7 +108,7 @@ export default function About() {
                   </svg>
                   <strong className="text-brand-dark">Contact</strong>
                 </div>
-                <p className="text-brand-mid">+27 xx xxx xxxx</p>
+                <p className="text-brand-mid">071 363 2116 / 082 229 3580</p>
               </div>
 
               <div className="card hover:shadow-xl transition-shadow">
