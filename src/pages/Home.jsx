@@ -158,8 +158,8 @@ export default function Home() {
         </div>
 
         {/* Content */}
-        <div className="relative h-full container flex items-end pb-8 md:pb-12">
-          <div className="max-w-full md:max-w-4xl md:-ml-80">
+        <div className="relative h-full container flex items-end pb-8 md:pb-12 px-4 md:px-8 lg:px-12">
+          <div className="max-w-full md:max-w-3xl lg:max-w-4xl 2xl:-ml-8">
             {/* Subtitle - positioned below the logo in the image */}
             <p className="text-lg sm:text-xl md:text-3xl text-white/95 leading-relaxed mb-8 md:mb-10 max-w-xl md:max-w-2xl">
               Your premier shopping destination — where <span className="font-semibold text-white">convenience</span> meets <span className="font-semibold text-white">comfort</span> with secure parking, modern facilities, and family-friendly spaces.
