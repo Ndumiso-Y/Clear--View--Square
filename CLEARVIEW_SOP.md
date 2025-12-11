@@ -348,7 +348,18 @@ Changes to `.jsx`, `.css`, `.json` files trigger hot reload automatically.
 
 ## 6. Deployment
 
-### GitHub Pages (Current Setup)
+### Overview
+
+The site supports two deployment targets with separate build configurations:
+
+1. **GitHub Pages** - `base: '/Clear--View--Square/'`
+2. **cPanel / Live Domain** - `base: '/'`
+
+Both use **HashRouter**, so no server-side configuration is needed for routing.
+
+---
+
+### GitHub Pages Deployment (Automatic)
 
 **GitHub Actions Workflow:** `.github/workflows/deploy.yml`
 
@@ -357,19 +368,153 @@ Changes to `.jsx`, `.css`, `.json` files trigger hot reload automatically.
 **Process:**
 1. Checkout code
 2. Install dependencies
-3. Build (`npm run build`)
+3. Build with GitHub Pages config: `npm run build:gh`
 4. Copy `404.html` to `dist/`
 5. Deploy to `gh-pages` branch
 
 **Live URL:** `https://ndumiso-y.github.io/Clear--View--Square/`
 
-### Manual Deployment (cPanel / Netlify)
+**Note:** The default `npm run build` command uses the GitHub Pages config for backward compatibility.
 
-1. Run `npm run build`
-2. Upload contents of `dist/` folder to server
-3. Ensure server supports SPA routing (HashRouter handles this automatically)
+---
 
-**Note:** HashRouter works out-of-the-box on any static host without server-side configuration.
+### cPanel / Live Domain Deployment (Manual)
+
+**Important:** This deployment is for serving the site from a domain root (e.g., `clearviewsquare.co.za`).
+
+#### Step 1: Set up environment (one-time)
+
+If using the weather widget or contact form, create a `.env` file locally:
+
+```bash
+# Copy the example file
+cp .env.example .env
+
+# Edit .env and add your actual API keys
+VITE_WEATHER_API_KEY=your-openweather-api-key-here
+VITE_FORM_ENDPOINT=your-form-endpoint
+```
+
+**Security:** Never commit `.env` to git. It's already in `.gitignore`.
+
+#### Step 2: Build for cPanel
+
+```bash
+npm run build:cpanel
+```
+
+This creates a production build in `dist/` with:
+- Asset paths starting with `/assets/...` (not `/Clear--View--Square/assets/...`)
+- No source maps (security)
+- Optimized bundles
+
+#### Step 3: Upload to cPanel
+
+**Via File Manager:**
+
+1. Log into cPanel
+2. Navigate to **File Manager**
+3. Go to your domain's document root (usually `public_html/`)
+4. Upload the **contents** of the `dist/` folder:
+   - `index.html`
+   - `404.html`
+   - `assets/` folder
+   - `data/` folder
+   - `favicon.png`
+   - `robots.txt`
+   - `sitemap.xml`
+
+**Via FTP:**
+
+1. Connect to your cPanel FTP
+2. Navigate to `public_html/` (or your domain's root)
+3. Upload all files from `dist/`
+
+**⚠️ Important:** Upload only the **contents** of `dist/`, not the `dist/` folder itself.
+
+#### Step 4: Verify deployment
+
+Visit your domain and check:
+
+✅ **Main page loads** - Hero, navigation, content visible
+✅ **Hash routes work** - Click Stores, About, Contact, Promotions
+✅ **No 404s in console** - Open DevTools → Network tab
+✅ **Assets load** - Images, videos, logos display correctly
+✅ **Weather widget** (if configured) - Shows Rustenburg weather or fails silently
+
+#### What NOT to upload
+
+❌ `node_modules/`
+❌ `src/` folder
+❌ `.env` or `.env.local`
+❌ `vite.config.*.js`
+❌ `package.json`
+❌ Any development files
+
+**Only upload the production build from `dist/`.**
+
+---
+
+### Build Commands Reference
+
+| Command | Use Case | Base Path | Output |
+|---------|----------|-----------|--------|
+| `npm run dev` | Local development | `/Clear--View--Square/` | Dev server |
+| `npm run build` | GitHub Pages (default) | `/Clear--View--Square/` | `dist/` |
+| `npm run build:gh` | GitHub Pages (explicit) | `/Clear--View--Square/` | `dist/` |
+| `npm run build:cpanel` | cPanel / Live domain | `/` (root) | `dist/` |
+
+---
+
+### Environment Variables
+
+The site uses environment variables for optional features:
+
+- `VITE_WEATHER_API_KEY` - OpenWeatherMap API for weather widget
+- `VITE_FORM_ENDPOINT` - Contact form submission endpoint
+
+**Behavior without API keys:**
+- Weather widget: Fails silently, shows fallback greeting
+- Contact form: Won't submit (configure endpoint to enable)
+
+**For cPanel deployment:**
+- Set variables in `.env` locally before building
+- Run `npm run build:cpanel` (variables are baked into the build)
+- Upload only the `dist/` folder (never upload `.env`)
+
+---
+
+### Troubleshooting cPanel Deployment
+
+#### Blank page after upload
+
+**Cause:** Wrong build used or incorrect upload location
+
+**Fix:**
+1. Confirm you ran `npm run build:cpanel` (not `build:gh`)
+2. Check `public_html/index.html` exists
+3. Open browser DevTools → Console for errors
+4. Check asset paths - should be `/assets/...`, not `/Clear--View--Square/assets/...`
+
+#### Assets showing 404
+
+**Cause:** Incorrect upload structure
+
+**Fix:**
+- Ensure `assets/` folder is directly in `public_html/`
+- Don't nest: `public_html/dist/assets/` ❌
+- Correct: `public_html/assets/` ✅
+
+#### Routes not working
+
+**Cause:** Unlikely with HashRouter, but check:
+
+**Fix:**
+1. Confirm routes use hash: `yourdomain.com/#/stores` ✅
+2. Direct URLs without hash won't work: `yourdomain.com/stores` ❌
+3. All internal links should go through React Router
+
+---
 
 ---
 

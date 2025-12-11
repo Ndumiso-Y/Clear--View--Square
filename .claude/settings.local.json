@@ -1,16 +1,23 @@
 {
   "permissions": {
     "allow": [
-      "Bash(npm run dev:*)",
-      "Bash(npm run build:*)",
-      "Bash(npx serve:*)",
-      "Bash(test:*)",
-      "Bash(git init:*)",
+      "Bash(node:*)",
+      "Bash(find:*)",
+      "Bash(cat:*)",
       "Bash(git add:*)",
-      "Bash(git commit -m \"$(cat <<''EOF''\nfeat: Complete Clearview Square website with world-class UI/UX\n\nMajor Features:\n- Full-screen parallax hero section with animated elements\n- Professional carousel component for grand opening photos\n- 16+ tenant stores with dynamic filtering and search\n- Responsive monochrome design system (brand palette)\n- Automated GitHub Pages deployment workflow\n\nHero Section Enhancements:\n- Parallax scrolling effect (0.5x speed)\n- Multi-layer gradient overlays with pulse animation\n- Animated \"Now Open\" badge with ping indicator\n- Staggered text reveals (0.2s-1s delays)\n- Interactive CTAs with gradient hover effects\n- Stats counter section (16+ stores, 500+ bays, 7 days)\n- Scroll indicator with bounce animation\n\nStore Features:\n- Dynamic search and category filtering\n- \"Open now\" real-time filtering\n- Enhanced store cards with hover effects (lift, glow, scale)\n- Individual store detail pages with hours/contact info\n- Logo management with graceful fallbacks\n\nDesign System:\n- Custom animations (fade-in, slide-in, parallax)\n- Icon-driven UI with SVG components\n- Decorative blur elements and patterns\n- Professional section badges and highlights\n- Hover micro-interactions throughout\n- Custom scrollbar styling\n\nPages:\n- Home: Full-screen hero + features + carousel + CTA\n- About: Hero banner + two-column layout + amenities\n- Stores: Advanced filtering + responsive grid\n- Store Detail: Individual tenant information\n- Promotions: Time-based filtering (active/upcoming)\n- Contact: Form + map integration\n- 404: User-friendly error page\n\nTechnical:\n- React 18 + Vite + Tailwind CSS\n- React Router with scroll-to-top on navigation\n- Optimized build (29KB CSS, 217KB JS gzipped)\n- GitHub Actions CI/CD pipeline\n- SEO optimized with meta tags and schema.org\n- Accessibility compliant (ARIA labels, alt text)\n\n🤖 Generated with Claude Code\nCo-Authored-By: Claude <noreply@anthropic.com>\nEOF\n)\")",
-      "Bash(git commit:*)",
       "Bash(git push:*)",
-      "Bash(cat:*)"
+      "Bash(npm run build:*)",
+      "Bash(git commit -m \"$(cat <<''EOF''\nfeat: Replace hero video with responsive hero images\n\nHero Changes:\n- Replace video background with static responsive images\n- Desktop hero: HeroDeskTop-red.jpg (218KB)\n- Mobile hero: HeroMobile-red.jpg (237KB)\n- Images switch automatically at md breakpoint (768px)\n\nPerformance Benefits:\n- Removed 2.5MB video from initial load\n- Faster page load with optimized hero images\n- Immediate hero display (no video buffering)\n- Better mobile experience with dedicated mobile hero\n\nTechnical Implementation:\n- Desktop: hidden md:block for tablet and up\n- Mobile: block md:hidden for phones\n- loading=\"eager\" for instant hero display\n- Maintained overlay gradients and animations\n\n🤖 Generated with [Claude Code](https://claude.com/claude-code)\n\nCo-Authored-By: Claude <noreply@anthropic.com>\nEOF\n)\")",
+      "Bash(git commit:*)",
+      "Bash(if [ -f .env ])",
+      "Bash(then echo \".env file exists\")",
+      "Bash(else echo \".env file does NOT exist\")",
+      "Bash(fi)",
+      "Bash(npm run dev:*)",
+      "Bash(ffmpeg:*)",
+      "Bash(git checkout:*)",
+      "Bash(npm install)",
+      "Bash(npm run build:gh:*)"
     ],
     "deny": [],
     "ask": []
