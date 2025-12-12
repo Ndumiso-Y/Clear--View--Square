@@ -144,9 +144,9 @@ export default function Home() {
         <div className="absolute inset-0">
           {/* Desktop Hero Image */}
           <picture className="hidden md:block absolute inset-0">
-            <source type="image/webp" srcSet={`${baseUrl}assets/logos/HeroDeskTop-red.webp`} />
+            <source type="image/webp" srcSet={`${baseUrl}assets/hero/HeroDeskTop-red.webp`} />
             <img
-              src={`${baseUrl}assets/logos/HeroDeskTop-red.jpg`}
+              src={`${baseUrl}assets/hero/HeroDeskTop-red.jpg`}
               alt="Clearview Square Shopping Centre"
               width={1600}
               height={900}
@@ -190,7 +190,7 @@ export default function Home() {
             playsInline
             preload="none"
             className="hidden md:block absolute inset-0 w-full h-full object-cover"
-            poster={`${baseUrl}assets/logos/HeroDeskTop-red.webp`}
+            poster={`${baseUrl}assets/hero/HeroDeskTop-red.webp`}
           >
             <source src={`${baseUrl}assets/hero/MovementStar-hq.mp4`} type="video/mp4" />
           </video>
