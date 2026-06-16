@@ -2,8 +2,12 @@
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 
-// https://vitejs.dev/config/
 export default defineConfig({
   plugins: [react()],
-  base: '/Clear--View--Square/',
+  base: process.env.VITE_BASE_PATH || '/',
+  build: {
+    sourcemap: false,
+    outDir: 'dist',
+    emptyOutDir: true
+  }
 })

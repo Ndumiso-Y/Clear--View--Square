@@ -5,9 +5,12 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "vite build --config vite.config.gh.js && cp 404.html dist/404.html",
-    "build:gh": "vite build --config vite.config.gh.js && cp 404.html dist/404.html",
-    "build:cpanel": "vite build --config vite.config.cpanel.js && cp 404.html dist/404.html",
+    "build": "node scripts/build.js",
+    "build:root": "node scripts/build.js --base=/",
+    "build:vercel": "node scripts/build.js --base=/",
+    "build:netlify": "node scripts/build.js --base=/",
+    "build:cpanel": "node scripts/build.js --base=/",
+    "build:gh": "node scripts/build.js --base=/Clear--View--Square/",
     "preview": "vite preview"
   },
   "dependencies": {

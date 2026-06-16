@@ -10,7 +10,9 @@
     "highlightTag": "Now On",
     "image": "/assets/brand/og-image.png",
     "ctaLabel": "Browse Stores",
-    "ctaUrl": "#/stores"
+    "ctaUrl": "#/stores",
+    "status": "published",
+    "isFeatured": true
   },
   {
     "id": "mugg-bean-breakfast-special",
@@ -23,7 +25,9 @@
     "highlightTag": "Now On",
     "image": null,
     "ctaLabel": "Visit Mugg & Bean",
-    "ctaUrl": "#/stores"
+    "ctaUrl": "#/stores",
+    "status": "published",
+    "isFeatured": true
   },
   {
     "id": "new-year-celebration",
@@ -36,7 +40,9 @@
     "highlightTag": "Upcoming",
     "image": "/assets/brand/og-image.png",
     "ctaLabel": "Learn More",
-    "ctaUrl": "#/about"
+    "ctaUrl": "#/about",
+    "status": "published",
+    "isFeatured": false
   },
   {
     "id": "january-fitness-challenge",
@@ -49,6 +55,8 @@
     "highlightTag": "Upcoming",
     "image": null,
     "ctaLabel": "Visit F45",
-    "ctaUrl": "#/stores"
+    "ctaUrl": "#/stores",
+    "status": "published",
+    "isFeatured": false
   }
 ]

@@ -132,7 +132,8 @@ export default function Stores() {
         {filtered.length > 0 ? (
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
             {filtered.map((s, index) => (
-              <div
+              <Link
+                to={`/store/${s.slug || s.id}`}
                 key={s.id}
                 className="card flex flex-col hover:shadow-xl transform hover:-translate-y-1 transition-all duration-300 group cursor-pointer"
                 style={{ animationDelay: `${index * 50}ms` }}
@@ -186,7 +187,7 @@ export default function Stores() {
                     </p>
                   )}
                 </div>
-              </div>
+              </Link>
             ))}
           </div>
         ) : (

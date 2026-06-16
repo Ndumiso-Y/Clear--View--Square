@@ -25,14 +25,15 @@ export default function Promotions() {
   const { nowOn, upcoming } = useMemo(() => {
     const today = new Date()
     today.setHours(0, 0, 0, 0)
+    const publicItems = items.filter(p => p.status === 'published')
 
-    const nowOn = items.filter(p => {
+    const nowOn = publicItems.filter(p => {
       const start = new Date(p.startDate)
       const end = new Date(p.endDate)
       return today >= start && today <= end
     })
 
-    const upcoming = items.filter(p => {
+    const upcoming = publicItems.filter(p => {
       const start = new Date(p.startDate)
       return today < start
     })
