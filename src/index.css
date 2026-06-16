@@ -116,3 +116,14 @@ html {
 ::-webkit-scrollbar-thumb:hover {
   background: theme(colors.brand.mid);
 }
+
+/* Keyboard Navigation Focus Indicator */
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible {
+  outline: 2px solid theme(colors.brand.dark);
+  outline-offset: 2px;
+}
+

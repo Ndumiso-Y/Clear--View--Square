@@ -2,6 +2,7 @@ import { useState, useEffect, useRef } from 'react'
 import WeatherWidget from '../components/WeatherWidget'
 import ChatBot from '../components/ChatBot'
 import PromoPopup from '../components/PromoPopup'
+import SectionHeading from '../components/SectionHeading'
 
 export default function Home() {
   const [scrollY, setScrollY] = useState(0)
@@ -353,17 +354,12 @@ export default function Home() {
 
         <div className="container relative">
           {/* Section Header */}
-          <div className="text-center mb-16">
-            <span className="inline-block px-4 py-2 bg-black/10 rounded-full text-brand-accentStrong font-semibold text-sm mb-4">
-              WHAT WE OFFER
-            </span>
-            <h2 className="text-4xl md:text-5xl font-bold text-brand-dark mb-4">
-              World-Class Amenities
-            </h2>
-            <p className="text-xl text-brand-mid max-w-2xl mx-auto">
-              Everything you need for a comfortable and convenient shopping experience
-            </p>
-          </div>
+          <SectionHeading
+            badge="WHAT WE OFFER"
+            title="World-Class Amenities"
+            subtitle="Everything you need for a comfortable and convenient shopping experience"
+            className="text-center mb-16"
+          />
 
           {/* Features Grid */}
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-8">
@@ -405,17 +401,12 @@ export default function Home() {
       {/* Experience Tiles Section */}
       <section className="relative py-24 md:py-32 bg-gradient-to-b from-brand-bg to-white">
         <div className="container">
-          <div className="text-center mb-16">
-            <span className="inline-block px-4 py-2 bg-black/10 rounded-full text-brand-accentStrong font-semibold text-sm mb-4">
-              EXPLORE BY EXPERIENCE
-            </span>
-            <h2 className="text-4xl md:text-5xl font-bold text-brand-dark mb-4">
-              Find What You're Looking For
-            </h2>
-            <p className="text-xl text-brand-mid max-w-3xl mx-auto">
-              Discover shopping experiences tailored to your needs — in just a few taps
-            </p>
-          </div>
+          <SectionHeading
+            badge="EXPLORE BY EXPERIENCE"
+            title="Find What You're Looking For"
+            subtitle="Discover shopping experiences tailored to your needs — in just a few taps"
+            className="text-center mb-16"
+          />
 
           {/* 3 Experience Tiles Grid */}
           <div className="grid md:grid-cols-3 gap-8">

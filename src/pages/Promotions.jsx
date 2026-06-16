@@ -1,25 +1,17 @@
-import { useEffect, useState, useMemo } from 'react'
-
-function formatDateRange(startDate, endDate) {
-  const start = new Date(startDate)
-  const end = new Date(endDate)
-  const opts = { month: 'short', day: 'numeric', year: 'numeric' }
-
-  if (start.toDateString() === end.toDateString()) {
-    return start.toLocaleDateString('en-US', opts)
-  }
-
-  return `${start.toLocaleDateString('en-US', { month: 'short', day: 'numeric' })} - ${end.toLocaleDateString('en-US', opts)}`
-}
+import React, { useEffect, useState, useMemo } from 'react'
+import PageHero from '../components/PageHero'
+import SectionHeading from '../components/SectionHeading'
+import PromotionCard from '../components/PromotionCard'
+import EmptyState from '../components/EmptyState'
 
 export default function Promotions() {
   const [items, setItems] = useState([])
   const [stores, setStores] = useState([])
   const baseUrl = import.meta.env.BASE_URL
 
-  useEffect(()=> {
-    fetch(`${baseUrl}data/promotions.json`).then(r=>r.json()).then(setItems).catch(()=>setItems([]))
-    fetch(`${baseUrl}data/stores.json`).then(r=>r.json()).then(setStores).catch(()=>setStores([]))
+  useEffect(() => {
+    fetch(`${baseUrl}data/promotions.json`).then(r => r.json()).then(setItems).catch(() => setItems([]))
+    fetch(`${baseUrl}data/stores.json`).then(r => r.json()).then(setStores).catch(() => setStores([]))
   }, [baseUrl])
 
   const { nowOn, upcoming } = useMemo(() => {
@@ -47,138 +39,75 @@ export default function Promotions() {
     return store?.name || 'Store'
   }
 
-  const PromotionCard = ({ promo }) => (
-    <article className="card hover:shadow-xl transition-all duration-300 flex flex-col">
-      {/* Image */}
-      {promo.image && (
-        <div className="mb-4 -mt-6 -mx-6">
-          <img
-            src={`${baseUrl}${promo.image.startsWith('/') ? promo.image.slice(1) : promo.image}`}
-            alt={promo.title}
-            loading="lazy"
-            decoding="async"
-            className="w-full h-48 object-cover rounded-t-xl"
-            onError={(e) => e.currentTarget.style.display = 'none'}
-          />
-        </div>
-      )}
-
-      {/* Type Badge */}
-      <div className="flex items-center gap-2 mb-3">
-        <span className={`text-xs px-3 py-1 rounded-full font-semibold ${
-          promo.type === 'Event'
-            ? 'bg-purple-100 text-purple-700'
-            : 'bg-green-100 text-green-700'
-        }`}>
-          {promo.type}
-        </span>
-        {promo.highlightTag && (
-          <span className="text-xs px-3 py-1 rounded-full font-semibold bg-black/20 text-brand-accentStrong">
-            {promo.highlightTag}
-          </span>
-        )}
-      </div>
-
-      {/* Title */}
-      <h3 className="text-xl font-bold text-brand-dark mb-2">{promo.title}</h3>
-
-      {/* Store Name */}
-      {promo.storeId && (
-        <p className="text-sm text-brand-accentStrong font-semibold mb-2">
-          {getStoreName(promo.storeId)}
-        </p>
-      )}
-
-      {/* Description */}
-      <p className="text-brand-mid mb-4 leading-relaxed flex-1">
-        {promo.description}
-      </p>
-
-      {/* Date Range */}
-      <p className="text-sm text-brand-light mb-4">
-        {formatDateRange(promo.startDate, promo.endDate)}
-      </p>
-
-      {/* CTA */}
-      {promo.ctaLabel && promo.ctaUrl && (
-        <a
-          href={promo.ctaUrl}
-          className="btn w-full text-center"
-        >
-          {promo.ctaLabel}
-        </a>
-      )}
-    </article>
-  )
-
   return (
     <div className="pt-20 md:pt-24 min-h-screen">
-      {/* Hero Section */}
-      <section
-        className="relative h-[50vh] bg-cover bg-top"
-        style={{ backgroundImage: `url(${baseUrl}assets/hero/clearview-hero-promotions-shopping-01.jpg)` }}
-      >
-        <div className="absolute inset-0 bg-gradient-to-b from-black/60 to-black/70"></div>
-        <div className="relative h-full container flex items-center">
-          <div className="max-w-3xl text-white">
-            <h1 className="text-5xl md:text-6xl font-extrabold mb-4">Promotions & Events</h1>
-            <p className="text-xl md:text-2xl text-white/90">
-              Discover the latest deals, special offers, and upcoming events at Clearview Square
-            </p>
-          </div>
-        </div>
-      </section>
+      <PageHero
+        title="Promotions & Events"
+        subtitle="Discover the latest deals, special offers, and upcoming events at Clearview Square"
+        backgroundImage="assets/hero/clearview-hero-promotions-shopping-01.jpg"
+      />
 
       <div className="bg-gradient-to-b from-white to-brand-bg">
-        <div className="container py-12 md:py-16">
+        <div className="container py-12 md:py-16 space-y-16">
 
-        {/* Now On Section */}
-        <section className="mb-12">
-          <div className="flex items-center gap-3 mb-6">
-            <h2 className="text-3xl font-bold text-brand-dark">Now On</h2>
-            <span className="px-3 py-1 bg-green-100 text-green-700 rounded-full text-sm font-semibold">
-              Active
-            </span>
-          </div>
+          {/* Now On Section */}
+          <section aria-labelledby="now-on-heading">
+            <SectionHeading
+              id="now-on-heading"
+              title="Now On"
+              badge="Active"
+              badgeColor="bg-green-100 text-green-700"
+              subtitle="Current promotions and events running at the centre."
+            />
 
-          {nowOn.length > 0 ? (
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {nowOn.map(p => <PromotionCard key={p.id} promo={p} />)}
-            </div>
-          ) : (
-            <div className="text-center py-12 bg-white rounded-xl">
-              <svg className="w-16 h-16 mx-auto text-brand-light mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v13m0-13V6a2 2 0 112 2h-2zm0 0V5.5A2.5 2.5 0 109.5 8H12zm-7 4h14M5 12a2 2 0 110-4h14a2 2 0 110 4M5 12v7a2 2 0 002 2h10a2 2 0 002-2v-7" />
-              </svg>
-              <h3 className="text-xl font-semibold text-brand-dark mb-2">No current promotions</h3>
-              <p className="text-brand-mid">Check back soon for special offers from our stores</p>
-            </div>
-          )}
-        </section>
+            {nowOn.length > 0 ? (
+              <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                {nowOn.map(p => (
+                  <PromotionCard key={p.id} promo={p} storeName={getStoreName(p.storeId)} />
+                ))}
+              </div>
+            ) : (
+              <EmptyState
+                title="No current promotions"
+                description="Check back soon for special offers from our stores."
+                icon={
+                  <svg className="w-16 h-16 mx-auto text-brand-light" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 8v13m0-13V6a2 2 0 112 2h-2zm0 0V5.5A2.5 2.5 0 109.5 8H12zm-7 4h14M5 12a2 2 0 110-4h14a2 2 0 110 4M5 12v7a2 2 0 002 2h10a2 2 0 002-2v-7" />
+                  </svg>
+                }
+              />
+            )}
+          </section>
 
-        {/* Upcoming Section */}
-        <section>
-          <div className="flex items-center gap-3 mb-6">
-            <h2 className="text-3xl font-bold text-brand-dark">Upcoming</h2>
-            <span className="px-3 py-1 bg-blue-100 text-blue-700 rounded-full text-sm font-semibold">
-              Coming Soon
-            </span>
-          </div>
+          {/* Upcoming Section */}
+          <section aria-labelledby="upcoming-heading">
+            <SectionHeading
+              id="upcoming-heading"
+              title="Upcoming"
+              badge="Coming Soon"
+              badgeColor="bg-blue-100 text-blue-700"
+              subtitle="Events and promotions scheduled for the near future."
+            />
 
-          {upcoming.length > 0 ? (
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {upcoming.map(p => <PromotionCard key={p.id} promo={p} />)}
-            </div>
-          ) : (
-            <div className="text-center py-12 bg-white rounded-xl">
-              <svg className="w-16 h-16 mx-auto text-brand-light mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
-              </svg>
-              <h3 className="text-xl font-semibold text-brand-dark mb-2">No upcoming events</h3>
-              <p className="text-brand-mid">Stay tuned for exciting promotions and events</p>
-            </div>
-          )}
-        </section>
+            {upcoming.length > 0 ? (
+              <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                {upcoming.map(p => (
+                  <PromotionCard key={p.id} promo={p} storeName={getStoreName(p.storeId)} />
+                ))}
+              </div>
+            ) : (
+              <EmptyState
+                title="No upcoming events"
+                description="Stay tuned for exciting promotions and events."
+                icon={
+                  <svg className="w-16 h-16 mx-auto text-brand-light" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                  </svg>
+                }
+              />
+            )}
+          </section>
+
         </div>
       </div>
     </div>
