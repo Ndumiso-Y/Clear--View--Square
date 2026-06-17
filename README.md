@@ -15,6 +15,17 @@ Convenience shopping centre website for Clearview Square in Rustenburg, South Af
    npm run dev
    ```
 
+## Data Management
+The website uses flat JSON files located in the `public/data/` directory to manage dynamic tenant catalog and promotions data.
+- **Stores Database**: `public/data/stores.json`
+- **Promotions Feed**: `public/data/promotions.json`
+
+### Data Validation
+Before building or committing changes to the data schemas, run the automated validation suite to ensure integrity:
+```bash
+npm run validate:data
+```
+
 ## Production Builds (Multi-Host Deployment)
 To support different hosting environments and base paths, use the following build scripts:
 
@@ -42,7 +53,6 @@ To support different hosting environments and base paths, use the following buil
 Outputs are compiled into the `dist/` directory.
 
 ## Features
-- Dynamic, data-driven Stores directory (`public/data/stores.json`).
-- Promotions & Events feed (`public/data/promotions.json`).
+- Reusable, standardized components with dynamic data utilities.
 - Fully keyboard and screen-reader accessible forms with POPIA compliance.
 - Interactive Weather Widget and AI Assistant.

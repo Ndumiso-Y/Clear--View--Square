@@ -48,15 +48,17 @@ export default function StoreCard({ store, index }) {
         {/* Category & Tags */}
         <div className="flex flex-wrap gap-1 mb-2">
           <Badge variant="default">{store.category}</Badge>
+          {store.isAnchor && <Badge variant="accent">Anchor</Badge>}
+          {store.status === 'opening_soon' && <Badge variant="blue">Opening Soon</Badge>}
           {store.tags?.map(tag => (
-            <Badge key={tag} variant="accent">{tag}</Badge>
+            <Badge key={tag} variant="default">{tag}</Badge>
           ))}
         </div>
 
         {/* Description */}
-        {store.description && (
+        {(store.shortDescription || store.description) && (
           <p className="text-sm text-brand-mid leading-snug line-clamp-3 mt-auto">
-            {store.description}
+            {store.shortDescription || store.description}
           </p>
         )}
       </div>

@@ -77,9 +77,9 @@ export default function PromotionCard({ promo, storeName }) {
             {formatDateRange(promo.startDate, promo.endDate)}
           </p>
 
-          {promo.ctaLabel && promo.ctaUrl && (
+          {promo.ctaLabel && (promo.ctaHref || promo.ctaUrl) && (
             <a
-              href={promo.ctaUrl}
+              href={promo.ctaHref || promo.ctaUrl}
               className="btn w-full text-center py-2 px-4 text-sm"
             >
               {promo.ctaLabel}

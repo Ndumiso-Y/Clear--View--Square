@@ -3,6 +3,7 @@ import WeatherWidget from '../components/WeatherWidget'
 import ChatBot from '../components/ChatBot'
 import PromoPopup from '../components/PromoPopup'
 import SectionHeading from '../components/SectionHeading'
+import { getPublicStores } from '../utils/storeUtils'
 
 export default function Home() {
   const [scrollY, setScrollY] = useState(0)
@@ -27,7 +28,7 @@ export default function Home() {
     fetch(`${baseUrl}data/stores.json`)
       .then(r => r.json())
       .then(stores => {
-        const visibleStores = stores.filter(s => s.isVisible !== false)
+        const visibleStores = getPublicStores(stores)
         setStoreCount(visibleStores.length)
       })
       .catch(() => setStoreCount(16)) // fallback

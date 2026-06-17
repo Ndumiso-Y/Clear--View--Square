@@ -8,6 +8,7 @@
   },
   "scripts": {
     "dev": "vite",
+    "validate:data": "node scripts/validate-data.js",
     "build": "node scripts/build.js",
     "build:root": "node scripts/build.js --base=/",
     "build:vercel": "node scripts/build.js --base=/",

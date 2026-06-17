@@ -3,27 +3,12 @@ import { useSearchParams } from 'react-router-dom'
 import PageHero from '../components/PageHero'
 import StoreCard from '../components/StoreCard'
 import EmptyState from '../components/EmptyState'
+import { getStoreCategories, filterStores } from '../utils/storeUtils'
 
-const CATEGORIES = [
-  "All",
-  "Anchor",
-  "Food & Drink",
-  "Groceries",
-  "Fashion & Footwear",
-  "Health & Beauty",
-  "Electronics & Tech",
-  "Services",
-  "Fitness & Wellness",
-  "Pets & Specialty",
-  "Financial & ATMs",
-  "Other"
-]
-
-// Map group param to categories
 const GROUP_TO_CATEGORIES = {
-  'food-drink': ['Food & Drink', 'Groceries'],
-  'fashion-lifestyle': ['Fashion & Footwear', 'Health & Beauty'],
-  'services-essentials': ['Services', 'Electronics & Tech', 'Fitness & Wellness', 'Financial & ATMs']
+  'food-drink': ['Food & Drink', 'Grocery & Convenience'],
+  'fashion-lifestyle': ['Fashion & Lifestyle', 'Health, Beauty & Wellness'],
+  'services-essentials': ['Services & Specialty', 'Tech, Gaming & Electronics', 'Fitness', 'Banking & ATMs']
 }
 
 function useStores() {
@@ -52,16 +37,14 @@ export default function Stores() {
     }
   }, [searchParams])
 
-  const filtered = useMemo(() => {
-    return stores.filter(s => {
-      // Filter out stores with isVisible: false
-      if (s.isVisible === false) return false
+  // Extract categories dynamically from store data
+  const categoriesList = useMemo(() => {
+    return ['All', ...getStoreCategories(stores)]
+  }, [stores])
 
-      const matchesQ = (s.name || '').toLowerCase().includes(q.toLowerCase()) ||
-                       (s.description || '').toLowerCase().includes(q.toLowerCase())
-      const matchesCat = cat === "All" ? true : s.category === cat
-      return matchesQ && matchesCat
-    })
+  // Filter stores using utility function
+  const filtered = useMemo(() => {
+    return filterStores(stores, q, cat)
   }, [stores, q, cat])
 
   return (
@@ -92,9 +75,9 @@ export default function Stores() {
                 />
               </div>
 
-              {/* Category Pills */}
+              {/* Dynamic Category Pills */}
               <div className="flex gap-2 flex-wrap flex-1" role="group" aria-label="Filter stores by category">
-                {CATEGORIES.map(c => (
+                {categoriesList.map(c => (
                   <button
                     key={c}
                     className={`pill ${cat === c ? 'pill-active' : ''}`}
@@ -138,7 +121,7 @@ export default function Stores() {
           ) : (
             <EmptyState
               title="No stores matched your search"
-              description="Try a different name or category filter."
+              description="Try a different name, tag, or category filter."
               icon={
                 <svg className="w-16 h-16 mx-auto text-brand-light" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />

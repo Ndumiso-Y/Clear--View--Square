@@ -3,6 +3,7 @@ import PageHero from '../components/PageHero'
 import SectionHeading from '../components/SectionHeading'
 import PromotionCard from '../components/PromotionCard'
 import EmptyState from '../components/EmptyState'
+import { splitPromotionsByDate } from '../utils/promotionUtils'
 
 export default function Promotions() {
   const [items, setItems] = useState([])
@@ -15,22 +16,7 @@ export default function Promotions() {
   }, [baseUrl])
 
   const { nowOn, upcoming } = useMemo(() => {
-    const today = new Date()
-    today.setHours(0, 0, 0, 0)
-    const publicItems = items.filter(p => p.status === 'published')
-
-    const nowOn = publicItems.filter(p => {
-      const start = new Date(p.startDate)
-      const end = new Date(p.endDate)
-      return today >= start && today <= end
-    })
-
-    const upcoming = publicItems.filter(p => {
-      const start = new Date(p.startDate)
-      return today < start
-    })
-
-    return { nowOn, upcoming }
+    return splitPromotionsByDate(items)
   }, [items])
 
   const getStoreName = (storeId) => {
