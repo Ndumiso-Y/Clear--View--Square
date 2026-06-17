@@ -4,6 +4,7 @@ import PageHero from '../components/PageHero'
 import StoreCard from '../components/StoreCard'
 import EmptyState from '../components/EmptyState'
 import { getStoreCategories, filterStores } from '../utils/storeUtils'
+import { useStores } from '../hooks/useStores'
 
 const GROUP_TO_CATEGORIES = {
   'food-drink': ['Food & Drink', 'Grocery & Convenience'],
@@ -11,20 +12,8 @@ const GROUP_TO_CATEGORIES = {
   'services-essentials': ['Services & Specialty', 'Tech, Gaming & Electronics', 'Fitness', 'Banking & ATMs']
 }
 
-function useStores() {
-  const [data, setData] = useState([])
-  useEffect(() => {
-    const baseUrl = import.meta.env.BASE_URL
-    fetch(`${baseUrl}data/stores.json`)
-      .then(r => r.json())
-      .then(setData)
-      .catch(() => setData([]))
-  }, [])
-  return data
-}
-
 export default function Stores() {
-  const stores = useStores()
+  const { stores, loading, error } = useStores()
   const [searchParams] = useSearchParams()
   const [q, setQ] = useState('')
   const [cat, setCat] = useState('All')
@@ -104,21 +93,45 @@ export default function Stores() {
             </div>
           </div>
 
+          {/* Error state — only shown when there is a fetch error and no data loaded */}
+          {error && stores.length === 0 && (
+            <div className="mb-6 p-4 rounded-xl bg-red-50 border border-red-100 text-red-700 text-sm">
+              Store information could not be loaded at this time. Please try refreshing the page.
+            </div>
+          )}
+
           {/* Results Count */}
-          <div className="mb-6">
-            <p className="text-brand-mid font-medium">
-              Showing <span className="text-brand-dark font-bold">{filtered.length}</span> {filtered.length === 1 ? 'store' : 'stores'}
-            </p>
-          </div>
+          {!loading && (
+            <div className="mb-6">
+              <p className="text-brand-mid font-medium">
+                Showing <span className="text-brand-dark font-bold">{filtered.length}</span> {filtered.length === 1 ? 'store' : 'stores'}
+              </p>
+            </div>
+          )}
+
+          {/* Loading skeleton */}
+          {loading && (
+            <div className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+              {Array.from({ length: 8 }).map((_, i) => (
+                <div key={i} className="card border border-black/5 animate-pulse">
+                  <div className="h-24 bg-black/5 rounded-xl mb-4" />
+                  <div className="h-4 bg-black/5 rounded w-3/4 mb-2" />
+                  <div className="h-3 bg-black/5 rounded w-1/2" />
+                </div>
+              ))}
+            </div>
+          )}
 
           {/* GRID */}
-          {filtered.length > 0 ? (
+          {!loading && filtered.length > 0 && (
             <div className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
               {filtered.map((s, index) => (
                 <StoreCard key={s.id} store={s} index={index} />
               ))}
             </div>
-          ) : (
+          )}
+
+          {!loading && filtered.length === 0 && !error && (
             <EmptyState
               title="No stores matched your search"
               description="Try a different name, tag, or category filter."

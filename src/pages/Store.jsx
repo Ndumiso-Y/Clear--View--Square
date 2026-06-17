@@ -1,8 +1,7 @@
-import React, { useEffect, useState } from 'react'
 import { useParams, Link } from 'react-router-dom'
 import Badge from '../components/Badge'
 import SectionHeading from '../components/SectionHeading'
-import { getStoreBySlug } from '../utils/storeUtils'
+import { useStore } from '../hooks/useStore'
 
 const DAY_LABELS = {
   monday: 'Monday',
@@ -17,29 +16,8 @@ const DAY_LABELS = {
 
 export default function Store() {
   const { slug } = useParams()
-  const [store, setStore] = useState(null)
-  const [loading, setLoading] = useState(true)
+  const { store, loading } = useStore(slug)
   const baseUrl = import.meta.env.BASE_URL
-
-  useEffect(() => {
-    setLoading(true)
-    fetch(`${baseUrl}data/stores.json`)
-      .then(r => r.json())
-      .then(list => {
-        const found = getStoreBySlug(list, slug)
-        // Block public access to hidden or non-visible stores
-        if (found && found.isVisible !== false && found.status !== 'hidden') {
-          setStore(found)
-        } else {
-          setStore(null)
-        }
-        setLoading(false)
-      })
-      .catch(() => {
-        setStore(null)
-        setLoading(false)
-      })
-  }, [slug, baseUrl])
 
   if (loading) {
     return (
@@ -65,8 +43,16 @@ export default function Store() {
     )
   }
 
-  const logoPath = store.logo ? `${baseUrl}${store.logo.startsWith('/') ? store.logo.slice(1) : store.logo}` : null
-  const imagePath = store.image ? `${baseUrl}${store.image.startsWith('/') ? store.image.slice(1) : store.image}` : null
+  // logo and image are either a Supabase Storage URL (Phase 4F+) or a local asset path.
+  // Local paths need the base URL prefix; full URLs (starting with http) are used as-is.
+  const resolveAsset = (path) => {
+    if (!path) return null
+    if (path.startsWith('http')) return path
+    return `${baseUrl}${path.startsWith('/') ? path.slice(1) : path}`
+  }
+
+  const logoPath = resolveAsset(store.logo)
+  const imagePath = resolveAsset(store.image)
   const websiteUrl = store.website
 
   return (

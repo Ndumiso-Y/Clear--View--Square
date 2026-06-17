@@ -1,29 +1,19 @@
-import React, { useEffect, useState, useMemo } from 'react'
+import { useMemo } from 'react'
 import PageHero from '../components/PageHero'
 import SectionHeading from '../components/SectionHeading'
 import PromotionCard from '../components/PromotionCard'
 import EmptyState from '../components/EmptyState'
 import { splitPromotionsByDate } from '../utils/promotionUtils'
+import { usePromotions } from '../hooks/usePromotions'
 
 export default function Promotions() {
-  const [items, setItems] = useState([])
-  const [stores, setStores] = useState([])
-  const baseUrl = import.meta.env.BASE_URL
+  const { promotions, loading, error } = usePromotions()
 
-  useEffect(() => {
-    fetch(`${baseUrl}data/promotions.json`).then(r => r.json()).then(setItems).catch(() => setItems([]))
-    fetch(`${baseUrl}data/stores.json`).then(r => r.json()).then(setStores).catch(() => setStores([]))
-  }, [baseUrl])
-
+  // storeName is embedded in each promotion object (from Supabase join or JSON field).
+  // splitPromotionsByDate handles the published-only filter and date grouping.
   const { nowOn, upcoming } = useMemo(() => {
-    return splitPromotionsByDate(items)
-  }, [items])
-
-  const getStoreName = (storeId) => {
-    if (!storeId) return null
-    const store = stores.find(s => s.id === storeId)
-    return store?.name || 'Store'
-  }
+    return splitPromotionsByDate(promotions)
+  }, [promotions])
 
   return (
     <div className="pt-20 md:pt-24 min-h-screen">
@@ -36,6 +26,13 @@ export default function Promotions() {
       <div className="bg-gradient-to-b from-white to-brand-bg">
         <div className="container py-12 md:py-16 space-y-16">
 
+          {/* Error state */}
+          {error && promotions.length === 0 && (
+            <div className="p-4 rounded-xl bg-red-50 border border-red-100 text-red-700 text-sm">
+              Promotions could not be loaded at this time. Please try refreshing the page.
+            </div>
+          )}
+
           {/* Now On Section */}
           <section aria-labelledby="now-on-heading">
             <SectionHeading
@@ -46,10 +43,20 @@ export default function Promotions() {
               subtitle="Current promotions and events running at the centre."
             />
 
-            {nowOn.length > 0 ? (
+            {loading ? (
+              <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                {Array.from({ length: 3 }).map((_, i) => (
+                  <div key={i} className="card border border-black/5 animate-pulse">
+                    <div className="h-48 bg-black/5 rounded-xl mb-4" />
+                    <div className="h-4 bg-black/5 rounded w-3/4 mb-2" />
+                    <div className="h-3 bg-black/5 rounded w-1/2" />
+                  </div>
+                ))}
+              </div>
+            ) : nowOn.length > 0 ? (
               <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
                 {nowOn.map(p => (
-                  <PromotionCard key={p.id} promo={p} storeName={getStoreName(p.storeId)} />
+                  <PromotionCard key={p.id} promo={p} storeName={p.storeName || null} />
                 ))}
               </div>
             ) : (
@@ -75,10 +82,20 @@ export default function Promotions() {
               subtitle="Events and promotions scheduled for the near future."
             />
 
-            {upcoming.length > 0 ? (
+            {loading ? (
+              <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                {Array.from({ length: 2 }).map((_, i) => (
+                  <div key={i} className="card border border-black/5 animate-pulse">
+                    <div className="h-48 bg-black/5 rounded-xl mb-4" />
+                    <div className="h-4 bg-black/5 rounded w-3/4 mb-2" />
+                    <div className="h-3 bg-black/5 rounded w-1/2" />
+                  </div>
+                ))}
+              </div>
+            ) : upcoming.length > 0 ? (
               <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
                 {upcoming.map(p => (
-                  <PromotionCard key={p.id} promo={p} storeName={getStoreName(p.storeId)} />
+                  <PromotionCard key={p.id} promo={p} storeName={p.storeName || null} />
                 ))}
               </div>
             ) : (

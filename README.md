@@ -52,25 +52,39 @@ To support different hosting environments and base paths, use the following buil
 
 Outputs are compiled into the `dist/` directory.
 
-## Supabase CMS Preparation
+## Supabase Integration (Phase 4B)
 
-Supabase schema, RLS policies, and storage policies are planned in the `/supabase` directory. They have not yet been applied to a live Supabase project.
+Public pages (Stores, Store detail, Promotions) read live data from Supabase when environment variables are configured. If `VITE_SUPABASE_URL` or `VITE_SUPABASE_ANON_KEY` are absent, the site falls back to the local JSON files automatically — no code change required.
 
-- `/supabase/schema.sql` — table definitions (profiles, stores, trading_hours, promotions, centre_settings)
-- `/supabase/rls-policies.sql` — row level security policies for all tables
-- `/supabase/storage-policies.sql` — storage bucket policies (store-assets, promotion-assets, centre-assets)
-- `/supabase/seed-notes.md` — migration and seed strategy from JSON to Supabase
-
-**Preferred production host for CMS/admin:** Vercel (supports server-side env var injection and Supabase auth redirects).
-**GitHub Pages** remains supported for public/static builds only.
-
-Required frontend environment variables (add to `.env`, never commit):
+### Required frontend environment variables
+Add to `.env` (gitignored — never commit real values):
 ```
 VITE_SUPABASE_URL=
 VITE_SUPABASE_ANON_KEY=
 ```
 
-The Supabase service role key (`SUPABASE_SERVICE_ROLE_KEY`) is used only for local seed scripts. It must never appear in any `VITE_`-prefixed variable or in any file under `src/`.
+### Seeding Supabase from JSON
+Run once after applying `supabase/schema.sql` and `supabase/rls-policies.sql` to a new project:
+```bash
+npm run seed:supabase
+```
+Requires `SUPABASE_SERVICE_ROLE_KEY` in `.env`. The service role key must **never** be prefixed with `VITE_` and must **never** appear in any `src/` file.
+
+### Verifying the seed
+```bash
+npm run verify:supabase
+```
+Checks public store count (29), hidden store exclusion, promotion count, and that anonymous writes are rejected.
+
+### Supabase SQL files
+SQL foundation files are in `/supabase/`:
+- `schema.sql` — table definitions
+- `rls-policies.sql` — row level security policies
+- `storage-policies.sql` — storage bucket policies
+- `seed-notes.md` — migration strategy and field mapping reference
+
+**Preferred production host for CMS/admin:** Vercel.
+**GitHub Pages** remains supported for public/static builds only.
 
 ## Features
 - Reusable, standardized components with dynamic data utilities.
