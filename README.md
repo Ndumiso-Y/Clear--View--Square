@@ -52,6 +52,26 @@ To support different hosting environments and base paths, use the following buil
 
 Outputs are compiled into the `dist/` directory.
 
+## Supabase CMS Preparation
+
+Supabase schema, RLS policies, and storage policies are planned in the `/supabase` directory. They have not yet been applied to a live Supabase project.
+
+- `/supabase/schema.sql` — table definitions (profiles, stores, trading_hours, promotions, centre_settings)
+- `/supabase/rls-policies.sql` — row level security policies for all tables
+- `/supabase/storage-policies.sql` — storage bucket policies (store-assets, promotion-assets, centre-assets)
+- `/supabase/seed-notes.md` — migration and seed strategy from JSON to Supabase
+
+**Preferred production host for CMS/admin:** Vercel (supports server-side env var injection and Supabase auth redirects).
+**GitHub Pages** remains supported for public/static builds only.
+
+Required frontend environment variables (add to `.env`, never commit):
+```
+VITE_SUPABASE_URL=
+VITE_SUPABASE_ANON_KEY=
+```
+
+The Supabase service role key (`SUPABASE_SERVICE_ROLE_KEY`) is used only for local seed scripts. It must never appear in any `VITE_`-prefixed variable or in any file under `src/`.
+
 ## Features
 - Reusable, standardized components with dynamic data utilities.
 - Fully keyboard and screen-reader accessible forms with POPIA compliance.
