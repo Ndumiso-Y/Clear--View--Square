@@ -4,7 +4,7 @@ import { useAuth } from '../../hooks/useAuth.js'
 const NAV_ITEMS = [
   { label: 'Dashboard', to: '/admin/dashboard', enabled: true },
   { label: 'Stores',    to: '/admin/stores',    enabled: true },
-  { label: 'Promotions',to: null,               enabled: false },
+  { label: 'Promotions',to: '/admin/promotions',enabled: true },
   { label: 'Settings',  to: null,               enabled: false },
 ]
 

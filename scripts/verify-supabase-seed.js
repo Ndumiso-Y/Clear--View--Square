@@ -72,6 +72,7 @@ async function verify() {
     const cmsTestVisible = publicStores.some(s => s.slug === 'cms-test-store')
     check('CMS Test Store (cms-test-store) not visible to anon', !cmsTestVisible)
 
+
     const allPublicStatus = publicStores.every(s =>
       s.is_visible === true && ['published', 'opening_soon'].includes(s.status)
     )
@@ -86,6 +87,9 @@ async function verify() {
     check('Public promotions count', publicPromos.length >= 4, `got ${publicPromos.length}, expected ≥ 4`)
     const allPublished = publicPromos.every(p => p.status === 'published')
     check('All public promotions are published', allPublished)
+
+    const cmsPromoVisible = publicPromos.some(p => p.slug === 'cms-test-promotion')
+    check('CMS Test Promotion not visible to anon', !cmsPromoVisible)
   }
 
   // -------------------------------------------------------------------------
@@ -103,6 +107,22 @@ async function verify() {
     check('cms-test-store is_visible is false', cmsStore.is_visible === false, `got ${cmsStore.is_visible}`)
   } else {
     console.log('  ⓘ cms-test-store not present — skipped (optional)')
+  }
+
+  // -------------------------------------------------------------------------
+  // CMS Test Promotion integrity (optional — only if it exists)
+  // -------------------------------------------------------------------------
+  console.log('\nCMS Test Promotion integrity (optional):')
+
+  const { data: cmsPromo } = await svcClient
+    .from('promotions')
+    .select('slug, status')
+    .eq('slug', 'cms-test-promotion')
+    .maybeSingle()
+  if (cmsPromo) {
+    check('cms-test-promotion status is draft', cmsPromo.status === 'draft', `got ${cmsPromo.status}`)
+  } else {
+    console.log('  ⓘ cms-test-promotion not present — skipped (optional)')
   }
 
   // -------------------------------------------------------------------------
