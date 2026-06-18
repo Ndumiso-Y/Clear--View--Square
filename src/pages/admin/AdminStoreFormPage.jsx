@@ -3,6 +3,7 @@ import { useParams, useNavigate, Link } from 'react-router-dom'
 import { useAdminStore } from '../../hooks/useAdminStore.js'
 import { createAdminStore, updateAdminStore } from '../../services/adminStoreService.js'
 import TradingHoursEditor from '../../components/admin/TradingHoursEditor.jsx'
+import ImageUploadField from '../../components/admin/ImageUploadField.jsx'
 import {
   STORE_STATUSES,
   STATUS_LABELS,
@@ -444,34 +445,27 @@ export default function AdminStoreFormPage() {
           </div>
         </FormSection>
 
-        {/* Media Placeholders */}
+        {/* Media */}
         <FormSection title="Media">
-          <p className="text-xs text-gray-500 bg-gray-50 rounded-lg px-3 py-2">
-            Image uploads will be handled in a later phase. For now, keep existing paths or leave blank.
-          </p>
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            <Field label="Logo URL" htmlFor="logoUrl" hint="Supabase Storage URL or leave blank.">
-              <input
-                id="logoUrl"
-                type="text"
-                value={form.logoUrl}
-                onChange={e => set('logoUrl', e.target.value)}
-                disabled={saving}
-                placeholder="https://…"
-                className={INPUT}
-              />
-            </Field>
-            <Field label="Hero Image URL" htmlFor="imageUrl" hint="Supabase Storage URL or leave blank.">
-              <input
-                id="imageUrl"
-                type="text"
-                value={form.imageUrl}
-                onChange={e => set('imageUrl', e.target.value)}
-                disabled={saving}
-                placeholder="https://…"
-                className={INPUT}
-              />
-            </Field>
+          <div className="grid grid-cols-1 gap-6">
+            <ImageUploadField
+              label="Logo"
+              value={form.logoUrl}
+              onChange={url => set('logoUrl', url)}
+              uploadType="store-logo"
+              entitySlug={form.slug}
+              disabled={saving}
+              helperText="Store logo shown in store cards. Accepted formats: JPG, PNG, WebP, SVG. Maximum size: 2 MB."
+            />
+            <ImageUploadField
+              label="Hero Image"
+              value={form.imageUrl}
+              onChange={url => set('imageUrl', url)}
+              uploadType="store-image"
+              entitySlug={form.slug}
+              disabled={saving}
+              helperText="Main image shown on the store detail page. Accepted formats: JPG, PNG, WebP, SVG. Maximum size: 2 MB."
+            />
           </div>
         </FormSection>
 

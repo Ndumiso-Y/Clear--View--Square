@@ -3,6 +3,7 @@ import { useParams, useNavigate, Link } from 'react-router-dom'
 import { useAdminPromotion } from '../../hooks/useAdminPromotion.js'
 import { fetchAdminStores } from '../../services/adminStoreService.js'
 import { createAdminPromotion, updateAdminPromotion } from '../../services/adminPromotionService.js'
+import ImageUploadField from '../../components/admin/ImageUploadField.jsx'
 import {
   PROMOTION_STATUSES,
   PROMOTION_TYPES,
@@ -427,22 +428,17 @@ export default function AdminPromotionFormPage() {
           </div>
         </FormSection>
 
-        {/* Media Placeholder */}
+        {/* Media */}
         <FormSection title="Media">
-          <p className="text-xs text-gray-500 bg-gray-50 rounded-lg px-3 py-2">
-            Image uploads will be handled in a later phase. For now, keep existing paths or leave blank.
-          </p>
-          <Field label="Image URL / Path" htmlFor="imageUrl" hint="Supabase Storage path, local path or leave blank.">
-            <input
-              id="imageUrl"
-              type="text"
-              value={form.imageUrl}
-              onChange={e => set('imageUrl', e.target.value)}
-              disabled={saving}
-              placeholder="assets/..."
-              className={INPUT}
-            />
-          </Field>
+          <ImageUploadField
+            label="Promotion Image"
+            value={form.imageUrl}
+            onChange={url => set('imageUrl', url)}
+            uploadType="promotion-image"
+            entitySlug={form.slug}
+            disabled={saving}
+            helperText="Banner image shown on the promotions list. Accepted formats: JPG, PNG, WebP, SVG. Maximum size: 2 MB."
+          />
         </FormSection>
 
         {/* Form actions */}

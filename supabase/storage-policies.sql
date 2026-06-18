@@ -26,9 +26,10 @@
 --   store-assets/{store-slug}/logo/      e.g. store-assets/checkers/logo/logo.webp
 --   store-assets/{store-slug}/photo/     e.g. store-assets/checkers/photo/hero.webp
 --
--- Allowed MIME types: image/webp, image/jpeg, image/png
--- Maximum file size: 2 MB (enforced in admin UI upload component)
--- Disallowed:  application/pdf, image/svg+xml
+-- Allowed MIME types: image/webp, image/jpeg, image/png, image/svg+xml
+-- Maximum file size: 2 MB (controlled by frontend validation)
+-- Disallowed:  application/pdf
+-- Note: Storage policies rely on active admin/editor authentication for all writes.
 --
 -- NOTE: Two existing stores have PDF logo paths in the JSON data:
 --   - man-cave-barber: assets/logos/MANCAVE LOGO.pdf
@@ -77,10 +78,10 @@ create policy "store_assets_admin_delete"
 --
 -- Folder convention:
 --   promotion-assets/{promotion-slug}/   e.g. promotion-assets/festive-season-sale/banner.webp
---
--- Allowed MIME types: image/webp, image/jpeg, image/png
--- Maximum file size: 2 MB (enforced in admin UI upload component)
--- Disallowed: application/pdf, image/svg+xml
+-- Allowed MIME types: image/webp, image/jpeg, image/png, image/svg+xml
+-- Maximum file size: 2 MB (controlled by frontend validation)
+-- Disallowed: application/pdf
+-- Note: Storage policies rely on active admin/editor authentication for all writes.
 -- =============================================================================
 
 create policy "promotion_assets_public_read"
