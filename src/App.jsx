@@ -14,6 +14,8 @@ import ProtectedRoute from './components/admin/ProtectedRoute.jsx'
 import AdminLayout from './components/admin/AdminLayout.jsx'
 import AdminLoginPage from './pages/admin/AdminLoginPage.jsx'
 import AdminDashboardPage from './pages/admin/AdminDashboardPage.jsx'
+import AdminStoresPage from './pages/admin/AdminStoresPage.jsx'
+import AdminStoreFormPage from './pages/admin/AdminStoreFormPage.jsx'
 
 function ScrollToTop() {
   const { pathname } = useLocation()
@@ -65,6 +67,9 @@ export default function App() {
         >
           <Route index element={<Navigate to="/admin/dashboard" replace />} />
           <Route path="dashboard" element={<AdminDashboardPage />} />
+          <Route path="stores" element={<AdminStoresPage />} />
+          <Route path="stores/new" element={<AdminStoreFormPage />} />
+          <Route path="stores/:slug/edit" element={<AdminStoreFormPage />} />
         </Route>
       </Routes>
     </AuthProvider>

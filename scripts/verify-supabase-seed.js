@@ -27,11 +27,10 @@ async function verify() {
   let passed = 0
   let failed = 0
 
-  function check(label, actual, expected, note) {
-    const ok = expected !== undefined ? actual === expected : actual
+  function check(label, ok, detail, note) {
     const icon = ok ? '✓' : '✗'
-    const detail = expected !== undefined ? `(got ${actual}, expected ${expected})` : `(got ${actual})`
-    console.log(`  ${icon} ${label} ${ok ? '' : detail}${note ? ' — ' + note : ''}`)
+    const info = detail && !ok ? ` (${detail})` : ''
+    console.log(`  ${icon} ${label}${info}${note ? ' — ' + note : ''}`)
     ok ? passed++ : failed++
   }
 
@@ -43,17 +42,17 @@ async function verify() {
   const { count: totalStores } = await svcClient
     .from('stores')
     .select('*', { count: 'exact', head: true })
-  check('Total stores in DB', totalStores, 30)
+  check('Total stores in DB', totalStores >= 30, `got ${totalStores}, expected ≥ 30`, 'seed baseline + any CMS stores')
 
   const { count: totalHours } = await svcClient
     .from('trading_hours')
     .select('*', { count: 'exact', head: true })
-  check('Total trading_hours rows', totalHours, 240, '30 stores × 8 days')
+  check('Total trading_hours rows', totalHours >= 240, `got ${totalHours}, expected ≥ 240`, 'seed baseline × 8 days')
 
   const { count: totalPromos } = await svcClient
     .from('promotions')
     .select('*', { count: 'exact', head: true })
-  check('Total promotions in DB', totalPromos, 4)
+  check('Total promotions in DB', totalPromos >= 4, `got ${totalPromos}, expected ≥ 4`)
 
   // -------------------------------------------------------------------------
   // Public read via anon key (tests RLS)
@@ -65,15 +64,18 @@ async function verify() {
     .select('id, slug, name, status, is_visible')
   if (storeErr) { console.error('  ERROR fetching stores:', storeErr.message); failed++; }
   else {
-    check('Public stores count', publicStores.length, 29, 'hidden store excluded')
+    check('Public stores count', publicStores.length >= 29, `got ${publicStores.length}, expected ≥ 29`, 'hidden/draft stores excluded')
 
     const hiddenVisible = publicStores.some(s => s.slug === 'milky-lane-storage')
-    check('Hidden store (milky-lane-storage) not visible to anon', !hiddenVisible, true)
+    check('Hidden store (milky-lane-storage) not visible to anon', !hiddenVisible)
+
+    const cmsTestVisible = publicStores.some(s => s.slug === 'cms-test-store')
+    check('CMS Test Store (cms-test-store) not visible to anon', !cmsTestVisible)
 
     const allPublicStatus = publicStores.every(s =>
       s.is_visible === true && ['published', 'opening_soon'].includes(s.status)
     )
-    check('All public stores have valid status + is_visible', allPublicStatus, true)
+    check('All public stores have valid status + is_visible', allPublicStatus)
   }
 
   const { data: publicPromos, error: promoErr } = await anonClient
@@ -81,9 +83,26 @@ async function verify() {
     .select('id, slug, status')
   if (promoErr) { console.error('  ERROR fetching promotions:', promoErr.message); failed++; }
   else {
-    check('Public promotions count', publicPromos.length, 4)
+    check('Public promotions count', publicPromos.length >= 4, `got ${publicPromos.length}, expected ≥ 4`)
     const allPublished = publicPromos.every(p => p.status === 'published')
-    check('All public promotions are published', allPublished, true)
+    check('All public promotions are published', allPublished)
+  }
+
+  // -------------------------------------------------------------------------
+  // CMS Test Store integrity (optional — only if it exists)
+  // -------------------------------------------------------------------------
+  console.log('\nCMS Test Store integrity (optional):')
+
+  const { data: cmsStore } = await svcClient
+    .from('stores')
+    .select('slug, status, is_visible')
+    .eq('slug', 'cms-test-store')
+    .maybeSingle()
+  if (cmsStore) {
+    check('cms-test-store status is draft', cmsStore.status === 'draft', `got ${cmsStore.status}`)
+    check('cms-test-store is_visible is false', cmsStore.is_visible === false, `got ${cmsStore.is_visible}`)
+  } else {
+    console.log('  ⓘ cms-test-store not present — skipped (optional)')
   }
 
   // -------------------------------------------------------------------------
@@ -94,7 +113,7 @@ async function verify() {
   const { error: insertErr } = await anonClient
     .from('stores')
     .insert({ slug: 'rls-test', name: 'RLS Test', category: 'Test', status: 'published' })
-  check('Anon insert stores blocked', !!insertErr, true, insertErr?.code || '')
+  check('Anon insert stores blocked', !!insertErr, null, insertErr?.code || '')
 
   // Supabase returns no error on DELETE when RLS silently filters all rows —
   // nothing is deleted, but PostgREST reports success with 0 rows affected.
@@ -105,7 +124,7 @@ async function verify() {
     .eq('slug', 'checkers')
     .select('id')
   const deleteBlocked = !!deleteErr || (Array.isArray(deletedRows) && deletedRows.length === 0)
-  check('Anon delete stores blocked', deleteBlocked, true, deleteErr?.code || '0 rows deleted')
+  check('Anon delete stores blocked', deleteBlocked, null, deleteErr?.code || '0 rows deleted')
 
   // -------------------------------------------------------------------------
   // Result
