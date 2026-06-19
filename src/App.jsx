@@ -18,6 +18,7 @@ import AdminStoresPage from './pages/admin/AdminStoresPage.jsx'
 import AdminStoreFormPage from './pages/admin/AdminStoreFormPage.jsx'
 import AdminPromotionsPage from './pages/admin/AdminPromotionsPage.jsx'
 import AdminPromotionFormPage from './pages/admin/AdminPromotionFormPage.jsx'
+import AdminSettingsPage from './pages/admin/AdminSettingsPage.jsx'
 
 function ScrollToTop() {
   const { pathname } = useLocation()
@@ -75,6 +76,7 @@ export default function App() {
           <Route path="promotions" element={<AdminPromotionsPage />} />
           <Route path="promotions/new" element={<AdminPromotionFormPage />} />
           <Route path="promotions/:slug/edit" element={<AdminPromotionFormPage />} />
+          <Route path="settings" element={<AdminSettingsPage />} />
         </Route>
       </Routes>
     </AuthProvider>

@@ -4,6 +4,7 @@ import ChatBot from '../components/ChatBot'
 import PromoPopup from '../components/PromoPopup'
 import SectionHeading from '../components/SectionHeading'
 import { getPublicStores } from '../utils/storeUtils'
+import { useCentreSettings } from '../hooks/useCentreSettings.js'
 
 export default function Home() {
   const [scrollY, setScrollY] = useState(0)
@@ -16,6 +17,7 @@ export default function Home() {
   const statsRef = useRef(null)
   const mobileVideoRef = useRef(null)
   const baseUrl = import.meta.env.BASE_URL
+  const { settings } = useCentreSettings()
 
   useEffect(() => {
     const handleScroll = () => setScrollY(window.scrollY)
@@ -140,6 +142,20 @@ export default function Home() {
 
   return (
     <div className="overflow-hidden">
+      {/* Centre Announcement Banner */}
+      {settings.announcement.enabled && settings.announcement.title && (
+        <div className="bg-brand-dark text-white text-center px-4 py-3">
+          <p className="text-sm font-medium">
+            <strong>{settings.announcement.title}</strong>
+            {settings.announcement.body && <span> — {settings.announcement.body}</span>}
+            {settings.announcement.ctaLabel && settings.announcement.ctaHref && (
+              <a href={settings.announcement.ctaHref} className="ml-3 underline hover:no-underline font-semibold">
+                {settings.announcement.ctaLabel}
+              </a>
+            )}
+          </p>
+        </div>
+      )}
       {/* Enhanced Hero Section with Responsive Images */}
       <section className="relative h-screen">
         {/* Background Video with Image Fallback */}

@@ -1,13 +1,32 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 import PageHero from '../components/PageHero'
 import SectionHeading from '../components/SectionHeading'
 import FormField from '../components/FormField'
+import { useCentreSettings } from '../hooks/useCentreSettings.js'
+
+function getHoursDisplay(tradingHours) {
+  const weekdays = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday']
+  const wdHours = weekdays.map(d => tradingHours[d]).filter(Boolean)
+  const allSame = wdHours.length > 0 && wdHours.every(h => h === wdHours[0])
+  const lines = []
+  if (allSame) {
+    lines.push(`Monday – Friday: ${wdHours[0]}`)
+  } else {
+    const labels = { monday: 'Monday', tuesday: 'Tuesday', wednesday: 'Wednesday', thursday: 'Thursday', friday: 'Friday' }
+    weekdays.forEach(d => { if (tradingHours[d]) lines.push(`${labels[d]}: ${tradingHours[d]}`) })
+  }
+  if (tradingHours.saturday) lines.push(`Saturday: ${tradingHours.saturday}`)
+  if (tradingHours.sunday)   lines.push(`Sunday: ${tradingHours.sunday}`)
+  if (tradingHours.publicHolidayNote) lines.push(`Public Holidays: ${tradingHours.publicHolidayNote}`)
+  return lines
+}
 
 export default function Contact() {
   const endpoint = import.meta.env.VITE_FORM_ENDPOINT
   const baseUrl = import.meta.env.BASE_URL
   const [formSuccess, setFormSuccess] = useState(false)
   const [tenantFormSuccess, setTenantFormSuccess] = useState(false)
+  const { settings } = useCentreSettings()
 
   const handleSubmit = (e) => {
     e.preventDefault()
@@ -16,7 +35,7 @@ export default function Contact() {
       fetch(endpoint, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(data) })
       setFormSuccess(true)
     } else {
-      const mailtoLink = `mailto:clearviewsquare@gmail.com?subject=General Enquiry&body=Name: ${encodeURIComponent(data.name)}%0D%0AContact: ${encodeURIComponent(data.contact)}%0D%0A%0D%0AMessage:%0D%0A${encodeURIComponent(data.message)}`
+      const mailtoLink = `mailto:${settings.contact.email}?subject=General Enquiry&body=Name: ${encodeURIComponent(data.name)}%0D%0AContact: ${encodeURIComponent(data.contact)}%0D%0A%0D%0AMessage:%0D%0A${encodeURIComponent(data.message)}`
       window.location.href = mailtoLink
     }
   }
@@ -24,8 +43,10 @@ export default function Contact() {
   const handleTenantSubmit = (e) => {
     e.preventDefault()
     const data = Object.fromEntries(new FormData(e.currentTarget).entries())
-
-    const mailtoLink = `mailto:clearviewsquare@gmail.com,imobileera@gmail.com?subject=Tenant Application - ${encodeURIComponent(data.businessName)}&body=TENANT APPLICATION%0D%0A%0D%0AFull Name: ${encodeURIComponent(data.fullName)}%0D%0ABusiness Name: ${encodeURIComponent(data.businessName)}%0D%0AEmail: ${encodeURIComponent(data.email)}%0D%0APhone: ${encodeURIComponent(data.phone)}%0D%0ABusiness Category: ${encodeURIComponent(data.category)}%0D%0ASpace Requirements: ${encodeURIComponent(data.spaceRequirements)}%0D%0APreferred Start Date: ${encodeURIComponent(data.startDate)}%0D%0A%0D%0AAdditional Information:%0D%0A${encodeURIComponent(data.additionalInfo)}`
+    const leasingEmail = settings.leasing.email && settings.leasing.email !== settings.contact.email
+      ? `,${settings.leasing.email}`
+      : ''
+    const mailtoLink = `mailto:${settings.contact.email}${leasingEmail}?subject=Tenant Application - ${encodeURIComponent(data.businessName)}&body=TENANT APPLICATION%0D%0A%0D%0AFull Name: ${encodeURIComponent(data.fullName)}%0D%0ABusiness Name: ${encodeURIComponent(data.businessName)}%0D%0AEmail: ${encodeURIComponent(data.email)}%0D%0APhone: ${encodeURIComponent(data.phone)}%0D%0ABusiness Category: ${encodeURIComponent(data.category)}%0D%0ASpace Requirements: ${encodeURIComponent(data.spaceRequirements)}%0D%0APreferred Start Date: ${encodeURIComponent(data.startDate)}%0D%0A%0D%0AAdditional Information:%0D%0A${encodeURIComponent(data.additionalInfo)}`
 
     window.location.href = mailtoLink
     setTenantFormSuccess(true)
@@ -70,8 +91,7 @@ export default function Contact() {
                 </div>
                 <div>
                   <h3 className="font-semibold text-brand-dark mb-1">Address</h3>
-                  <p className="text-brand-mid">166 Kock Street, Rustenburg, 0299</p>
-                  <p className="text-brand-light text-sm mt-1">(Clearview Square, next to Kenny G's, across Engen Garage)</p>
+                  <p className="text-brand-mid">{settings.contact.address}</p>
                 </div>
               </div>
 
@@ -84,9 +104,9 @@ export default function Contact() {
                 <div>
                   <h3 className="font-semibold text-brand-dark mb-1">Trading Hours</h3>
                   <div className="text-brand-mid space-y-1">
-                    <p>Monday – Friday: 08:00 – 20:00</p>
-                    <p>Saturday: 08:00 – 15:00</p>
-                    <p>Sunday & Public Holidays: 08:00 – 15:00</p>
+                    {getHoursDisplay(settings.tradingHours).map((line, i) => (
+                      <p key={i}>{line}</p>
+                    ))}
                     <p className="text-brand-light text-sm mt-2">*Individual store hours may vary</p>
                   </div>
                 </div>
@@ -100,9 +120,7 @@ export default function Contact() {
                 </div>
                 <div>
                   <h3 className="font-semibold text-brand-dark mb-1">Phone</h3>
-                  <p className="text-brand-mid">
-                    <a href="tel:0713632116" className="hover:underline">071 363 2116</a> / <a href="tel:0822293580" className="hover:underline">082 229 3580</a>
-                  </p>
+                  <p className="text-brand-mid">{settings.contact.phone}</p>
                 </div>
               </div>
 
@@ -115,7 +133,7 @@ export default function Contact() {
                 <div>
                   <h3 className="font-semibold text-brand-dark mb-1">Email</h3>
                   <p className="text-brand-mid">
-                    <a href="mailto:clearviewsquare@gmail.com" className="hover:underline">clearviewsquare@gmail.com</a>
+                    <a href={`mailto:${settings.contact.email}`} className="hover:underline">{settings.contact.email}</a>
                   </p>
                 </div>
               </div>
@@ -138,7 +156,9 @@ export default function Contact() {
               <h3 className="text-xl font-bold text-brand-dark mb-4">Follow Us on Social Media</h3>
               <div className="flex gap-4">
                 <a
-                  href="#"
+                  href={settings.socialLinks.facebook || '#'}
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="flex items-center justify-center w-12 h-12 rounded-full bg-black/10 hover:bg-black/20 text-brand-accentStrong hover:scale-105 transition-all focus-visible:outline focus-visible:outline-2 focus-visible:outline-brand-dark focus-visible:outline-offset-2"
                   aria-label="Facebook (Opens in new window)"
                 >
@@ -147,7 +167,9 @@ export default function Contact() {
                   </svg>
                 </a>
                 <a
-                  href="#"
+                  href={settings.socialLinks.instagram || '#'}
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="flex items-center justify-center w-12 h-12 rounded-full bg-black/10 hover:bg-black/20 text-brand-accentStrong hover:scale-105 transition-all focus-visible:outline focus-visible:outline-2 focus-visible:outline-brand-dark focus-visible:outline-offset-2"
                   aria-label="Instagram (Opens in new window)"
                 >
@@ -267,9 +289,7 @@ export default function Contact() {
                   </div>
                   <div>
                     <h4 className="font-semibold text-brand-dark mb-1">Leasing Office</h4>
-                    <p className="text-brand-mid text-sm">
-                      <a href="tel:0713632116" className="hover:underline">071 363 2116</a> / <a href="tel:0822293580" className="hover:underline">082 229 3580</a>
-                    </p>
+                    <p className="text-brand-mid text-sm">{settings.leasing.phone}</p>
                   </div>
                 </div>
                 <div className="flex items-start gap-4">
@@ -281,10 +301,9 @@ export default function Contact() {
                   <div>
                     <h4 className="font-semibold text-brand-dark mb-1">Email</h4>
                     <p className="text-brand-mid text-sm">
-                      <a href="mailto:clearviewsquare@gmail.com" className="hover:underline">clearviewsquare@gmail.com</a>
-                    </p>
-                    <p className="text-brand-mid text-sm mt-0.5">
-                      <a href="mailto:imobileera@gmail.com" className="hover:underline">imobileera@gmail.com</a>
+                      <a href={`mailto:${settings.leasing.email || settings.contact.email}`} className="hover:underline">
+                        {settings.leasing.email || settings.contact.email}
+                      </a>
                     </p>
                   </div>
                 </div>
@@ -454,7 +473,7 @@ export default function Contact() {
                   </li>
                   <li className="flex items-start gap-2">
                     <span className="text-brand-accentStrong font-bold">•</span>
-                    <span>Email: <a href="mailto:clearviewsquare@gmail.com" className="font-semibold hover:underline">clearviewsquare@gmail.com</a></span>
+                    <span>Email: <a href={`mailto:${settings.contact.email}`} className="font-semibold hover:underline">{settings.contact.email}</a></span>
                   </li>
                 </ul>
                 <p className="text-brand-mid text-sm font-semibold mb-2">Please provide:</p>
